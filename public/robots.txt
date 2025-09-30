@@ -1,0 +1,13 @@
+User-agent: *
+Allow: /
+
+# Prevent duplicate content issues
+Disallow: /checkout/
+Disallow: /checkout/payment
+Disallow: /checkout/success
+
+# Allow search engines to crawl all product pages
+Allow: /product/
+
+# Sitemap location
+Sitemap: https://customrc.parts/sitemap.xml

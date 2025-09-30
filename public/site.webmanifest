@@ -1,0 +1,21 @@
+{
+  "name": "Custom RC Parts",
+  "short_name": "RC Parts",
+  "description": "Premium RC car parts and accessories",
+  "icons": [
+    {
+      "src": "https://aislike.rs/rc/favicon-32x32.png",
+      "sizes": "32x32",
+      "type": "image/png"
+    },
+    {
+      "src": "https://aislike.rs/rc/android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "theme_color": "#2563eb",
+  "background_color": "#ffffff",
+  "display": "standalone",
+  "start_url": "/"
+}
