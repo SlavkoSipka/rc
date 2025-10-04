@@ -2553,7 +2553,11 @@ export const products: Product[] = [
     images: [
       "https://res.cloudinary.com/dpwtik23o/image/upload/v1758812270/20250925_165030_uua3tj.jpg",
       "https://res.cloudinary.com/dpwtik23o/image/upload/v1758812260/20250925_165107_fcidaq.jpg",
-      "https://res.cloudinary.com/dpwtik23o/image/upload/v1758812270/20250925_165143_rxlzbe.jpg"
+      "https://res.cloudinary.com/dpwtik23o/image/upload/v1758812270/20250925_165143_rxlzbe.jpg",
+      "https://res.cloudinary.com/dpwtik23o/image/upload/v1759591200/received_695251686318485_xjlbvc.jpg",
+      "https://res.cloudinary.com/dpwtik23o/image/upload/v1759591200/received_695707962917218_zhp7ze.jpg",
+      "https://res.cloudinary.com/dpwtik23o/image/upload/v1759591202/received_1402446740766956_udjwkj.jpg",
+      "https://res.cloudinary.com/dpwtik23o/image/upload/v1759591204/received_657116557286420_hrn24t.jpg"
     ]
      },
   {
@@ -2566,7 +2570,11 @@ export const products: Product[] = [
     images: [
       "https://res.cloudinary.com/dpwtik23o/image/upload/v1759590884/20251004_163408_cqzkpg.jpg",
       "https://res.cloudinary.com/dpwtik23o/image/upload/v1759590885/20251004_163429_xc24h8.jpg",
-      "https://res.cloudinary.com/dpwtik23o/image/upload/v1759590879/20251004_163504_nousd4.jpg"
+      "https://res.cloudinary.com/dpwtik23o/image/upload/v1759590879/20251004_163504_nousd4.jpg",
+      "https://res.cloudinary.com/dpwtik23o/image/upload/v1759591200/received_695251686318485_xjlbvc.jpg",
+      "https://res.cloudinary.com/dpwtik23o/image/upload/v1759591200/received_695707962917218_zhp7ze.jpg",
+      "https://res.cloudinary.com/dpwtik23o/image/upload/v1759591202/received_1402446740766956_udjwkj.jpg",
+      "https://res.cloudinary.com/dpwtik23o/image/upload/v1759591204/received_657116557286420_hrn24t.jpg"
     ]
   }
 ]
