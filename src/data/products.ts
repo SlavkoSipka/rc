@@ -2576,5 +2576,63 @@ export const products: Product[] = [
       "https://res.cloudinary.com/dpwtik23o/image/upload/v1759591202/received_1402446740766956_udjwkj.jpg",
       "https://res.cloudinary.com/dpwtik23o/image/upload/v1759591204/received_657116557286420_hrn24t.jpg"
     ]
+},
+  {
+    image: "https://res.cloudinary.com/dpwtik23o/image/upload/v1759648793/20251004_154624_w72rqb.jpg",
+    id: "Tamiya-Top-Force-Standoff",
+    title: "Tamiya Top Force DF01 (SD1 and J12) Aluminium Steering posts and Standoff",
+    price: 9.00,
+    description: "3 pieces of aluminium replacement reproduction steering posts and front right gearbox standoff (part number SD1 and J12) for the Tamiya Top Force 53166, made of high grade alloy, unanodized./n/n/nThis is NOT an original Tamiya product but we make the parts as good as possible to match the original./n/nWe ensure that all parts are well packaged, all parcels are send trackable and we will provide the tracking number once the parcel is shipped./n/nIf you need a quote for shipping to your country, feel free to ask./nFor any other question don't hesitate to contact us.",
+    color: "Silver",
+    images: [
+      "https://res.cloudinary.com/dpwtik23o/image/upload/v1759648793/20251004_154624_w72rqb.jpg"
+    ]
+},
+  {
+    image: "https://res.cloudinary.com/dpwtik23o/image/upload/v1759648800/20251004_154042_ub1p0i.jpg",
+    id: "Tamiya-TA02SW-Standoff",
+    title: "Tamiya TA02SW (9804959 - 47479) Aluminium Steering posts and J11 Standoff",
+    price: 9.00,
+    description: "3 pieces of aluminium replacement reproduction steering posts and front right gearbox standoff (part number 9804959 and J11) for the Tamiya TA02SW chassis, made of high grade alloy, unanodized./n/n/nThis is NOT an original Tamiya product but we make the parts as good as possible to match the original./n/nWe ensure that all parts are well packaged, all parcels are send trackable and we will provide the tracking number once the parcel is shipped./n/nIf you need a quote for shipping to your country, feel free to ask./nFor any other question don't hesitate to contact us.",
+    color: "Silver",
+    images: [
+      "https://res.cloudinary.com/dpwtik23o/image/upload/v1759648800/20251004_154042_ub1p0i.jpg"
+    ]
+},
+  {
+    image: "https://res.cloudinary.com/dpwtik23o/image/upload/v1759648800/20251004_153723_gziiib.jpg",
+    id: "tamiya-ta01-ta02-df01-blue-front-gearbox-reinforcement",
+    title: "Tamiya TA01, TA02, DF01 Blue Aluminium front gearbox reinforcement",
+    price: 14.99,
+    stock: 1,
+    description: "1 pc of aluminium reinforcement part specially made to reinforce the critical area on the front gearbox of the Tamiya TA01, TA02 and DF01 chassis. These part is designed to eliminate weakspots and ensure a longer lifetime. Made of high grade 6082 aluminium, BLUE ANODIZED\n\nPLEASE NOTE!!!\nFor installation of the front U-shaped brace you have to drill 5 holes through the front gearbox from underneath and use five M3x16mm screws which are not included in this set.\n\nScrews are not included.\n\nIMPORTANT!!!\nOnly one part from the first picture is included, other pictures are only for reference.\n\nThis is NOT an original Tamiya product but we make the parts as good as possible to match the original./n/nWe ensure that all parts are well packaged, all parcels are send trackable and we will provide the tracking number once the parcel is shipped./n/nIf you need a quote for shipping to your country, feel free to ask./nFor any other question don't hesitate to contact us.",
+    color: "Blue",
+    images: [
+      "https://res.cloudinary.com/dpwtik23o/image/upload/v1759648800/20251004_153723_gziiib.jpg",
+      "https://res.cloudinary.com/dpwtik23o/image/upload/v1759648799/20251004_153442_v3qujw.jpg",
+      "https://aislike.rs/rc/88.webp",
+      "https://aislike.rs/rc/89.webp",
+      "https://aislike.rs/rc/90.webp",
+      "https://aislike.rs/rc/91.webp",
+      "https://aislike.rs/rc/92.webp"
+    ]
+},
+  {
+    image: "https://res.cloudinary.com/dpwtik23o/image/upload/v1759648797/20251004_153754_lcmzy6.jpg",
+    id: "tamiya-ta01-ta02-df01-black-front-gearbox-reinforcement",
+    title: "Tamiya TA01, TA02, DF01 Black Aluminium front gearbox reinforcement",
+    price: 14.99,
+    stock: 1,
+    description: "1 pc of aluminium reinforcement part specially made to reinforce the critical area on the front gearbox of the Tamiya TA01, TA02 and DF01 chassis. These part is designed to eliminate weakspots and ensure a longer lifetime. Made of high grade 6082 aluminium, BLUE ANODIZED\n\nPLEASE NOTE!!!\nFor installation of the front U-shaped brace you have to drill 5 holes through the front gearbox from underneath and use five M3x16mm screws which are not included in this set.\n\nScrews are not included.\n\nIMPORTANT!!!\nOnly one part from the first picture is included, other pictures are only for reference.\n\nThis is NOT an original Tamiya product but we make the parts as good as possible to match the original./n/nWe ensure that all parts are well packaged, all parcels are send trackable and we will provide the tracking number once the parcel is shipped./n/nIf you need a quote for shipping to your country, feel free to ask./nFor any other question don't hesitate to contact us.",
+    color: "Black",
+    images: [
+      "https://res.cloudinary.com/dpwtik23o/image/upload/v1759648797/20251004_153754_lcmzy6.jpg",
+      "https://res.cloudinary.com/dpwtik23o/image/upload/v1759648795/20251004_153531_nddcaj.jpg",
+      "https://aislike.rs/rc/88.webp",
+      "https://aislike.rs/rc/89.webp",
+      "https://aislike.rs/rc/90.webp",
+      "https://aislike.rs/rc/91.webp",
+      "https://aislike.rs/rc/92.webp"
+    ]
   }
 ]
