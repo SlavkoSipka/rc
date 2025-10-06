@@ -2495,7 +2495,7 @@ export const products: Product[] = [
   {
     image: "https://res.cloudinary.com/dpwtik23o/image/upload/v1749547339/20250610_094952_lqlqdg.jpg",
     id: "Tamiya-Super-Astute-Hard-Silver-D1-Arm-Mount",
-    title: "Tamiya Super Astute Aluminium Silver Hard Anodized D1 Arm Mount",
+    title: "Tamiya Super Astute Aluminium Hard Silver Anodized D1 Arm Mount",
     price: 12.00,
     stock: 1,
     description: "1 pair of aluminium replacement reproduction rear arm mounts, pivot blocks (D1) with machined delrind inserts for the Tamiya Super Astute and Astute made of high grade 6082 alloy, SILVER HARD anodized.\n\nThis rear arm mounts, pivot blocks are designed to add the missing anti squat angle to the rear arm mounts.\nIt is also possible to add extra toe in but with less anti squat (1.30 degree) angle by sellecting the middle position of the inserts.\nMax anti squat angle is 2.60 degree.\n\nThe mounts are delivered with 4 machines delrin inserts which can be rotated.\n\nA set includes:\n- 2 rear arm mounts, pivot blocks\n- 4 machined delrin inserts\n\n\nOther pictures are only for recerence, you will receive, you will receive a set from the first picture.\nScrews are not included.\n\nThis is NOT an original Tamiya product but we make the parts as good as possible to match the original.\n\nWe ensure that all parts are well packaged, all parcels are send trackable and we will provide the tracking number once the parcel is shipped.\n\nIf you need a quote for shipping to your country, feel free to ask.\nFor any other question don't hastate to contact us.",
@@ -2537,6 +2537,23 @@ export const products: Product[] = [
     images: [
       "https://res.cloudinary.com/dpwtik23o/image/upload/v1749547351/20250610_095443_quxthe.jpg",
       "https://res.cloudinary.com/dpwtik23o/image/upload/v1749547351/20250610_095513_smuwpt.jpg",
+      "https://res.cloudinary.com/dpwtik23o/image/upload/v1749716810/20250612_094357_a8r6a6.jpg",
+      "https://res.cloudinary.com/dpwtik23o/image/upload/v1749716811/20250612_094648_rtbinz.jpg",
+      "https://res.cloudinary.com/dpwtik23o/image/upload/v1749716813/20250612_094634_xnhqtv.jpg",
+      "https://res.cloudinary.com/dpwtik23o/image/upload/v1749716814/20250612_094711_q0yjho.jpg"
+      ]
+     },
+  {
+    image: "https://res.cloudinary.com/dpwtik23o/image/upload/v1759755854/20251003_134456_hbtgti.jpg",
+    id: "Tamiya-Super-Astute-Silver-D1-Arm-Mount",
+    title: "Tamiya Super Astute Aluminium Silver Anodized D1 Arm Mount",
+    price: 12.00,
+    stock: 1,
+    description: "1 pair of aluminium replacement reproduction rear arm mounts, pivot blocks (D1) with machined delrind inserts for the Tamiya Super Astute and Astute made of high grade 6082 alloy, SILVER HARD anodized.\n\nThis rear arm mounts, pivot blocks are designed to add the missing anti squat angle to the rear arm mounts.\nIt is also possible to add extra toe in but with less anti squat (1.30 degree) angle by sellecting the middle position of the inserts.\nMax anti squat angle is 2.60 degree.\n\nThe mounts are delivered with 4 machines delrin inserts which can be rotated.\n\nA set includes:\n- 2 rear arm mounts, pivot blocks\n- 4 machined delrin inserts\n\n\nOther pictures are only for recerence, you will receive, you will receive a set from the first picture.\nScrews are not included.\n\nThis is NOT an original Tamiya product but we make the parts as good as possible to match the original.\n\nWe ensure that all parts are well packaged, all parcels are send trackable and we will provide the tracking number once the parcel is shipped.\n\nIf you need a quote for shipping to your country, feel free to ask.\nFor any other question don't hastate to contact us.",
+    color: "Silver",
+    images: [
+      "https://res.cloudinary.com/dpwtik23o/image/upload/v1759755854/20251003_134456_hbtgti.jpg",
+      "https://res.cloudinary.com/dpwtik23o/image/upload/v1759755853/20251003_134543_trg2rt.jpg",
       "https://res.cloudinary.com/dpwtik23o/image/upload/v1749716810/20250612_094357_a8r6a6.jpg",
       "https://res.cloudinary.com/dpwtik23o/image/upload/v1749716811/20250612_094648_rtbinz.jpg",
       "https://res.cloudinary.com/dpwtik23o/image/upload/v1749716813/20250612_094634_xnhqtv.jpg",
