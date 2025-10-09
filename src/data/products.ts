@@ -2670,7 +2670,8 @@ export const products: Product[] = [
       "https://aislike.rs/rc/p24.webp",
       "https://aislike.rs/rc/p25.webp",
       "https://aislike.rs/rc/p26.webp",
-      "https://aislike.rs/rc/p27.webp"
+      "https://aislike.rs/rc/p27.webp",
+      "https://res.cloudinary.com/dpwtik23o/image/upload/v1760007588/FB_IMG_1724239648199-min_v4yu0a.jpg"
     ]
      },
   {
