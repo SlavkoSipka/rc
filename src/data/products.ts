@@ -2651,5 +2651,42 @@ export const products: Product[] = [
       "https://aislike.rs/rc/91.webp",
       "https://aislike.rs/rc/92.webp"
     ]
+    },
+  {
+    image: "https://res.cloudinary.com/dpwtik23o/image/upload/v1760007258/20251009_115710-min_wpsmym.jpg",
+    id: "yokomo-super-dogfighter-rere-yz-870c-aluminium-upgrade-kit-anodized-silver",
+    title: "Yokomo Super Dogfighter Rere YZ-870C Aluminium Upgrade Kit Anodized Siler",
+    price: 12.99,
+    description: "- One pair (front and back) of Yokomo Super Dogfighter Rere YZ-870C Bulkheads SILVER Anodized\n\nThis bulkheads were designed to minimize slope and the geometry of the arm hangers are designed in such way that the angle of the hangers maches the kick up angle of the hingepin, which in other hands means that there is no need for shims ect. Machined with much tighter tolerances made of high grade 6082 aluminium, CNC machined up to the highest standards and afterwards anodized for maximum scratch resistance.\n\n- One Yokomo Super Dogfighter Rere YZ-870C Motor Mount SILVER Anodized\n\nThis motor mount is made of high grade 6082 aluminium, CNC machined up to the highest standards and afterwards anodized for maximum scratch resistance\n\n\nCAUTION... the bulkheads and motor mount will only fit the rere super dogfighter, the bulkheads and motor mount will not fit the old yokomo YZ10 ect...\n\nPLEASE NOTE!!!\nScrews are not includeds\n\nIMPORTANT!!!\nOnly parts from the first picture are included, other pictures are only for reference.\n\n\n\nThis is NOT an original Yokomo product but we make the parts as good as possible to match the original.\n\nWe ensure that all parts are well packaged, all parcels are send trackable and we will provide the tracking number once the parcel is shipped.\n\nIf you need a quote for shipping to your country, feel free to ask.\nFor any other question don't hesitate to contact us.",
+    color: "Silver",
+    images: [
+      "https://res.cloudinary.com/dpwtik23o/image/upload/v1760007258/20251009_115710-min_wpsmym.jpg",
+      "https://res.cloudinary.com/dpwtik23o/image/upload/v1760007258/20251009_115730-min_eas06k.jpg",
+      "https://res.cloudinary.com/dpwtik23o/image/upload/v1760007262/20251009_115746-min_jy0h1m.jpg",
+      "https://res.cloudinary.com/dpwtik23o/image/upload/v1760007271/20251009_115806-min_zjblse.jpg",
+      "https://res.cloudinary.com/dpwtik23o/image/upload/v1760007282/20251009_115826-min_wpyyfw.jpg",
+      "https://res.cloudinary.com/dpwtik23o/image/upload/v1760007283/20251009_115942-min_ofljsd.jpg",
+      "https://aislike.rs/rc/p23.webp",
+      "https://aislike.rs/rc/p24.webp",
+      "https://aislike.rs/rc/p25.webp",
+      "https://aislike.rs/rc/p26.webp",
+      "https://aislike.rs/rc/p27.webp"
+    ]
+     },
+  {
+    image: "https://res.cloudinary.com/dpwtik23o/image/upload/v1760007271/20251009_115806-min_zjblse.jpg",
+    id: "yokomo-super-dogfighter-rere-yz870c-silver-motor-mount",
+    title: "Yokomo Super Dogfighter Rere YZ-870C Aluminium Motor Mount Silver Anodized",
+    price: 72.99,
+    stock: 1,
+    description: "One Yokomo Super Dogfighter Rere YZ-870C Motor Mount BLACK Anodized\n\nThis motor mount is made of high grade 6082 aluminium, CNC machined up to the highest standards and afterwards anodized for maximum scratch resistance\n\nCAUTION... this motor mount will only fit the rere superdogfighter, this motor mount will not fit the old yokomo YZ10 ect...\n\nPLEASE NOTE!!!\nScrews are not included beside those already shown in th pictures\n\nIMPORTANT!!!\nOnly parts from the first picture are included, last picture is only for reference.",
+    color: "Silver",
+    color: "Silver",
+    images: [
+      "https://res.cloudinary.com/dpwtik23o/image/upload/v1760007271/20251009_115806-min_zjblse.jpg",
+      "https://res.cloudinary.com/dpwtik23o/image/upload/v1760007282/20251009_115826-min_wpyyfw.jpg",
+      "https://res.cloudinary.com/dpwtik23o/image/upload/v1760007283/20251009_115942-min_ofljsd.jpg",
+      "https://res.cloudinary.com/dpwtik23o/image/upload/v1760007588/FB_IMG_1724239648199-min_v4yu0a.jpg"
+    ]
   }
 ]
