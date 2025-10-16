@@ -2593,6 +2593,22 @@ export const products: Product[] = [
       "https://res.cloudinary.com/dpwtik23o/image/upload/v1759591202/received_1402446740766956_udjwkj.jpg",
       "https://res.cloudinary.com/dpwtik23o/image/upload/v1759591204/received_657116557286420_hrn24t.jpg"
     ]
+      },
+  {
+    image: "https://res.cloudinary.com/dpwtik23o/image/upload/v1760636105/20251016_125038-min_afm8fi.jpg",
+    id: "Tenth-Technology-Predator-XK98-blue-wheel-hubs",
+    title: "Tenth Technology Predator XK98 blue wheel hubs",
+    price: 45.00,
+    description: "1 pair of aluminium replacement reproduction Tenth Technology Predator XK98 wheel hubs. This product replaces the original plastic wheel hubs on your Predator XK98. Made of high grade 6082 aluminium, BLUE anodized.\n\n\nHardware is not included\n\nPLEASE NOTE!!!\nOTHER PICTURES ARE ONLY FOR REFERENCE, NO OTHER PARTS ARE INCLUDED BESIDE A PAIR OF WHEEL-hubs FROM THE FIRST PICTURE\n\nThis is NOT an original Tenth Technology product but we make the parts as good as possible to match the original.\n\nWe ensure that all parts are well packaged, all parcels are send trackable and we will provide the tracking number once the parcel is shipped.\n\nIf you need a quote for shipping to your country, feel free to ask.\nFor any other question don't hesitate to contact us.",
+    color: "Blue",
+    images: [
+      "https://res.cloudinary.com/dpwtik23o/image/upload/v1760636105/20251016_125038-min_afm8fi.jpg",
+      "https://res.cloudinary.com/dpwtik23o/image/upload/v1760636105/20251016_125103-min_h03noy.jpg",
+      "https://res.cloudinary.com/dpwtik23o/image/upload/v1759591200/received_695251686318485_xjlbvc.jpg",
+      "https://res.cloudinary.com/dpwtik23o/image/upload/v1759591200/received_695707962917218_zhp7ze.jpg",
+      "https://res.cloudinary.com/dpwtik23o/image/upload/v1759591202/received_1402446740766956_udjwkj.jpg",
+      "https://res.cloudinary.com/dpwtik23o/image/upload/v1759591204/received_657116557286420_hrn24t.jpg"
+    ]
 },
   {
     image: "https://res.cloudinary.com/dpwtik23o/image/upload/v1759648793/20251004_154624_w72rqb.jpg",
