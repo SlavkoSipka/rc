@@ -15,7 +15,9 @@ export function NotificationBanner() {
   if (!isVisible) return null;
 
   const message = `💥💥💥BLACK FRIDAY SALE, 10% discount on all products💥💥💥
-  \n\n⚡⚡⚡ IMPORTANT NOTICE...Our post office and customs has suspended export to USA due to the new import regulations and added taxes. We are monitoring this situation and hope that this will be sortet quickly⚡⚡⚡` // OVDE PISES PORUKU
+<br /><br />
+⚡⚡⚡ IMPORTANT NOTICE...Our post office and customs has suspended export to USA due to the new import regulations and added taxes. We are monitoring this situation and hope that this will be sortet quickly⚡⚡⚡`;
+
 
   return (
     <div className="bg-red-600 text-white py-3 relative">
