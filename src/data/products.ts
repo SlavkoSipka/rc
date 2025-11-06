@@ -2228,8 +2228,7 @@ export const products: Product[] = [
     color: "Black",
     images: [
       "https://aislike.rs/rc/20250523_164738_zuoghb.jpg",
-      "https://aislike.rs/rc/20221020_172035_fwwrpn.jpg",
-      "https://aislike.rs/rc/FB_IMG_1637851095752_n1pogh.jpg"
+      "https://aislike.rs/rc/20221020_172035_fwwrpn.jpg"
       ]
   },
   {
@@ -2242,8 +2241,7 @@ export const products: Product[] = [
     color: "White",
     images: [
       "https://aislike.rs/rc/20250523_165023_tbdjg3.jpg",
-      "https://aislike.rs/rc/20221020_172035_fwwrpn.jpg",
-      "https://aislike.rs/rc/FB_IMG_1637851095752_n1pogh.jpg"
+      "https://aislike.rs/rc/20221020_172035_fwwrpn.jpg"
       ]
   },
   {
