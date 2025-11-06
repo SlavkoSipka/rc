@@ -2219,7 +2219,7 @@ export const products: Product[] = [
        ]
   },
   {
-    image: "https://res.cloudinary.com/dpwtik23o/image/upload/20250523_164738_zuoghb.jpg",
+    image: "https://aislike.rs/rc/20250523_164738_zuoghb.jpg",
     id: "Tamiya-Top-Force-and-TRF201-Inserts-black",
     title: "Tamiya Top Force and TRF201 Black Inserts For The Rear Hinge Pin Brace Setup",
     price: 12.00,
@@ -2227,9 +2227,10 @@ export const products: Product[] = [
     description: "8 black delrin inserts / pills (4 with offset and 4 without) suitable for our Top Force and TRF 201 rear hinge pin brace setup.\nThese Inserts are made of high grade delrin plastic, these parts are manchined and not injection moulded.\n\n\nOne package includes:\n- 4 pills / inserts without offset\n- 4 pills / inserts with offset\n\nIMPORTANT!!!\nOnly parts from the first picture are included, other pictures are only for reference.\n\n\n\This is NOT an original Tamiya product but we make the parts as good as possible to match the original.\n\nWe ensure that all parts are well packaged, all parcels are send trackable and we will provide the tracking number once the parcel is shipped.\n\nIf you need a quote for shipping to your country, feel free to ask.\n\nFor any other question don't hesitate to contact us.",
     color: "Black",
     images: [
-      "https://res.cloudinary.com/dpwtik23o/image/upload/20250523_164738_zuoghb.jpg",
-      "https://res.cloudinary.com/dpwtik23o/image/upload/20221020_172035_fwwrpn.jpg",
-      "https://res.cloudinary.com/dpwtik23o/image/upload/FB_IMG_1637851095752_n1pogh.jpg"
+      "https://aislike.rs/rc/20250523_164738_zuoghb.jpg",
+      "https://aislike.rs/rc/20250523_164738_zuoghb.jpg",
+      "https://aislike.rs/rc/20221020_172035_fwwrpn.jpg",
+      "https://aislike.rs/rc/FB_IMG_1637851095752_n1pogh.jpg"
       ]
   },
   {
