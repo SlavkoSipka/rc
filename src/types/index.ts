@@ -11,3 +11,15 @@ export interface Product {
   location?: string;
   stock: number;
 }
+
+export interface Review {
+  id: string;
+  product_id: string;
+  first_name: string;
+  last_name: string;
+  email: string;
+  rating: number;
+  comment: string;
+  approved: boolean;
+  created_at: string;
+}

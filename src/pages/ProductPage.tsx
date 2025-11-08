@@ -7,6 +7,7 @@ import { ProductGallery } from '../components/Product/ProductGallery';
 import { ProductInfo } from '../components/Product/ProductInfo';
 import { AddToCartButton } from '../components/Product/AddToCartButton';
 import { ShippingNotice } from '../components/Product/ShippingNotice';
+import { ProductReviews } from '../components/Product/ProductReviews';
 import { CartPanel } from '../components/Cart/CartPanel';
 import { useState } from 'react';
 import { products } from '../data/products';
@@ -197,6 +198,8 @@ export function ProductPage() {
             <div className="mt-12">
               <ShippingNotice />
             </div>
+
+            <ProductReviews productId={product.id} />
           </div>
 
           <div className="mt-16">
