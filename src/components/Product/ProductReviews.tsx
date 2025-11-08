@@ -111,24 +111,24 @@ export function ProductReviews({ productId }: ProductReviewsProps) {
 
   return (
     <div className="mt-12 border-t pt-8">
-      <div className="flex justify-between items-center mb-6">
+      <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 mb-6">
         <div>
-          <h2 className="text-2xl font-bold text-gray-900">Recenzije</h2>
+          <h2 className="text-2xl font-bold text-gray-900">Reviews</h2>
           {reviews.length > 0 && (
             <div className="flex items-center gap-2 mt-2">
               <div className="flex gap-1">
                 {renderStars(Math.round(parseFloat(averageRating)))}
               </div>
               <span className="text-lg font-semibold">{averageRating}</span>
-              <span className="text-gray-600">({reviews.length} {reviews.length === 1 ? 'recenzija' : 'recenzija'})</span>
+              <span className="text-gray-600">({reviews.length} {reviews.length === 1 ? 'review' : 'reviews'})</span>
             </div>
           )}
         </div>
         <button
           onClick={() => setShowForm(!showForm)}
-          className="px-6 py-2 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition-colors font-medium"
+          className="px-6 py-2 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition-colors font-medium whitespace-nowrap w-full sm:w-auto"
         >
-          {showForm ? 'Zatvori' : 'Napiši recenziju'}
+          {showForm ? 'Close' : 'Write a Review'}
         </button>
       </div>
 
@@ -140,12 +140,12 @@ export function ProductReviews({ productId }: ProductReviewsProps) {
 
       {showForm && (
         <form onSubmit={handleSubmit} className="mb-8 p-6 bg-gray-50 rounded-lg">
-          <h3 className="text-lg font-semibold mb-4">Ostavite recenziju</h3>
+          <h3 className="text-lg font-semibold mb-4">Leave a Review</h3>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
-                Ime *
+                First Name *
               </label>
               <input
                 type="text"
@@ -153,13 +153,13 @@ export function ProductReviews({ productId }: ProductReviewsProps) {
                 value={formData.firstName}
                 onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
                 className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                placeholder="Vaše ime"
+                placeholder="Your first name"
               />
             </div>
             
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
-                Prezime *
+                Last Name *
               </label>
               <input
                 type="text"
@@ -167,7 +167,7 @@ export function ProductReviews({ productId }: ProductReviewsProps) {
                 value={formData.lastName}
                 onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
                 className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                placeholder="Vaše prezime"
+                placeholder="Your last name"
               />
             </div>
           </div>
@@ -182,20 +182,20 @@ export function ProductReviews({ productId }: ProductReviewsProps) {
               value={formData.email}
               onChange={(e) => setFormData({ ...formData, email: e.target.value })}
               className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-              placeholder="vas.email@primer.com"
+              placeholder="your.email@example.com"
             />
           </div>
 
           <div className="mb-4">
             <label className="block text-sm font-medium text-gray-700 mb-1">
-              Ocena *
+              Rating *
             </label>
             {renderStars(formData.rating, true, (rating) => setFormData({ ...formData, rating }))}
           </div>
 
           <div className="mb-4">
             <label className="block text-sm font-medium text-gray-700 mb-1">
-              Vaša recenzija *
+              Your Review *
             </label>
             <textarea
               required
@@ -203,35 +203,35 @@ export function ProductReviews({ productId }: ProductReviewsProps) {
               onChange={(e) => setFormData({ ...formData, comment: e.target.value })}
               rows={4}
               className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
-              placeholder="Opišite vaše iskustvo sa proizvodom..."
+              placeholder="Describe your experience with this product..."
             />
           </div>
 
-          <div className="flex gap-3">
+          <div className="flex flex-col sm:flex-row gap-3">
             <button
               type="submit"
               disabled={submitting}
               className="px-6 py-2 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition-colors font-medium disabled:bg-gray-400 disabled:cursor-not-allowed"
             >
-              {submitting ? 'Šalje se...' : 'Pošalji recenziju'}
+              {submitting ? 'Submitting...' : 'Submit Review'}
             </button>
             <button
               type="button"
               onClick={() => setShowForm(false)}
               className="px-6 py-2 bg-gray-200 text-gray-700 rounded-full hover:bg-gray-300 transition-colors font-medium"
             >
-              Otkaži
+              Cancel
             </button>
           </div>
         </form>
       )}
 
       {loading ? (
-        <div className="text-center py-8 text-gray-600">Učitavanje recenzija...</div>
+        <div className="text-center py-8 text-gray-600">Loading reviews...</div>
       ) : reviews.length === 0 ? (
         <div className="text-center py-8 text-gray-600">
-          <p>Još uvek nema recenzija za ovaj proizvod.</p>
-          <p className="text-sm mt-2">Budite prvi koji će ostaviti recenziju!</p>
+          <p>No reviews yet for this product.</p>
+          <p className="text-sm mt-2">Be the first to leave a review!</p>
         </div>
       ) : (
         <div className="space-y-6">
@@ -243,7 +243,7 @@ export function ProductReviews({ productId }: ProductReviewsProps) {
                     {review.first_name} {review.last_name}
                   </div>
                   <div className="text-sm text-gray-500">
-                    {new Date(review.created_at).toLocaleDateString('sr-RS', {
+                    {new Date(review.created_at).toLocaleDateString('en-US', {
                       year: 'numeric',
                       month: 'long',
                       day: 'numeric'
