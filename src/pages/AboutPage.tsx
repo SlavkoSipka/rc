@@ -155,6 +155,91 @@ export function AboutPage() {
                 </div>
               </div>
             </div>
+
+            {/* Bora Company Partnership Section */}
+            <div className="relative py-24 bg-white border-t border-gray-200">
+              <div className="container mx-auto px-4">
+                <div className="max-w-4xl mx-auto">
+                  <div className="text-center mb-12">
+                    <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+                      Manufacturing Excellence
+                    </h2>
+                    <div className="w-24 h-1 bg-gradient-to-r from-blue-500 to-blue-600 mx-auto rounded-full mb-8" />
+                    <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+                      Our premium RC parts are manufactured in partnership with Bora Company, 
+                      a leading precision engineering and CNC machining company.
+                    </p>
+                  </div>
+
+                  <div className="bg-gradient-to-br from-gray-50 to-blue-50/30 rounded-2xl p-8 md:p-12 shadow-lg border border-gray-100">
+                    <div className="flex flex-col md:flex-row items-center gap-8">
+                      <div className="flex-shrink-0">
+                        <a
+                          href="https://boracompany.ch"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="block group transition-transform hover:scale-105 duration-300"
+                        >
+                          <img
+                            src="https://aislike.rs/bora/logoo.png"
+                            alt="Bora Company Logo"
+                            className="h-24 md:h-32 w-auto object-contain filter drop-shadow-lg"
+                          />
+                        </a>
+                      </div>
+                      
+                      <div className="flex-1 text-center md:text-left">
+                        <h3 className="text-2xl font-bold text-gray-900 mb-4">
+                          <a
+                            href="https://boracompany.ch"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="hover:text-blue-600 transition-colors"
+                          >
+                            Bora Company
+                          </a>
+                        </h3>
+                        <p className="text-gray-700 leading-relaxed mb-4">
+                          Bora Company specializes in precision CNC machining, metal fabrication, 
+                          and custom part manufacturing. With state-of-the-art equipment and 
+                          years of expertise, they deliver exceptional quality and precision in 
+                          every component they produce.
+                        </p>
+                        <p className="text-gray-600 text-sm leading-relaxed">
+                          Their commitment to quality, precision, and guarantee ensures that 
+                          all RC parts manufactured under our partnership meet the highest 
+                          standards of excellence. Visit their website to learn more about 
+                          their manufacturing capabilities.
+                        </p>
+                        <div className="mt-6">
+                          <a
+                            href="https://boracompany.ch"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center px-6 py-3 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition-colors font-medium shadow-md hover:shadow-lg"
+                          >
+                            Visit Bora Company
+                            <svg
+                              className="ml-2 w-5 h-5"
+                              fill="none"
+                              stroke="currentColor"
+                              viewBox="0 0 24 24"
+                            >
+                              <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth={2}
+                                d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                              />
+                            </svg>
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
         <Footer />
