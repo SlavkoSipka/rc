@@ -624,7 +624,7 @@ export const products: Product[] = [
     ]
     },
   {
-    image: "https://res.cloudinary.com/dpwtik23o/image/upload/v1748248128/20211014_090141_o4nczt.jpg",
+    image: "https://aislike.rs/rc/20211014_090141_o4nczt.jpg",
     id: "tamiya-top-force-df01-brass-steering-brace",
     title: "Tamiya Top Force DF01 Brass steering brace",
     price: 12.99,
@@ -632,9 +632,9 @@ export const products: Product[] = [
     description: "1 brass steering brace designed to connect the left and right steering column to ensure more rigidity and a better feedback and overall feeling during racing. This piece is designed to place over the 2 middle chassis colums and is easy to install. Made of high grade brass. This brass steering brace also adds 9 grams to the front end of the buggy\n\nScrews are not included.\n\nPLEASE NOTE!!!\nLAST 2 PICTURES ARE ONLY FOR REFERENCE, NO OTHER PARTS ARE INCLUDED BESIDE THE BRASS STEERING BRACE\n\nThis is NOT an original Tamiya product but we make the parts as good as possible to match the original.\n\nWe ensure that all parts are well packaged, all parcels are send trackable and we will provide the tracking number once the parcel is shipped.\n\nIf you need a quote for shipping to your country, feel free to ask.\nFor any other question don't hesitate to contact us.",
     color: "Gold",
     images: [
-      "https://res.cloudinary.com/dpwtik23o/image/upload/v1748248128/20211014_090149_jvwntt.jpg",
-      "https://res.cloudinary.com/dpwtik23o/image/upload/v1748248128/20210415_115750_uuwrsf.jpg",
-      "https://res.cloudinary.com/dpwtik23o/image/upload/v1748248982/20210108_145242_x2gifk.jpg"
+      "https://aislike.rs/rc/20211014_090149_jvwntt.jpg",
+      "https://aislike.rs/rc/20210415_115750_uuwrsf.jpg",
+      "https://aislike.rs/rc/20210108_145242_x2gifk.jpg"
     ]
   },
   {
@@ -1585,7 +1585,7 @@ export const products: Product[] = [
     ]
   },
   {
-    image: "https://res.cloudinary.com/dpwtik23o/image/upload/v1744715798/20250402_115829_ikqswv.jpg",
+    image: "https://aislike.rs/rc/20250402_115829_ikqswv.jpg",
     id: "tamiya-12mm-hex-adapers",
     title: "Tamiya TT01 - TT02 - TA01/02/03 - DF01/02/03 12mm Hex Adapter Wheel Offset Set",
     price: 12.99,
@@ -1593,24 +1593,24 @@ export const products: Product[] = [
     description: "Im offering you a set (16 pieces) of 12mm Hex adapters with 4 different offsets and colors.\nThis Hex adapters are made of high grade 6082 aluminium, CNC machined up to the highest standards and afterwards anodized in four different colors for maximum scratch resistance.One set includes:\n4 x 4mm Hexes in RED Color\n4 x 5mm Hexes in BLUE Color\n4 x 4mm Hexes in HARD ANODIZED SILVER Color\n4 x 4mm Hexes in BLACK Color\nThese hexes have been test fitted on Tamiya Chassis:\nTA01\nTA02\nTA03\nDF01\nDF02\nDF03\nTL01B\nTT01\nTT02\n\nIm sure these will fit alot of Tamiya Chassis as long as the distance between the end of the M4 thread and center of the hex pin is more or less 2mm, Please take a look at the last picture as a reference.\n\nCAUTION!!!\n\nThese Hexes will only fit if your wheel shaft has a 5mm bearing diameter and an M4 thread.\n\nIf you are not sure if these will fit your RC car, feel free to send me a message",
     color: "Red",
     images: [
-      "https://res.cloudinary.com/dpwtik23o/image/upload/v1744715798/20250402_115829_ikqswv.jpg",
-      "https://res.cloudinary.com/dpwtik23o/image/upload/v1744715795/20250402_115759_ospygt.jpg"
+      "https://aislike.rs/rc/20250402_115829_ikqswv.jpg",
+      "https://aislike.rs/rc/20250402_115759_ospygt.jpg"
     
     ]
   },
   {
-    image: "https://res.cloudinary.com/dpwtik23o/image/upload/v1745065811/20250418_140733_q8oqdi.jpg",
+    image: "https://aislike.rs/rc/20250418_140733_q8oqdi.jpg",
     id: "tamiya-stabilizer-anti-roll-bar-set",
     title: "Tamiya Black Anodized Sway-Anti Roll Bar Ball Ends,Clamps and Sway Bar Rod Kit",
     price: 12.99,
     description: "Im offering you a set of four Tamiya style sway - anti roll bar ball ends and four sway bar clamps and 6 pairs of rods in 6 different dimensions.\n-The ball ends are made of 6060 aluminium and are BLACK anodized\n-The sway bar clamps are made of 6082 aluminium and are BLACK anodized\n-The rods are made od 1.4310 Stainless Steel Spring wire.\n-Each rod is arround 195mm long and straight, not bend.\n-The clamps are equiped with a super plastic grub screw which prevents slope and secures the sway bar but still providing free rotation.\n\nThe idea is to offer you a kit of straight sway - anti roll bar rods which you can bend to your desired specifications.\n\nOne set includes:\n4 Tamiya style ball ends (similar to those of the 53189 TA02 Stabilizer kit) with 4 steel grub screws BLACK andized\n4 Rod clamps with 4 super plastic grub screws also BLACK andized\n\n2 x Ø1.00mm rod\n2 x Ø1.20mm rod\n2 x Ø1.40mm rod\n2 x Ø1.60mm rod\n2 x Ø1.80mm rod\n2 x Ø2.00mm rod\n\nPLEASE NOTE!!\nOTHER PICTURES ARE ONLY FOR REFERENCE, NO OTHER PARTS ARE INCLUDED BESIDE THE PARTS AND RODS FROM DESCRIPTION ABOVE\nThis is NOT an original Tamiya product but we make the parts as good as possible to match the original.\nWe ensure that all parts are well packaged, all parcels are send trackable and we will provide the tracking number once the parcel is shipped.\nIf you need a quote for shipping to your country, feel free to ask.\nFor any other question don't hesitate to contact us.",
     color: "Black",
     images: [
-      "https://res.cloudinary.com/dpwtik23o/image/upload/v1745065811/20250418_140733_q8oqdi.jpg",
-      "https://res.cloudinary.com/dpwtik23o/image/upload/v1749238101/20250418_140806_rek1rl.jpg",
-      "https://res.cloudinary.com/dpwtik23o/image/upload/v1749237820/s-l1600_1_dmmf3s.jpg",
-      "https://res.cloudinary.com/dpwtik23o/image/upload/v1749237823/s-l1600_eir1l0.jpg",
-      "https://res.cloudinary.com/dpwtik23o/image/upload/v1749237823/s-l1600_2_fxmqkw.jpg"
+      "https://aislike.rs/rc/20250418_140733_q8oqdi.jpg",
+      "https://aislike.rs/rc/20250418_140806_rek1rl.jpg",
+      "https://aislike.rs/rc/s-l1600_1_dmmf3s.jpg",
+      "https://aislike.rs/rc/s-l1600_eir1l0.jpg",
+      "https://aislike.rs/rc/s-l1600_2_fxmqkw.jpg"
     ]
   },
   {
@@ -1808,18 +1808,18 @@ export const products: Product[] = [
       ]
   },
   {
-    image: "https://res.cloudinary.com/dpwtik23o/image/upload/v1745065811/20250418_140733_q8oqdi.jpg",
+    image: "https://aislike.rs/rc/20250418_140733_q8oqdi.jpg",
     id: "tamiya-silver-anodized-sway-anti-roll-bar-ball-ends-clamps-and-sway-bar-rod-kit",
     title: "Tamiya Silver Anodized Sway-Anti Roll Bar Ball Ends,Clamps and Sway Bar Rod Kit",
     price: 12.99,
     description: "Im offering you a set of four Tamiya style sway - anti roll bar ball ends and four sway bar clamps and 6 pairs of rods in 6 different dimensions.\n-The ball ends are made of 6060 aluminium and are SILVER anodized\n-The sway bar clamps are made of 6082 aluminium and are SILVER anodized\n-The rods are made od 1.4310 Stainless Steel Spring wire.\n-Each rod is arround 195mm long and straight, not bend.\n-The clamps are equiped with a super plastic grub screw which prevents slope and secures the sway bar but still providing free rotation.\n\nThe idea is to offer you a kit of straight sway - anti roll bar rods which you can bend to your desired specifications.\n\nOne set includes:\n4 Tamiya style ball ends (similar to those of the 53189 TA02 Stabilizer kit) with 4 steel grub screws SILVER andized\n4 Rod clamps with 4 super plastic grub screws also SILVER andized\n\n2 x Ø1.00mm rod\n2 x Ø1.20mm rod\n2 x Ø1.40mm rod\n2 x Ø1.60mm rod\n2 x Ø1.80mm rod\n2 x Ø2.00mm rod\n\nPLEASE NOTE!!\nOTHER PICTURES ARE ONLY FOR REFERENCE, NO OTHER PARTS ARE INCLUDED BESIDE THE PARTS AND RODS FROM DESCRIPTION ABOVE\nThis is NOT an original Tamiya product but we make the parts as good as possible to match the original.\nWe ensure that all parts are well packaged, all parcels are send trackable and we will provide the tracking number once the parcel is shipped.\nIf you need a quote for shipping to your country, feel free to ask.\nFor any other question don't hesitate to contact us.",
     color: "Silver",
     images: [
-      "https://res.cloudinary.com/dpwtik23o/image/upload/v1745065811/20250418_140733_q8oqdi.jpg",
-      "https://res.cloudinary.com/dpwtik23o/image/upload/v1749238101/20250418_140806_rek1rl.jpg",
-      "https://res.cloudinary.com/dpwtik23o/image/upload/v1749237820/s-l1600_1_dmmf3s.jpg",
-      "https://res.cloudinary.com/dpwtik23o/image/upload/v1749237823/s-l1600_eir1l0.jpg",
-      "https://res.cloudinary.com/dpwtik23o/image/upload/v1749237823/s-l1600_2_fxmqkw.jpg"
+      "https://aislike.rs/rc/20250418_140733_q8oqdi.jpg",
+      "https://aislike.rs/rc/20250418_140806_rek1rl.jpg",
+      "https://aislike.rs/rc/s-l1600_1_dmmf3s.jpg",
+      "https://aislike.rs/rc/s-l1600_eir1l0.jpg",
+      "https://aislike.rs/rc/s-l1600_2_fxmqkw.jpg"
     ]
   },
   {
