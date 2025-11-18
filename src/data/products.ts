@@ -1823,33 +1823,33 @@ export const products: Product[] = [
     ]
   },
   {
-    image: "https://res.cloudinary.com/dpwtik23o/image/upload/v1745065811/20250418_140733_q8oqdi.jpg",
+    image: "https://aislike.rs/rc/20250418_140733_q8oqdi.jpg",
     id: "tamiya-blue-anodized-sway-anti-roll-bar-ball-ends-clamps-and-sway-bar-rod-kit",
     title: "Tamiya Blue Anodized Sway-Anti Roll Bar Ball Ends,Clamps and Sway Bar Rod Kit",
     price: 12.99,
     description: "Im offering you a set of four Tamiya style sway - anti roll bar ball ends and four sway bar clamps and 6 pairs of rods in 6 different dimensions.\n-The ball ends are made of 6060 aluminium and are BLUE anodized\n-The sway bar clamps are made of 6082 aluminium and are BLUE anodized\n-The rods are made od 1.4310 Stainless Steel Spring wire.\n-Each rod is arround 195mm long and straight, not bend.\n-The clamps are equiped with a super plastic grub screw which prevents slope and secures the sway bar but still providing free rotation.\n\nThe idea is to offer you a kit of straight sway - anti roll bar rods which you can bend to your desired specifications.\n\nOne set includes:\n4 Tamiya style ball ends (similar to those of the 53189 TA02 Stabilizer kit) with 4 steel grub screws BLUE andized\n4 Rod clamps with 4 super plastic grub screws also BLUE andized\n\n2 x Ø1.00mm rod\n2 x Ø1.20mm rod\n2 x Ø1.40mm rod\n2 x Ø1.60mm rod\n2 x Ø1.80mm rod\n2 x Ø2.00mm rod\n\nPLEASE NOTE!!\nOTHER PICTURES ARE ONLY FOR REFERENCE, NO OTHER PARTS ARE INCLUDED BESIDE THE PARTS AND RODS FROM DESCRIPTION ABOVE\nThis is NOT an original Tamiya product but we make the parts as good as possible to match the original.\nWe ensure that all parts are well packaged, all parcels are send trackable and we will provide the tracking number once the parcel is shipped.\nIf you need a quote for shipping to your country, feel free to ask.\nFor any other question don't hesitate to contact us.",
     color: "Blue",
     images: [
-      "https://res.cloudinary.com/dpwtik23o/image/upload/v1745065811/20250418_140733_q8oqdi.jpg",
-      "https://res.cloudinary.com/dpwtik23o/image/upload/v1749238101/20250418_140806_rek1rl.jpg",
-      "https://res.cloudinary.com/dpwtik23o/image/upload/v1749237820/s-l1600_1_dmmf3s.jpg",
-      "https://res.cloudinary.com/dpwtik23o/image/upload/v1749237823/s-l1600_eir1l0.jpg",
-      "https://res.cloudinary.com/dpwtik23o/image/upload/v1749237823/s-l1600_2_fxmqkw.jpg"
+      "https://aislike.rs/rc/20250418_140733_q8oqdi.jpg",
+      "https://aislike.rs/rc/20250418_140806_rek1rl.jpg",
+      "https://aislike.rs/rc/s-l1600_1_dmmf3s.jpg",
+      "https://aislike.rs/rc/s-l1600_eir1l0.jpg",
+      "https://aislike.rs/rc/s-l1600_2_fxmqkw.jpg"
     ]
   },
   {
-    image: "https://res.cloudinary.com/dpwtik23o/image/upload/v1745065811/20250418_140733_q8oqdi.jpg",
+    image: "https://aislike.rs/rc/20250418_140733_q8oqdi.jpg",
     id: "tamiya-red-anodized-sway-anti-roll-bar-ball-ends-clamps-and-sway-bar-rod-kit",
     title: "Tamiya Red Anodized Sway-Anti Roll Bar Ball Ends,Clamps and Sway Bar Rod Kit",
     price: 12.99,
     description: "Im offering you a set of four Tamiya style sway - anti roll bar ball ends and four sway bar clamps and 6 pairs of rods in 6 different dimensions.\n-The ball ends are made of 6060 aluminium and are RED anodized\n-The sway bar clamps are made of 6082 aluminium and are RED anodized\n-The rods are made od 1.4310 Stainless Steel Spring wire.\n-Each rod is arround 195mm long and straight, not bend.\n-The clamps are equiped with a super plastic grub screw which prevents slope and secures the sway bar but still providing free rotation.\n\nThe idea is to offer you a kit of straight sway - anti roll bar rods which you can bend to your desired specifications.\n\nOne set includes:\n4 Tamiya style ball ends (similar to those of the 53189 TA02 Stabilizer kit) with 4 steel grub screws RED andized\n4 Rod clamps with 4 super plastic grub screws also RED andized\n\n2 x Ø1.00mm rod\n2 x Ø1.20mm rod\n2 x Ø1.40mm rod\n2 x Ø1.60mm rod\n2 x Ø1.80mm rod\n2 x Ø2.00mm rod\n\nPLEASE NOTE!!\nOTHER PICTURES ARE ONLY FOR REFERENCE, NO OTHER PARTS ARE INCLUDED BESIDE THE PARTS AND RODS FROM DESCRIPTION ABOVE\nThis is NOT an original Tamiya product but we make the parts as good as possible to match the original.\nWe ensure that all parts are well packaged, all parcels are send trackable and we will provide the tracking number once the parcel is shipped.\nIf you need a quote for shipping to your country, feel free to ask.\nFor any other question don't hesitate to contact us.",
     color: "Red",
     images: [
-      "https://res.cloudinary.com/dpwtik23o/image/upload/v1745065811/20250418_140733_q8oqdi.jpg",
-      "https://res.cloudinary.com/dpwtik23o/image/upload/v1749238101/20250418_140806_rek1rl.jpg",
-      "https://res.cloudinary.com/dpwtik23o/image/upload/v1749237820/s-l1600_1_dmmf3s.jpg",
-      "https://res.cloudinary.com/dpwtik23o/image/upload/v1749237823/s-l1600_eir1l0.jpg",
-      "https://res.cloudinary.com/dpwtik23o/image/upload/v1749237823/s-l1600_2_fxmqkw.jpg"
+      "https://aislike.rs/rc/20250418_140733_q8oqdi.jpg",
+      "https://aislike.rs/rc/20250418_140806_rek1rl.jpg",
+      "https://aislike.rs/rc/s-l1600_1_dmmf3s.jpg",
+      "https://aislike.rs/rc/s-l1600_eir1l0.jpg",
+      "https://aislike.rs/rc/s-l1600_2_fxmqkw.jpg"
     ]
   },
   {
