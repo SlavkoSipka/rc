@@ -2593,7 +2593,7 @@ export const products: Product[] = [
     ]
       },
   {
-    image: "https://res.cloudinary.com/dpwtik23o/image/upload/v1760636105/20251016_125038-min_afm8fi.jpg",
+    image: "https://aislike.rs/rc/20251016_125038-min_afm8fi.jpg",
     id: "Tenth-Technology-Predator-XK98-blue-wheel-hubs",
     title: "Tenth Technology Predator XK98 blue wheel hubs",
     price: 45.00,
