@@ -116,7 +116,7 @@ export function ProjectPage() {
                   capabilities. The website now provides an excellent user experience and enables Custom RC Parts to 
                   efficiently sell their products online. The partnership with the <a href="https://aisajt.com" className="text-blue-600 hover:text-blue-800 font-medium">AiSajt</a> team 
                   was crucial for achieving these results, as they provided the expertise in 
-                  <a href="https://aisajt.com/izrada-sajtova" className="text-blue-600 hover:text-blue-800 font-medium"> web design and development</a> necessary for creating such a complex e-commerce solution.
+                  <a href="https://aisajt.com/izrada-sajta-cena" className="text-blue-600 hover:text-blue-800 font-medium"> web design and development</a> necessary for creating such a complex e-commerce solution.
                 </p>
                 <p className="text-gray-700 leading-relaxed">
                   The website is now ready for further growth and scaling, with possibilities for adding new 
