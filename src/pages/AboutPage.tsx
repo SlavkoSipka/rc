@@ -9,7 +9,7 @@ export function AboutPage() {
         <div 
           className="fixed inset-0 z-0"
           style={{
-            backgroundImage: 'url(http://aislike.rs/pozadina/bora.jpg)',
+            backgroundImage: 'url(/images/pozadina/bora.jpg)',
             backgroundSize: 'cover',
             backgroundPosition: 'center',
             backgroundAttachment: 'fixed'
@@ -22,7 +22,7 @@ export function AboutPage() {
             <div 
               className="relative text-white py-48"
               style={{
-                backgroundImage: 'url(http://aislike.rs/rc/pozadina/bora.jpg)',
+                backgroundImage: 'url(/images/pozadina/bora.jpg)',
                 backgroundSize: 'cover',
                 backgroundPosition: 'center',
                 backgroundAttachment: 'fixed'
@@ -73,7 +73,7 @@ export function AboutPage() {
                     <div className="absolute -bottom-8 -right-8 w-32 h-32 bg-blue-600/10 rounded-full" />
                     <div className="relative">
                       <img
-                        src="https://aislike.rs/rc/143.webp"
+                        src="/images/143.webp"
                         alt="RC Part Manufacturing"
                         className="w-full h-[400px] object-cover rounded-2xl shadow-2xl"
                       />
@@ -181,7 +181,7 @@ export function AboutPage() {
                           className="block group transition-transform hover:scale-105 duration-300"
                         >
                           <img
-                            src="https://aislike.rs/bora/logoo.png"
+                            src="/images/logoo.png"
                             alt="Bora Company Logo"
                             className="h-24 md:h-32 w-auto object-contain filter drop-shadow-lg"
                           />

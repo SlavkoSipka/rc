@@ -5,7 +5,7 @@ export const CONTACT = {
 
 export const COMPANY = {
   NAME: 'Custom RC Parts',
-  LOGO_URL: 'https://aislike.rs/rc/logo.png'
+  LOGO_URL: '/images/logo.png'
 };
 
 export const FEATURES = [
@@ -16,7 +16,7 @@ export const FEATURES = [
 ];
 
 export const HERO = {
-  IMAGE: 'https://aislike.rs/rc/pozadina.webp',
+  IMAGE: '/images/pozadina.webp',
   TITLE: 'Custom RC Parts Online Shop',
   SUBTITLE: 'Premium parts and accessories for RC enthusiasts'
 };
@@ -31,7 +31,7 @@ export const CATEGORIES = [
 ];
 
 export const FOOTER_SECTIONS = {
-  LOGO: 'http://aislike.rs/rc/logo2.png',
+  LOGO: '/images/logo2.png',
   ABOUT: {
     TITLE: 'About Us',
     DESCRIPTION: 'Your trusted source for high-quality RC car parts and accessories.'
