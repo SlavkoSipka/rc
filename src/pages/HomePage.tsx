@@ -1,41 +1,45 @@
 import { ProductCard } from '../components/ProductCard';
-import { useState } from 'react';
+import { useState, useMemo, useEffect, useRef } from 'react';
 import { ListFilter } from 'lucide-react';
 import { Hero } from '../components/Hero';
 import { Header } from '../components/Header';
 import { Footer } from '../components/Footer';
 import { Pagination } from '../components/Pagination';
 import { products } from '../data/products'; 
-import { useRef, useEffect } from 'react';
 import { supabase } from '../lib/supabase';
 
 type SortOption = 'relevance' | 'cheaper' | 'expensive' | 'popular';
 
 const PRODUCTS_PER_PAGE = 25;
 
+// Stabilni redosled za 'relevance' sort - računa se jednom
+const stableOrder = products.map((p, i) => ({ id: p.id, order: i }));
+const stableOrderMap = Object.fromEntries(stableOrder.map(o => [o.id, o.order]));
+
 export function HomePage() {
   const [sortOption, setSortOption] = useState<SortOption>('relevance');
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const productsRef = useRef<HTMLDivElement>(null);
-  const [prices, setPrices] = useState<Record<string, number>>({});
+  const [productData, setProductData] = useState<Record<string, { price: number; stock: number }>>({});
 
+  // Jedan batch fetch za SVE proizvode - cena i stanje
   useEffect(() => {
-    async function fetchPrices() {
+    async function fetchAllProductData() {
       const { data, error } = await supabase
         .from('products')
-        .select('id, price');
+        .select('id, price, stock');
       
       if (!error && data) {
-        const priceMap = data.reduce((acc, item) => ({
+        const map = data.reduce((acc, item) => ({
           ...acc,
-          [item.id]: item.price
-        }), {});
-        setPrices(priceMap);
+          [item.id]: { price: item.price, stock: item.stock }
+        }), {} as Record<string, { price: number; stock: number }>);
+        setProductData(map);
       }
     }
     
-    fetchPrices();
+    fetchAllProductData();
   }, []);
 
   const handlePageChange = (page: number) => {
@@ -43,48 +47,31 @@ export function HomePage() {
     productsRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
 
-  let sortedProducts = [...products].sort((a, b) => {
-    switch (sortOption) {
-      case 'cheaper':
-        return (prices[a.id] || a.price) - (prices[b.id] || b.price);
-      case 'expensive':
-        return (prices[b.id] || b.price) - (prices[a.id] || a.price);
-        const aIndex = products.indexOf(a);
-        const bIndex = products.indexOf(b);
-        const aIsPopular = aIndex % 3 === 0;
-        const bIsPopular = bIndex % 3 === 0;
-        
-        if (aIsPopular && !bIsPopular) return -1;
-        if (!aIsPopular && bIsPopular) return 1;
-        return (prices[b.id] || b.price) - (prices[a.id] || a.price);
-      default:
-        // Mix products based on brand and type while adding some randomization
-        const aBrand = a.id.split('-')[0];
-        const bBrand = b.id.split('-')[0];
-        
-        // Keep same brand products somewhat together but not strictly
-        if (aBrand === bBrand) {
-          // Add some randomization within same brand
-          return Math.random() - 0.5;
-        }
-        
-        // Mix different brands
-        const brandOrder = {
-          'tamiya': Math.random() * 3,
-          'yokomo': Math.random() * 3,
-          'schumacher': Math.random() * 3
-        };
-        
-        return (brandOrder[aBrand as keyof typeof brandOrder] || 0) - 
-               (brandOrder[bBrand as keyof typeof brandOrder] || 0);
-    }
-  });
+  // useMemo - sortiranje se računa samo kad se sortOption ili productData promene
+  const sortedProducts = useMemo(() => {
+    // Filtriraj duplikate
+    const filtered = products.filter(product => 
+      !product.id.includes('tamiya-trf201-211-201xmw') ||
+      (!product.id.includes('silver') && !product.id.includes('blue'))
+    );
 
-  // Filter out duplicate color variants first
-  sortedProducts = sortedProducts.filter(product => 
-    !product.id.includes('tamiya-trf201-211-201xmw') ||
-    (!product.id.includes('silver') && !product.id.includes('blue'))
-  );
+    return [...filtered].sort((a, b) => {
+      const aPrice = productData[a.id]?.price ?? a.price;
+      const bPrice = productData[b.id]?.price ?? b.price;
+
+      switch (sortOption) {
+        case 'cheaper':
+          return aPrice - bPrice;
+        case 'expensive':
+          return bPrice - aPrice;
+        case 'popular':
+          return bPrice - aPrice;
+        default:
+          // Stabilan redosled baziran na originalnom poretku - bez Math.random()
+          return (stableOrderMap[a.id] ?? 0) - (stableOrderMap[b.id] ?? 0);
+      }
+    });
+  }, [sortOption, productData]);
 
   const totalPages = Math.ceil(sortedProducts.length / PRODUCTS_PER_PAGE);
   const startIndex = (currentPage - 1) * PRODUCTS_PER_PAGE;
@@ -113,37 +100,25 @@ export function HomePage() {
               {isDropdownOpen && (
                 <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border z-10 py-2">
                   <button
-                    onClick={() => {
-                      setSortOption('relevance');
-                      setIsDropdownOpen(false);
-                    }}
+                    onClick={() => { setSortOption('relevance'); setIsDropdownOpen(false); }}
                     className={`w-full text-left px-4 py-2 hover:bg-gray-50 ${sortOption === 'relevance' ? 'text-blue-600' : ''}`}
                   >
                     Relevance
                   </button>
                   <button
-                    onClick={() => {
-                      setSortOption('cheaper');
-                      setIsDropdownOpen(false);
-                    }}
+                    onClick={() => { setSortOption('cheaper'); setIsDropdownOpen(false); }}
                     className={`w-full text-left px-4 py-2 hover:bg-gray-50 ${sortOption === 'cheaper' ? 'text-blue-600' : ''}`}
                   >
                     Price: Low to High
                   </button>
                   <button
-                    onClick={() => {
-                      setSortOption('expensive');
-                      setIsDropdownOpen(false);
-                    }}
+                    onClick={() => { setSortOption('expensive'); setIsDropdownOpen(false); }}
                     className={`w-full text-left px-4 py-2 hover:bg-gray-50 ${sortOption === 'expensive' ? 'text-blue-600' : ''}`}
                   >
                     Price: High to Low
                   </button>
                   <button
-                    onClick={() => {
-                      setSortOption('popular');
-                      setIsDropdownOpen(false);
-                    }}
+                    onClick={() => { setSortOption('popular'); setIsDropdownOpen(false); }}
                     className={`w-full text-left px-4 py-2 hover:bg-gray-50 ${sortOption === 'popular' ? 'text-blue-600' : ''}`}
                   >
                     Most Popular
@@ -154,7 +129,12 @@ export function HomePage() {
           </div>
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
             {paginatedProducts.map((product) => (
-              <ProductCard key={product.id} {...product} />
+              <ProductCard
+                key={product.id}
+                {...product}
+                preloadedPrice={productData[product.id]?.price}
+                preloadedStock={productData[product.id]?.stock}
+              />
             ))}
           </div>
           

@@ -9,10 +9,12 @@ interface ProductCardProps {
   title: string;
   id: string;
   stock: number;
+  preloadedPrice?: number;
+  preloadedStock?: number;
 }
 
-export function ProductCard({ image, title, id, stock }: ProductCardProps) {
-  const { stock: realStock, price } = useProductStock(id);
+export function ProductCard({ image, title, id, stock, preloadedPrice, preloadedStock }: ProductCardProps) {
+  const { stock: realStock, price } = useProductStock(id, preloadedPrice, preloadedStock);
   const { applyDiscount } = useDiscount();
 
   return (
@@ -22,6 +24,8 @@ export function ProductCard({ image, title, id, stock }: ProductCardProps) {
           <img 
             src={image} 
             alt={title} 
+            loading="lazy"
+            decoding="async"
             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
           />
         </div>

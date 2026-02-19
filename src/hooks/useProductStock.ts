@@ -1,18 +1,21 @@
 import { useState, useEffect } from 'react';
 import { supabase } from '../lib/supabase';
 
-interface ProductStock {
-  stock: number;
-  price: number;
-}
-
-export function useProductStock(productId: string) {
-  const [stock, setStock] = useState<number | null>(null);
-  const [price, setPrice] = useState<number | null>(null);
-  const [loading, setLoading] = useState(true);
+export function useProductStock(productId: string, initialPrice?: number, initialStock?: number) {
+  const [stock, setStock] = useState<number | null>(initialStock ?? null);
+  const [price, setPrice] = useState<number | null>(initialPrice ?? null);
+  const [loading, setLoading] = useState(initialPrice === undefined || initialStock === undefined);
   const [error, setError] = useState<Error | null>(null);
 
   useEffect(() => {
+    // Ako su vrednosti već prosleđene, ne treba fetch
+    if (initialPrice !== undefined && initialStock !== undefined) {
+      setPrice(initialPrice);
+      setStock(initialStock);
+      setLoading(false);
+      return;
+    }
+
     async function fetchStock() {
       try {
         setLoading(true);
@@ -40,7 +43,7 @@ export function useProductStock(productId: string) {
     if (productId) {
       fetchStock();
     }
-  }, [productId]);
+  }, [productId, initialPrice, initialStock]);
 
   return { stock, price, loading, error };
 }

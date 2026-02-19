@@ -4,7 +4,6 @@ import { ProductCard } from '../components/ProductCard';
 import { useState } from 'react';
 import { ListFilter } from 'lucide-react';
 import { Pagination } from '../components/Pagination';
-import { useProductStock } from '../hooks/useProductStock';
 import { outletDefectProducts } from '../data/dataOutletDefect';
 import { outletUsedProducts } from '../data/dataOutletUsed';
 
@@ -134,7 +133,12 @@ export function OutletPage() {
           ) : (
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
             {paginatedProducts.map((product) => (
-              <ProductCard key={product.id} {...product} />
+              <ProductCard
+                key={product.id}
+                {...product}
+                preloadedPrice={product.price}
+                preloadedStock={product.stock}
+              />
             ))}
           </div>
           )}
