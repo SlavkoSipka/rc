@@ -1301,21 +1301,24 @@ export const products: Product[] = [
       ]
   },
   {
-    image: "/images/172.webp",
-    id: "tamiya-super-astute-silver-hard-anodized-bell-cranks",
-    title: "Tamiya Super Astute Aluminium Silver Hard Anodized Bell Cranks Steering Arms",
+    image: "/images/prav1.jpg",
+    id: "tamiya-super-astute-silver-anodized-bell-cranks",
+    title: "Tamiya Super Astute Aluminium Red Anodized Bell Cranks Steering Arms",
     price: 37.99,
     stock: 1,
-    description: "1 pair of aluminium replacement reproduction bell cranks (D2 and D3) for Tamiya Super Astute and Astute made of high grade 6082 alloy, SILVER HARD anodized.\n\n\nLast 2 pictures are only for recerence, you will receive one set of SILVER HARD bell cranks from the first picture, and you need one ball nut for instalation as shown on the last picture.\n\nThis is NOT an original Tamiya product but we make the parts as good as possible to match the original.\n\nWe ensure that all parts are well packaged, all parcels are send trackable and we will provide the tracking number once the parcel is shipped.\n\nIf you need a quote for shipping to your country, feel free to ask.\nFor any other question don't hastate to contact us.",
+    description: "1 pair of aluminium replacement reproduction bell cranks (D2 and D3) for Tamiya Super Astute and Astute made of high grade 6082 alloy, SILVER anodized.\n\n\nLast 2 pictures are only for recerence, you will receive one set of SILVER HARD bell cranks from the first picture, and you need one ball nut for instalation as shown on the last picture.\n\nThis is NOT an original Tamiya product but we make the parts as good as possible to match the original.\n\nWe ensure that all parts are well packaged, all parcels are send trackable and we will provide the tracking number once the parcel is shipped.\n\nIf you need a quote for shipping to your country, feel free to ask.\nFor any other question don't hastate to contact us.",
     color: "Silver",
     images: [
-      "/images/172.webp",
+      "/images/prav1.jpg",
+      "/images/prav2.jpg",
+      "/images/siv prav1.jpg",
+      "/images/siv prav2.jpg",
       "/images/173.webp",
       "/images/174.webp"
       ]
   },
   {
-    image: "/images/172.webp",
+    image: "/images/prav1.jpg",
     id: "tamiya-super-astute-red-anodized-bell-cranks",
     title: "Tamiya Super Astute Aluminium Red Anodized Bell Cranks Steering Arms",
     price: 37.99,
@@ -1323,13 +1326,16 @@ export const products: Product[] = [
     description: "1 pair of aluminium replacement reproduction bell cranks (D2 and D3) for Tamiya Super Astute and Astute made of high grade 6082 alloy, RED anodized.\n\n\nLast 2 pictures are only for recerence, you will receive one set of RED HARD bell cranks from the first picture, and you need one ball nut for instalation as shown on the last picture.\n\nThis is NOT an original Tamiya product but we make the parts as good as possible to match the original.\n\nWe ensure that all parts are well packaged, all parcels are send trackable and we will provide the tracking number once the parcel is shipped.\n\nIf you need a quote for shipping to your country, feel free to ask.\nFor any other question don't hastate to contact us.",
     color: "Red",
     images: [
-      "/images/172.webp",
+      "/images/prav1.jpg",
+      "/images/prav2.jpg",
+      "/images/crven prav1.jpg",
+      "/images/crven prav2.jpg",
       "/images/173.webp",
       "/images/174.webp"
       ]
   },
   {
-    image: "/images/172.webp",
+    image: "/images/prav1.jpg",
     id: "tamiya-super-astute-blue-anodized-bell-cranks",
     title: "Tamiya Super Astute Aluminium Blue Anodized Bell Cranks Steering Arms",
     price: 37.99,
@@ -1337,13 +1343,16 @@ export const products: Product[] = [
     description: "1 pair of aluminium replacement reproduction bell cranks (D2 and D3) for Tamiya Super Astute and Astute made of high grade 6082 alloy, BLUE anodized.\n\n\nLast 2 pictures are only for recerence, you will receive one set of BLUE HARD bell cranks from the first picture, and you need one ball nut for instalation as shown on the last picture.\n\nThis is NOT an original Tamiya product but we make the parts as good as possible to match the original.\n\nWe ensure that all parts are well packaged, all parcels are send trackable and we will provide the tracking number once the parcel is shipped.\n\nIf you need a quote for shipping to your country, feel free to ask.\nFor any other question don't hastate to contact us.",
     color: "Blue",
     images: [
-      "/images/172.webp",
+      "/images/prav1.jpg",
+      "/images/prav2.jpg",
+      "/images/plav prav1.jpg",
+      "/images/plav prav2.jpg",
       "/images/173.webp",
       "/images/174.webp"
       ]
   },
   {
-    image: "/images/172.webp",
+    image: "/images/prav1.jpg",
     id: "tamiya-super-astute-black-anodized-bell-cranks",
     title: "Tamiya Super Astute Aluminium Black Anodized Bell Cranks Steering Arms",
     price: 37.99,
@@ -1351,7 +1360,10 @@ export const products: Product[] = [
     description: "1 pair of aluminium replacement reproduction bell cranks (D2 and D3) for Tamiya Super Astute and Astute made of high grade 6082 alloy, BLACK anodized.\n\n\nLast 2 pictures are only for recerence, you will receive one set of BLACK HARD bell cranks from the first picture, and you need one ball nut for instalation as shown on the last picture.\n\nThis is NOT an original Tamiya product but we make the parts as good as possible to match the original.\n\nWe ensure that all parts are well packaged, all parcels are send trackable and we will provide the tracking number once the parcel is shipped.\n\nIf you need a quote for shipping to your country, feel free to ask.\nFor any other question don't hastate to contact us.",
     color: "Black",
     images: [
-      "/images/172.webp",
+      "/images/prav1.jpg",
+      "/images/prav2.jpg",
+      "/images/crn prav1.jpg",
+      "/images/crn prav2.jpg",
       "/images/173.webp",
       "/images/174.webp"
       ]
@@ -2715,6 +2727,101 @@ export const products: Product[] = [
     color: "Silver",
     images: [
       "/images/20251010_142616-min_ibkbhz.jpg"
+    ]
+    },
+  {
+    image: "/images/siv cudan2.jpg",
+    id: "Team-Losi-XX4-Silver-hard-anodized-Bell-Cranks",
+    title: "Team Losi XX4 Silver hard anodized Aluminium Bell Cranks Steering Arms",
+    price: 35.00,
+    stock: 1,
+    description: "1 set of aluminium replacement reproduction chassis posts for the Tamiya Top Force made of high grade 6082 Aluminium.\n\nThe set includes:\n- 2x SD1 steering post\n- 2x SD3 wing mount-support with 2x grub screws \n- 4x SC3 damper mount PLEASE NOTE!!! THESE WILL NOT FIT THE EVOLUTION\n- 2x SD5 rear longer chassis post\n- 2x SD6 front shorter chassis post\n- 1x J12 front right gearbox support\n\nHardware is not included.\n\nPLEASE NOTE!!!\nOTHER PICTURES ARE ONLY FOR REFERENCE, NO OTHER PARTS ARE INCLUDED BESIDE THE ALUMINIUM POSTS FROM THE FIRST PICTURE\n\nThis is NOT an original Tamiya product but we make the parts as good as possible to match the original.\n\nWe ensure that all parts are well packaged, all parcels are send trackable and we will provide the tracking number once the parcel is shipped.\n\nIf you need a quote for shipping to your country, feel free to ask.\nFor any other question don't hastate to contact us.",
+    color: "Silver",
+    images: [
+      "/images/siv cudan2.jpg",
+      "/images/cudan.jpg",
+      "/images/cudan1.jpg",
+      "/images/cudan2.jpg"
+    ]
+  },
+  {
+    image: "/images/plav cudan1.jpg",
+    id: "Team-Losi-XX4-Blue-Bell-Cranks",
+    title: "Team Losi XX4 Blue Aluminium Bell Cranks Steering Arms",
+    price: 35.00,
+    stock: 1,
+    description: "1 set of aluminium replacement reproduction chassis posts for the Tamiya Top Force made of high grade 6082 Aluminium.\n\nThe set includes:\n- 2x SD1 steering post\n- 2x SD3 wing mount-support with 2x grub screws \n- 4x SC3 damper mount PLEASE NOTE!!! THESE WILL NOT FIT THE EVOLUTION\n- 2x SD5 rear longer chassis post\n- 2x SD6 front shorter chassis post\n- 1x J12 front right gearbox support\n\nHardware is not included.\n\nPLEASE NOTE!!!\nOTHER PICTURES ARE ONLY FOR REFERENCE, NO OTHER PARTS ARE INCLUDED BESIDE THE ALUMINIUM POSTS FROM THE FIRST PICTURE\n\nThis is NOT an original Tamiya product but we make the parts as good as possible to match the original.\n\nWe ensure that all parts are well packaged, all parcels are send trackable and we will provide the tracking number once the parcel is shipped.\n\nIf you need a quote for shipping to your country, feel free to ask.\nFor any other question don't hastate to contact us.",
+    color: "Blue",
+    images: [
+      "/images/plav cudan1.jpg",
+      "/images/plav cudan2.jpg",
+      "/images/cudan.jpg",
+      "/images/cudan1.jpg",
+      "/images/cudan2.jpg"
+    ]
+  },
+  {
+    image: "/images/crn cudan1.jpg",
+    id: "Team-Losi-XX4-Black-Bell-Cranks",
+    title: "Team Losi XX4 Black Aluminium Bell Cranks Steering Arms",
+    price: 35.00,
+    stock: 1,
+    description: "1 set of aluminium replacement reproduction chassis posts for the Tamiya Top Force made of high grade 6082 Aluminium.\n\nThe set includes:\n- 2x SD1 steering post\n- 2x SD3 wing mount-support with 2x grub screws \n- 4x SC3 damper mount PLEASE NOTE!!! THESE WILL NOT FIT THE EVOLUTION\n- 2x SD5 rear longer chassis post\n- 2x SD6 front shorter chassis post\n- 1x J12 front right gearbox support\n\nHardware is not included.\n\nPLEASE NOTE!!!\nOTHER PICTURES ARE ONLY FOR REFERENCE, NO OTHER PARTS ARE INCLUDED BESIDE THE ALUMINIUM POSTS FROM THE FIRST PICTURE\n\nThis is NOT an original Tamiya product but we make the parts as good as possible to match the original.\n\nWe ensure that all parts are well packaged, all parcels are send trackable and we will provide the tracking number once the parcel is shipped.\n\nIf you need a quote for shipping to your country, feel free to ask.\nFor any other question don't hastate to contact us.",
+    color: "Black",
+    images: [
+      "/images/crn cudan1.jpg",
+      "/images/crn cudan2.jpg",
+      "/images/cudan.jpg",
+      "/images/cudan1.jpg",
+      "/images/cudan2.jpg"
+    ]
+  },
+  {
+    image: "/images/krivv1.jpg",
+    id: "Tamiya-TA02SW-Silver-Hard-Andodized-Bell-Cranks",
+    title: "Tamiya TA02SW Silver Hard Andodized Bell Cranks Steering Arms 19118018 (47479)",
+    price: 30.00,
+    stock: 1,
+    description: "1 set of aluminium replacement reproduction chassis posts for the Tamiya Top Force made of high grade 6082 Aluminium.\n\nThe set includes:\n- 2x SD1 steering post\n- 2x SD3 wing mount-support with 2x grub screws \n- 4x SC3 damper mount PLEASE NOTE!!! THESE WILL NOT FIT THE EVOLUTION\n- 2x SD5 rear longer chassis post\n- 2x SD6 front shorter chassis post\n- 1x J12 front right gearbox support\n\nHardware is not included.\n\nPLEASE NOTE!!!\nOTHER PICTURES ARE ONLY FOR REFERENCE, NO OTHER PARTS ARE INCLUDED BESIDE THE ALUMINIUM POSTS FROM THE FIRST PICTURE\n\nThis is NOT an original Tamiya product but we make the parts as good as possible to match the original.\n\nWe ensure that all parts are well packaged, all parcels are send trackable and we will provide the tracking number once the parcel is shipped.\n\nIf you need a quote for shipping to your country, feel free to ask.\nFor any other question don't hastate to contact us.",
+    color: "Silver",
+    images: [
+      "/images/krivv1.jpg",
+      "/images/siv kriv1.jpg",
+      "/images/siv kriv2.jpg",
+      "/images/kriv2.jpg",
+      "/images/kriv1.jpg"
+    ]
+  },
+  {
+    image: "/images/krivv1.jpg",
+    id: "Tamiya-TA02SW-Blue-Hard-Andodized-Bell-Cranks",
+    title: "Tamiya TA02SW Blue Hard Andodized Bell Cranks Steering Arms 19118018 (47479)",
+    price: 30.00,
+    stock: 1,
+    description: "1 set of aluminium replacement reproduction chassis posts for the Tamiya Top Force made of high grade 6082 Aluminium.\n\nThe set includes:\n- 2x SD1 steering post\n- 2x SD3 wing mount-support with 2x grub screws \n- 4x SC3 damper mount PLEASE NOTE!!! THESE WILL NOT FIT THE EVOLUTION\n- 2x SD5 rear longer chassis post\n- 2x SD6 front shorter chassis post\n- 1x J12 front right gearbox support\n\nHardware is not included.\n\nPLEASE NOTE!!!\nOTHER PICTURES ARE ONLY FOR REFERENCE, NO OTHER PARTS ARE INCLUDED BESIDE THE ALUMINIUM POSTS FROM THE FIRST PICTURE\n\nThis is NOT an original Tamiya product but we make the parts as good as possible to match the original.\n\nWe ensure that all parts are well packaged, all parcels are send trackable and we will provide the tracking number once the parcel is shipped.\n\nIf you need a quote for shipping to your country, feel free to ask.\nFor any other question don't hastate to contact us.",
+    color: "Blue",
+    images: [
+      "/images/krivv1.jpg",
+      "/images/plav kriv1.jpg",
+      "/images/plav kriv2.jpg",
+      "/images/kriv2.jpg",
+      "/images/kriv1.jpg"
+    ]
+  },
+  {
+    image: "/images/krivv1.jpg",
+    id: "Tamiya-TA02SW-Black-Hard-Andodized-Bell-Cranks",
+    title: "Tamiya TA02SW Black Hard Andodized Bell Cranks Steering Arms 19118018 (47479)",
+    price: 30.00,
+    stock: 1,
+    description: "1 set of aluminium replacement reproduction chassis posts for the Tamiya Top Force made of high grade 6082 Aluminium.\n\nThe set includes:\n- 2x SD1 steering post\n- 2x SD3 wing mount-support with 2x grub screws \n- 4x SC3 damper mount PLEASE NOTE!!! THESE WILL NOT FIT THE EVOLUTION\n- 2x SD5 rear longer chassis post\n- 2x SD6 front shorter chassis post\n- 1x J12 front right gearbox support\n\nHardware is not included.\n\nPLEASE NOTE!!!\nOTHER PICTURES ARE ONLY FOR REFERENCE, NO OTHER PARTS ARE INCLUDED BESIDE THE ALUMINIUM POSTS FROM THE FIRST PICTURE\n\nThis is NOT an original Tamiya product but we make the parts as good as possible to match the original.\n\nWe ensure that all parts are well packaged, all parcels are send trackable and we will provide the tracking number once the parcel is shipped.\n\nIf you need a quote for shipping to your country, feel free to ask.\nFor any other question don't hastate to contact us.",
+    color: "Black",
+    images: [
+      "/images/krivv1.jpg",
+      "/images/crn kriv1.jpg",
+      "/images/crn kriv2.jpg",
+      "/images/kriv2.jpg",
+      "/images/kriv1.jpg"
     ]
   }
 ]
