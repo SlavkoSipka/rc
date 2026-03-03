@@ -2777,7 +2777,7 @@ export const products: Product[] = [
     ]
   },
   {
-    image: "/images/krivv1.jpg",
+    image: "/images/prvaslika.jpg",
     id: "Tamiya-TA02SW-Silver-Hard-Andodized-Bell-Cranks",
     title: "Tamiya TA02SW Silver Hard Andodized Bell Cranks Steering Arms 19118018 (47479)",
     price: 30.00,
@@ -2785,7 +2785,7 @@ export const products: Product[] = [
     description: "1 set of aluminium replacement reproduction chassis posts for the Tamiya Top Force made of high grade 6082 Aluminium.\n\nThe set includes:\n- 2x SD1 steering post\n- 2x SD3 wing mount-support with 2x grub screws \n- 4x SC3 damper mount PLEASE NOTE!!! THESE WILL NOT FIT THE EVOLUTION\n- 2x SD5 rear longer chassis post\n- 2x SD6 front shorter chassis post\n- 1x J12 front right gearbox support\n\nHardware is not included.\n\nPLEASE NOTE!!!\nOTHER PICTURES ARE ONLY FOR REFERENCE, NO OTHER PARTS ARE INCLUDED BESIDE THE ALUMINIUM POSTS FROM THE FIRST PICTURE\n\nThis is NOT an original Tamiya product but we make the parts as good as possible to match the original.\n\nWe ensure that all parts are well packaged, all parcels are send trackable and we will provide the tracking number once the parcel is shipped.\n\nIf you need a quote for shipping to your country, feel free to ask.\nFor any other question don't hastate to contact us.",
     color: "Silver",
     images: [
-      "/images/krivv1.jpg",
+      "/images/prvaslika.jpg",
       "/images/siv kriv1.jpg",
       "/images/siv kriv2.jpg",
       "/images/kriv2.jpg",
@@ -2793,7 +2793,7 @@ export const products: Product[] = [
     ]
   },
   {
-    image: "/images/krivv1.jpg",
+    image: "/images/prvaslika.jpg",
     id: "Tamiya-TA02SW-Blue-Andodized-Bell-Cranks",
     title: "Tamiya TA02SW Blue Andodized Bell Cranks Steering Arms 19118018 (47479)",
     price: 30.00,
@@ -2801,7 +2801,7 @@ export const products: Product[] = [
     description: "1 set of aluminium replacement reproduction chassis posts for the Tamiya Top Force made of high grade 6082 Aluminium.\n\nThe set includes:\n- 2x SD1 steering post\n- 2x SD3 wing mount-support with 2x grub screws \n- 4x SC3 damper mount PLEASE NOTE!!! THESE WILL NOT FIT THE EVOLUTION\n- 2x SD5 rear longer chassis post\n- 2x SD6 front shorter chassis post\n- 1x J12 front right gearbox support\n\nHardware is not included.\n\nPLEASE NOTE!!!\nOTHER PICTURES ARE ONLY FOR REFERENCE, NO OTHER PARTS ARE INCLUDED BESIDE THE ALUMINIUM POSTS FROM THE FIRST PICTURE\n\nThis is NOT an original Tamiya product but we make the parts as good as possible to match the original.\n\nWe ensure that all parts are well packaged, all parcels are send trackable and we will provide the tracking number once the parcel is shipped.\n\nIf you need a quote for shipping to your country, feel free to ask.\nFor any other question don't hastate to contact us.",
     color: "Blue",
     images: [
-      "/images/krivv1.jpg",
+      "/images/prvaslika.jpg",
       "/images/plav kriv1.jpg",
       "/images/plav kriv2.jpg",
       "/images/kriv2.jpg",
@@ -2809,7 +2809,7 @@ export const products: Product[] = [
     ]
   },
   {
-    image: "/images/krivv1.jpg",
+    image: "/images/prvaslika.jpg",
     id: "Tamiya-TA02SW-Black-Andodized-Bell-Cranks",
     title: "Tamiya TA02SW Black Andodized Bell Cranks Steering Arms 19118018 (47479)",
     price: 30.00,
@@ -2817,7 +2817,7 @@ export const products: Product[] = [
     description: "1 set of aluminium replacement reproduction chassis posts for the Tamiya Top Force made of high grade 6082 Aluminium.\n\nThe set includes:\n- 2x SD1 steering post\n- 2x SD3 wing mount-support with 2x grub screws \n- 4x SC3 damper mount PLEASE NOTE!!! THESE WILL NOT FIT THE EVOLUTION\n- 2x SD5 rear longer chassis post\n- 2x SD6 front shorter chassis post\n- 1x J12 front right gearbox support\n\nHardware is not included.\n\nPLEASE NOTE!!!\nOTHER PICTURES ARE ONLY FOR REFERENCE, NO OTHER PARTS ARE INCLUDED BESIDE THE ALUMINIUM POSTS FROM THE FIRST PICTURE\n\nThis is NOT an original Tamiya product but we make the parts as good as possible to match the original.\n\nWe ensure that all parts are well packaged, all parcels are send trackable and we will provide the tracking number once the parcel is shipped.\n\nIf you need a quote for shipping to your country, feel free to ask.\nFor any other question don't hastate to contact us.",
     color: "Black",
     images: [
-      "/images/krivv1.jpg",
+      "/images/prvaslika.jpg",
       "/images/crn kriv1.jpg",
       "/images/crn kriv2.jpg",
       "/images/kriv2.jpg",
