@@ -933,7 +933,7 @@ export const products: Product[] = [
   },
   {
     image: "/images/s-l1600 (71).webp",
-    id: "tamiya-top-force-df01-anodized-j3",
+    id: "tamiya-top-force-df01-hard-anodized-j3",
     title: "Tamiya Top Force DF01 Aluminium hard anodized J3 part",
     price: 20.99,
     stock: 1,
