@@ -1533,12 +1533,25 @@ export const products: Product[] = [
       ]
   },
   {
-    image: "/images/20260126_090353.jpg",
+    image: "/images/20260126_090800.jpg",
     id: "tamiya-super-astute-pom-white-inserts",
     title: "Tamiya Astute and Super Astute White Inserts for upgraded D1 Aluminium Arm mounts",
     price: 15.99,
     stock: 1,
     description: "8 WHITE delrin inserts / pills (8 with offset) suitable for our Super Astute / Astute D1 aluminium arm mounts.\n\nThese Inserts are made of high grade delrin plastic, these parts are manchined and not injection moulded.\n\n\nOne package includes:\n- 8 pills / inserts with offset\n\nIMPORTANT!!!\nOnly parts from the first picture are included, other pictures are only for reference.\n\n\n\nThis is NOT an original Tamiya product but we make the parts as good as possible to match the original.\n\nWe ensure that all parts are well packaged, all parcels are send trackable and we will provide the tracking number once the parcel is shipped.\n\nIf you need a quote for shipping to your country, feel free to ask.\nFor any other question don't hesitate to contact us.",
+    images: [
+      "/images/20260126_090800.jpg",
+      "/images/20250612_094711.jpg",
+      "/images/20250612_094752.jpg"
+      ]
+  },
+  {
+    image: "/images/20260126_090353.jpg",
+    id: "tamiya-super-astute-pom-black-inserts",
+    title: "Tamiya Astute and Super Astute Black Inserts for upgraded D1 Aluminium Arm mounts",
+    price: 15.99,
+    stock: 1,
+    description: "8 BLACK delrin inserts / pills (8 with offset) suitable for our Super Astute / Astute D1 aluminium arm mounts.\n\nThese Inserts are made of high grade delrin plastic, these parts are manchined and not injection moulded.\n\n\nOne package includes:\n- 8 pills / inserts with offset\n\nIMPORTANT!!!\nOnly parts from the first picture are included, other pictures are only for reference.\n\n\n\nThis is NOT an original Tamiya product but we make the parts as good as possible to match the original.\n\nWe ensure that all parts are well packaged, all parcels are send trackable and we will provide the tracking number once the parcel is shipped.\n\nIf you need a quote for shipping to your country, feel free to ask.\nFor any other question don't hesitate to contact us.",
     images: [
       "/images/20260126_090353.jpg",
       "/images/20250612_094711.jpg",
