@@ -911,7 +911,7 @@ export const products: Product[] = [
     ]
   },
   {
-    image: "/https://github.com/SlavkoSipka/rc/blob/main/public/images/20210415_125515.jpg",
+    image: "/public/images/20210415_125515.jpg",
     id: "tamiya-top-force-df01-blue-j3",
     title: "Tamiya Top Force DF01 Aluminium blue alloy J3 part",
     price: 20.99,
@@ -919,8 +919,8 @@ export const products: Product[] = [
     description: "1piece of aluminium replacement reproduction J3 part from the Tamiya Top Force J parts tree. This piece replaces the original J3 part on your Top force. Made of high grade 6082 aluminium, BLUE anodized.\n\nScrews are not included.\n\nPLEASE NOTE!!!\nLAST PICTURE IS ONLY FOR REFERENCE, NO OTHER PARTS ARE INCLUDED BESIDE THE ALLOY J3 PART\n\nThis is NOT an original Tamiya product but we make the parts as good as possible to match the original.\n\nWe ensure that all parts are well packaged, all parcels are send trackable and we will provide the tracking number once the parcel is shipped.\n\nIf you need a quote for shipping to your country, feel free to ask.\nFor any other question don't hesitate to contact us.",
     color: "Blue",
     images: [
-      "/https://github.com/SlavkoSipka/rc/blob/main/public/images/20210415_125515.jpg",
-      "/https://github.com/SlavkoSipka/rc/blob/main/public/images/20210415_125529.jpg",
+      "/public/images/20210415_125515.jpg",
+      "/public/images/20210415_125529.jpg",
       "/images/s-l1600 (86).webp"
     ]
   },
