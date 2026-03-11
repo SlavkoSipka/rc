@@ -172,7 +172,35 @@ export const products: Product[] = [
     price: 13.99,
     color: "Black",
     stock: 1,
-    description: "1 piece of aluminium replacement reproduction E5 Motor guard link for the Tamiya Dyna storm - Blaster - TR15T. This product replaces the original E5 part on your Dyna Storm - Blaster - TR15T. Made of high grade 6082 aluminium, BLACK hard anodized.\n\nIf i forgot to mention something, dont hesitate to send me a message.\n\nHardware is not included beside the grub screws.\n\nPLEASE NOTE!!!\nOTHER PICTURES ARE ONLY FOR REFERENCE, NO OTHER PARTS ARE INCLUDED BESIDE THE ALLOY E5 MOTOR GUARD LINK IN BLACK COLOR FROM THE FIRST PICTURE.\n\nThis is NOT an original Tamiya product but we make the parts as good as possible to match the original.\n\nWe ensure that all parts are well packaged, all parcels are send trackable and we will provide the tracking number once the parcel is shipped.\n\nIf you need a quote for shipping to your country, feel free to ask.\nFor any other question don't hesitate to contact us.",
+    description: "1 piece of aluminium replacement reproduction E5 Motor guard link for the Tamiya Dyna storm - Blaster - TR15T. This product replaces the original E5 part on your Dyna Storm - Blaster - TR15T. Made of high grade 6082 aluminium, BLACK anodized.\n\nIf i forgot to mention something, dont hesitate to send me a message.\n\nHardware is not included beside the grub screws.\n\nPLEASE NOTE!!!\nOTHER PICTURES ARE ONLY FOR REFERENCE, NO OTHER PARTS ARE INCLUDED BESIDE THE ALLOY E5 MOTOR GUARD LINK IN BLACK COLOR FROM THE FIRST PICTURE.\n\nThis is NOT an original Tamiya product but we make the parts as good as possible to match the original.\n\nWe ensure that all parts are well packaged, all parcels are send trackable and we will provide the tracking number once the parcel is shipped.\n\nIf you need a quote for shipping to your country, feel free to ask.\nFor any other question don't hesitate to contact us.",
+        images: [
+      "/images/115.webp",
+      "/images/116.webp",
+      "/images/117.webp"
+    ]
+     },
+  {
+    image: "/images/115.webp",
+    id: "tamiya-dyna-storm-blaster-tr15t-blue-e5-motor-guard",
+    title: "Tamiya Dyna Storm - Blaster - TR15T Aluminium Blue E5 Motor guard link",
+    price: 13.99,
+    color: "Blue",
+    stock: 1,
+    description: "1 piece of aluminium replacement reproduction E5 Motor guard link for the Tamiya Dyna storm - Blaster - TR15T. This product replaces the original E5 part on your Dyna Storm - Blaster - TR15T. Made of high grade 6082 aluminium, BLUE anodized.\n\nIf i forgot to mention something, dont hesitate to send me a message.\n\nHardware is not included beside the grub screws.\n\nPLEASE NOTE!!!\nOTHER PICTURES ARE ONLY FOR REFERENCE, NO OTHER PARTS ARE INCLUDED BESIDE THE ALLOY E5 MOTOR GUARD LINK IN BLUE COLOR FROM THE FIRST PICTURE.\n\nThis is NOT an original Tamiya product but we make the parts as good as possible to match the original.\n\nWe ensure that all parts are well packaged, all parcels are send trackable and we will provide the tracking number once the parcel is shipped.\n\nIf you need a quote for shipping to your country, feel free to ask.\nFor any other question don't hesitate to contact us.",
+        images: [
+      "/images/115.webp",
+      "/images/116.webp",
+      "/images/117.webp"
+    ]
+     },
+  {
+    image: "/images/115.webp",
+    id: "tamiya-dyna-storm-blaster-tr15t-silver-hard-anodized-e5-motor-guard",
+    title: "Tamiya Dyna Storm - Blaster - TR15T Aluminium Silver Hard Anodized E5 Motor guard link",
+    price: 13.99,
+    color: "Silver",
+    stock: 1,
+    description: "1 piece of aluminium replacement reproduction E5 Motor guard link for the Tamiya Dyna storm - Blaster - TR15T. This product replaces the original E5 part on your Dyna Storm - Blaster - TR15T. Made of high grade 6082 aluminium, SILVER HARD anodized.\n\nIf i forgot to mention something, dont hesitate to send me a message.\n\nHardware is not included beside the grub screws.\n\nPLEASE NOTE!!!\nOTHER PICTURES ARE ONLY FOR REFERENCE, NO OTHER PARTS ARE INCLUDED BESIDE THE ALLOY E5 MOTOR GUARD LINK IN SILVER HARD ANODIZED COLOR FROM THE FIRST PICTURE.\n\nThis is NOT an original Tamiya product but we make the parts as good as possible to match the original.\n\nWe ensure that all parts are well packaged, all parcels are send trackable and we will provide the tracking number once the parcel is shipped.\n\nIf you need a quote for shipping to your country, feel free to ask.\nFor any other question don't hesitate to contact us.",
         images: [
       "/images/115.webp",
       "/images/116.webp",
@@ -186,7 +214,7 @@ export const products: Product[] = [
     price: 13.99,
     color: "Red",
     stock: 1,
-    description: "1 piece of aluminium replacement reproduction E5 Motor guard link for the Tamiya Dyna storm - Blaster - TR15T. This product replaces the original E5 part on your Dyna Storm - Blaster - TR15T. Made of high grade 6082 aluminium, RED hard anodized.\n\nIf i forgot to mention something, dont hesitate to send me a message.\n\nHardware is not included beside the grub screws.\n\nPLEASE NOTE!!!\nOTHER PICTURES ARE ONLY FOR REFERENCE, NO OTHER PARTS ARE INCLUDED BESIDE THE ALLOY E5 MOTOR GUARD LINK IN BLACK COLOR FROM THE FIRST PICTURE.\n\nThis is NOT an original Tamiya product but we make the parts as good as possible to match the original.\n\nWe ensure that all parts are well packaged, all parcels are send trackable and we will provide the tracking number once the parcel is shipped.\n\nIf you need a quote for shipping to your country, feel free to ask.\nFor any other question don't hesitate to contact us.",
+    description: "1 piece of aluminium replacement reproduction E5 Motor guard link for the Tamiya Dyna storm - Blaster - TR15T. This product replaces the original E5 part on your Dyna Storm - Blaster - TR15T. Made of high grade 6082 aluminium, RED anodized.\n\nIf i forgot to mention something, dont hesitate to send me a message.\n\nHardware is not included beside the grub screws.\n\nPLEASE NOTE!!!\nOTHER PICTURES ARE ONLY FOR REFERENCE, NO OTHER PARTS ARE INCLUDED BESIDE THE ALLOY E5 MOTOR GUARD LINK IN BLACK COLOR FROM THE FIRST PICTURE.\n\nThis is NOT an original Tamiya product but we make the parts as good as possible to match the original.\n\nWe ensure that all parts are well packaged, all parcels are send trackable and we will provide the tracking number once the parcel is shipped.\n\nIf you need a quote for shipping to your country, feel free to ask.\nFor any other question don't hesitate to contact us.",
     images: [
       "/images/115.webp",
       "/images/116.webp",
