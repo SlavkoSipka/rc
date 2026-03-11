@@ -1319,6 +1319,7 @@ export const products: Product[] = [
     title: "Tamiya Dyna Storm - Blaster - TR15T Aluminium blue D2 & D1 hinge pin blocks",
     price: 40.99,
     stock: 1,
+    description: "1 pair of aluminium replacement reproduction D2-D1 hinge pin blocks. This product replaces the original plastic hinge pin block on your Dyna Storm - Blaster - TR15T. Made of high grade 6082 aluminium, BLUE anodized.\n\n\nHardware is not included beside the grub screws.\n\nPLEASE NOTE!!!\nOTHER PICTURES ARE ONLY FOR REFERENCE, NO OTHER PARTS ARE INCLUDED BESIDE A PAIR OF HINGE PIN BLOCKS FROM THE FIRST PICTURE\n\nThis is NOT an original Tamiya product but we make the parts as good as possible to match the original.\n\nWe ensure that all parts are well packaged, all parcels are send trackable and we will provide the tracking number once the parcel is shipped.\n\nIf you need a quote for shipping to your country, feel free to ask.\nFor any other question don't hesitate to contact us.",
     color: "Blue",
     images: [
       "/images/164.webp",
