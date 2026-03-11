@@ -2898,7 +2898,7 @@ export const products: Product[] = [
     price: 30.00,
     stock: 1,
     description: " 1 pair of aluminium replacement reproduction Tamiya TA01 - TA02 and TA02SW bell cranks from the 19118018 J-parts tree (J4 and J5) made of high grade 6082 alloy, RED anodized.\n\nThese bellcranks are designed to offer you a direct replacement for the stock bellcranks on your TA01-02 and TA02SW chassis.\n\nCAUTION!!! these bellcranks -DO NOT FIT- bathub chassis. These bellcranks are designed only for the FRP conversion chassis kit Tamiya TA02SW 47479\n\nPlease notice: Last 2 pictures are only for recerence, you will receive one pair of BLUE HARD anodized bellcranks as shown on the second picture.\n\n\nThis is NOT an original Tamiya product but we make the parts as good as possible to match the original.\n\nWe ensure that all parts are well packaged, all parcels are send trackable and we will provide the tracking number once the parcel is shipped.\n\nIf you need a quote for shipping to your country, feel free to ask.\nFor any other question don't hastate to contact us.",
-    color: "Blue",
+    color: "Red",
     images: [
       "/images/20260311_112751.jpg",
       "/images/20260311_112905.jpg",
