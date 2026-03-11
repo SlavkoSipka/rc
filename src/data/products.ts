@@ -2862,7 +2862,7 @@ export const products: Product[] = [
     ]
   },
   {
-    image: "/images/prvaslika.jpg",
+    image: "/images/siv kriv1.jpg",
     id: "Tamiya-TA02SW-Silver-Hard-Andodized-Bell-Cranks",
     title: "Tamiya TA02SW Silver Hard Andodized Bell Cranks Steering Arms 19118018 (47479)",
     price: 30.00,
@@ -2870,7 +2870,6 @@ export const products: Product[] = [
     description: "1 pair of aluminium replacement reproduction Tamiya TA01 - TA02 and TA02SW bell cranks from the 19118018 J-parts tree (J4 and J5) made of high grade 6082 alloy, SILVER HARD anodized.\n\nThese bellcranks are designed to offer you a direct replacement for the stock bellcranks on your TA01-02 and TA02SW chassis.\n\nCAUTION!!! these bellcranks -DO NOT FIT- bathub chassis. These bellcranks are designed only for the FRP conversion chassis kit Tamiya TA02SW 47479\n\nPlease notice: Last 2 pictures are only for recerence, you will receive one pair of SILVER HARD anodized bellcranks as shown on the second picture.\n\n\nThis is NOT an original Tamiya product but we make the parts as good as possible to match the original.\n\nWe ensure that all parts are well packaged, all parcels are send trackable and we will provide the tracking number once the parcel is shipped.\n\nIf you need a quote for shipping to your country, feel free to ask.\nFor any other question don't hastate to contact us.",
     color: "Silver",
     images: [
-      "/images/prvaslika.jpg",
       "/images/siv kriv1.jpg",
       "/images/siv kriv2.jpg",
       "/images/kriv2.jpg",
@@ -2878,7 +2877,7 @@ export const products: Product[] = [
     ]
   },
   {
-    image: "/images/prvaslika.jpg",
+    image: "/images/plav kriv1.jpg",
     id: "Tamiya-TA02SW-Blue-Andodized-Bell-Cranks",
     title: "Tamiya TA02SW Blue Andodized Bell Cranks Steering Arms 19118018 (47479)",
     price: 30.00,
@@ -2886,7 +2885,6 @@ export const products: Product[] = [
     description: "1 pair of aluminium replacement reproduction Tamiya TA01 - TA02 and TA02SW bell cranks from the 19118018 J-parts tree (J4 and J5) made of high grade 6082 alloy, BLUE HARD anodized.\n\nThese bellcranks are designed to offer you a direct replacement for the stock bellcranks on your TA01-02 and TA02SW chassis.\n\nCAUTION!!! these bellcranks -DO NOT FIT- bathub chassis. These bellcranks are designed only for the FRP conversion chassis kit Tamiya TA02SW 47479\n\nPlease notice: Last 2 pictures are only for recerence, you will receive one pair of BLUE HARD anodized bellcranks as shown on the second picture.\n\n\nThis is NOT an original Tamiya product but we make the parts as good as possible to match the original.\n\nWe ensure that all parts are well packaged, all parcels are send trackable and we will provide the tracking number once the parcel is shipped.\n\nIf you need a quote for shipping to your country, feel free to ask.\nFor any other question don't hastate to contact us.",
     color: "Blue",
     images: [
-      "/images/prvaslika.jpg",
       "/images/plav kriv1.jpg",
       "/images/plav kriv2.jpg",
       "/images/kriv2.jpg",
@@ -2894,7 +2892,7 @@ export const products: Product[] = [
     ]
     },
   {
-    image: "/images/prvaslika.jpg",
+    image: "/images/20260311_112751.jpg",
     id: "Tamiya-TA02SW-Red-Andodized-Bell-Cranks",
     title: "Tamiya TA02SW Red Andodized Bell Cranks Steering Arms 19118018 (47479)",
     price: 30.00,
@@ -2902,15 +2900,14 @@ export const products: Product[] = [
     description: " 1 pair of aluminium replacement reproduction Tamiya TA01 - TA02 and TA02SW bell cranks from the 19118018 J-parts tree (J4 and J5) made of high grade 6082 alloy, RED anodized.\n\nThese bellcranks are designed to offer you a direct replacement for the stock bellcranks on your TA01-02 and TA02SW chassis.\n\nCAUTION!!! these bellcranks -DO NOT FIT- bathub chassis. These bellcranks are designed only for the FRP conversion chassis kit Tamiya TA02SW 47479\n\nPlease notice: Last 2 pictures are only for recerence, you will receive one pair of BLUE HARD anodized bellcranks as shown on the second picture.\n\n\nThis is NOT an original Tamiya product but we make the parts as good as possible to match the original.\n\nWe ensure that all parts are well packaged, all parcels are send trackable and we will provide the tracking number once the parcel is shipped.\n\nIf you need a quote for shipping to your country, feel free to ask.\nFor any other question don't hastate to contact us.",
     color: "Blue",
     images: [
-      "/images/prvaslika.jpg",
-      "/images/plav kriv1.jpg",
-      "/images/plav kriv2.jpg",
+      "/images/20260311_112751.jpg",
+      "/images/20260311_112905.jpg",
       "/images/kriv2.jpg",
       "/images/kriv1.jpg"
     ]
   },
   {
-    image: "/images/prvaslika.jpg",
+    image: "/images/crn kriv1.jpg",
     id: "Tamiya-TA02SW-Black-Andodized-Bell-Cranks",
     title: "Tamiya TA02SW Black Andodized Bell Cranks Steering Arms 19118018 (47479)",
     price: 30.00,
@@ -2918,7 +2915,6 @@ export const products: Product[] = [
     description: "1 pair of aluminium replacement reproduction Tamiya TA01 - TA02 and TA02SW bell cranks from the 19118018 J-parts tree (J4 and J5) made of high grade 6082 alloy, BLACK anodized.\n\nThese bellcranks are designed to offer you a direct replacement for the stock bellcranks on your TA01-02 and TA02SW chassis.\n\nCAUTION!!! these bellcranks -DO NOT FIT- bathub chassis. These bellcranks are designed only for the FRP conversion chassis kit Tamiya TA02SW 47479\n\nPlease notice: Last 2 pictures are only for recerence, you will receive one pair of BLACK anodized bellcranks as shown on the second picture.\n\n\nThis is NOT an original Tamiya product but we make the parts as good as possible to match the original.\n\nWe ensure that all parts are well packaged, all parcels are send trackable and we will provide the tracking number once the parcel is shipped.\n\nIf you need a quote for shipping to your country, feel free to ask.\nFor any other question don't hastate to contact us.",
     color: "Black",
     images: [
-      "/images/prvaslika.jpg",
       "/images/crn kriv1.jpg",
       "/images/crn kriv2.jpg",
       "/images/kriv2.jpg",
