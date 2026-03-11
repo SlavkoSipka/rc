@@ -2808,10 +2808,27 @@ export const products: Product[] = [
     images: [
       "/images/siv cudan2.jpg",
       "/images/cudan.jpg",
+      "/images/cudan.jpg",
       "/images/cudan1.jpg",
       "/images/cudan2.jpg"
     ]
-  },
+     },
+  {
+    image: "/images/20260311_113028.jpg",
+    id: "Team-Losi-XX4-red-anodized-Bell-Cranks",
+    title: "Team Losi XX4 red anodized Aluminium Bell Cranks Steering Arms",
+    price: 35.00,
+    stock: 1,
+    description: "1 pair of aluminium replacement reproduction bell cranks (61 and 63 - A-1550) for Team Losi XX4 made of high grade 6082 alloy, RED anodized.\n\nThese belcranks are a direct replacement for the part number 61 and 63 from the user manual and the Steering Linkage/Bellcrank Set (4WD) A-1550.\n\n\nOther pictures are only for recerence, you will receive one set of RED anodized bellcranks from the first picture, screws are not included.\n\nThis is NOT an original Tamiya product but we make the parts as good as possible to match the original.\n\nWe ensure that all parts are well packaged, all parcels are send trackable and we will provide the tracking number once the parcel is shipped.\n\nIf you need a quote for shipping to your country, feel free to ask.\nFor any other question don't hastate to contact us.",
+    color: "Red",
+    images: [
+      "/images/20260311_113028.jpg",
+      "/images/20260311_113148.jpg",
+      "/images/cudan.jpg",
+      "/images/cudan1.jpg",
+      "/images/cudan2.jpg"
+    ]
+    },
   {
     image: "/images/plav cudan1.jpg",
     id: "Team-Losi-XX4-Blue-Bell-Cranks",
