@@ -1340,7 +1340,6 @@ export const products: Product[] = [
     images: [
       "/images/20210523_130513.jpg",
       "/images/20210523_130532.jpg",
-      "/images/166.webp",
       "/images/167.webp",
       "/images/168.webp"
       ]
@@ -1357,7 +1356,22 @@ export const products: Product[] = [
       "/images/20231209_130045.jpg",
       "/images/20231209_130101.jpg",
       "/images/20231209_130114.jpg",
-      "/images/166.webp",
+      "/images/167.webp",
+      "/images/168.webp"
+      ]
+    },
+  {
+    image: "/images/20231209_130137.jpg",
+    id: "tamiya-dyna-storm-blaster-tr15t-hard-anodized-silver-d2-d1-hinge-pin-blocks",
+    title: "Tamiya Dyna Storm - Blaster - TR15T Aluminium Hard Anodized Silver D2 & D1 hinge pin blocks",
+    price: 40.99,
+    stock: 1,
+    description: "1 pair of aluminium replacement reproduction D2-D1 hinge pin blocks. This product replaces the original plastic hinge pin block on your Dyna Storm - Blaster - TR15T. Made of high grade 6082 aluminium, HARD SILVER anodized.\n\n\nHardware is not included beside the grub screws.\n\nPLEASE NOTE!!!\nOTHER PICTURES ARE ONLY FOR REFERENCE, NO OTHER PARTS ARE INCLUDED BESIDE A PAIR OF HINGE PIN BLOCKS FROM THE FIRST PICTURE\n\nThis is NOT an original Tamiya product but we make the parts as good as possible to match the original.\n\nWe ensure that all parts are well packaged, all parcels are send trackable and we will provide the tracking number once the parcel is shipped.\n\nIf you need a quote for shipping to your country, feel free to ask.\nFor any other question don't hesitate to contact us.",
+    color: "Silver",
+    images: [
+      "/images/20231209_130137.jpg",
+      "/images/20231209_130150.jpg",
+      "/images/20231209_130159.jpg",
       "/images/167.webp",
       "/images/168.webp"
       ]
