@@ -2809,7 +2809,6 @@ export const products: Product[] = [
       "/images/20260227_161244.jpg",
       "/images/siv cudan2.jpg",
       "/images/cudan.jpg",
-      "/images/cudan.jpg",
       "/images/cudan1.jpg",
       "/images/cudan2.jpg"
     ]
