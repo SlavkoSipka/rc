@@ -433,6 +433,20 @@ export const products: Product[] = [
     title: "Tamiya Dyna Storm - Blaster - TR15T red D4 gearbox - damper tower link",
     price: 18.99,
     stock: 1,
+    description: "1 piece of aluminium replacement reproduction D4 gearbox/damper tower link for the Tamiya Dyna storm - Blaster - TR15T. This product replaces the original D4 part on your Dyna Storm - Blaster - TR15T. Made of high grade 6082 aluminium, SILVER HARD anodized.\n\nHardware is not included beside the grub screws.\n\nPLEASE NOTE!!!\nOTHER PICTURES ARE ONLY FOR REFERENCE, NO OTHER PARTS ARE INCLUDED BESIDE THE ALLOY D4 DAMPER TOWER LINK IN SILVER HARD ANODIZED COLOR FROM THE FIRST PICTURE.\n\nThis is NOT an original Tamiya product but we make the parts as good as possible to match the original.",
+    color: "Silver",
+    images: [
+      "/images/83.webp",
+      "/images/84.webp",
+      "/images/85.webp"
+    ]
+      },
+  {
+    image: "/images/83.webp",
+    id: "tamiya-dyna-storm-blaster-tr15t-silver-hard-anodized-d4-gearbox-link",
+    title: "Tamiya Dyna Storm - Blaster - TR15T silver hard anodized D4 gearbox - damper tower link",
+    price: 18.99,
+    stock: 1,
     description: "1 piece of aluminium replacement reproduction D4 gearbox/damper tower link for the Tamiya Dyna storm - Blaster - TR15T. This product replaces the original D4 part on your Dyna Storm - Blaster - TR15T. Made of high grade 6082 aluminium, RED anodized.\n\nHardware is not included beside the grub screws.\n\nPLEASE NOTE!!!\nOTHER PICTURES ARE ONLY FOR REFERENCE, NO OTHER PARTS ARE INCLUDED BESIDE THE ALLOY D4 DAMPER TOWER LINK IN RED COLOR FROM THE FIRST PICTURE.\n\nThis is NOT an original Tamiya product but we make the parts as good as possible to match the original.",
     color: "Red",
     images: [
