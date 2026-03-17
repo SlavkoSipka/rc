@@ -44,5 +44,5 @@ export const outletDefectProducts: Product[] = [
       "/images/173.webp",
       "/images/174.webp"
     ]
-  }
+  },
 ]
