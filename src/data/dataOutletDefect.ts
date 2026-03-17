@@ -30,5 +30,19 @@ export const outletDefectProducts: Product[] = [
       "/images/w7.webp",
       "/images/w8.webp"
     ]
+    },
+  {
+    image: "/images/20260317_180344.jpg",
+    id: "tamiya-super-astute-red-anodized-bell-cranks-outlet",
+    title: "Tamiya Super Astute Aluminium Red Anodized Bell Cranks Steering Arms outlet",
+    price: 22.00,
+    stock: 1,
+    description: "The extension is in a different color, other then that, the part is fully functional\n\n1 pair of aluminium replacement reproduction bell cranks (D2 and D3) for Tamiya Super Astute and Astute made of high grade 6082 alloy, RED anodized.\n\n\nLast 2 pictures are only for recerence, you will receive one set of RED HARD bell cranks from the first picture, and you need one ball nut for instalation as shown on the last picture.\n\nThis is NOT an original Tamiya product but we make the parts as good as possible to match the original.\n\nWe ensure that all parts are well packaged, all parcels are send trackable and we will provide the tracking number once the parcel is shipped.\n\nIf you need a quote for shipping to your country, feel free to ask.\nFor any other question don't hastate to contact us.",
+    color: "Red",
+    images: [
+      "/images/20260317_180344.jpg",
+      "/images/173.webp",
+      "/images/174.webp"
+      ]
   }
 ];
