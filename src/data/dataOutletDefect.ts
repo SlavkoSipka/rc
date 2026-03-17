@@ -30,7 +30,7 @@ export const outletDefectProducts: Product[] = [
       "/images/w7.webp",
       "/images/w8.webp"
     ]
-    },
+  },
   {
     image: "/images/20260317_180344.jpg",
     id: "tamiya-super-astute-red-anodized-bell-cranks-outlet",
@@ -43,6 +43,6 @@ export const outletDefectProducts: Product[] = [
       "/images/20260317_180344.jpg",
       "/images/173.webp",
       "/images/174.webp"
-      ]
+    ]
   }
-];
+]
