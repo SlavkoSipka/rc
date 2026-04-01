@@ -3034,13 +3034,70 @@ export const products: Product[] = [
     title: "Tamiya Super Astute One Piece Aluminium Silver Anodized D5 Front Bulkhead 30",
     price: 70.00,
     stock: 1,
-    description: "1 piece of aluminium replacement reproduction front bulkhead - (D5) for Tamiya Super Astute and Astute made of high grade 6082 alloy, SILVER ANODIZED anodized.\n\nThis high grade 6082 one piece aluminium bulkhead is designed as a direct fit upgrade for the Tamiya Astute, Super Astute front bulkhead with increased Kick-up angle. and a total weight of 51 grams.\nFactory kick-up is 15 degrees, this part has 30 degrees bringing it inline with other popular race buggies of the late 80's & 90's like the RC10.\n\nThe increased kick-up gives the buggy much better handling on rough and bumpy tracks, allowing the suspension to absorb the bumps and track better through rough sections.\nIt also tames down the steering making it less aggressive and twitchy and making it easier to drive also making it more suitable to loose surfaces.\n\nThis part is designed and engineered to be a precision drop in replacement exceeding the factory part's accuracy and specification.\n\n\nLast 4 pictures are only for recerence, you will receive ONE SILVER ANODIZED front bulkhead.\n\nThis is NOT an original Tamiya product but we make the parts as good as possible to match the original.\n\nWe ensure that all parts are well packaged, all parcels are send trackable and we will provide the tracking number once the parcel is shipped.\n\nIf you need a quote for shipping to your country, feel free to ask.\nFor any other question don't hastate to contact us.",
+    description: "1 piece of aluminium replacement reproduction front bulkhead - (D5) for Tamiya Super Astute and Astute made of high grade 6082 alloy, SILVER ANODIZED.\n\nThis high grade 6082 one piece aluminium bulkhead is designed as a direct fit upgrade for the Tamiya Astute, Super Astute front bulkhead with increased Kick-up angle. and a total weight of 51 grams.\nFactory kick-up is 15 degrees, this part has 30 degrees bringing it inline with other popular race buggies of the late 80's & 90's like the RC10.\n\nThe increased kick-up gives the buggy much better handling on rough and bumpy tracks, allowing the suspension to absorb the bumps and track better through rough sections.\nIt also tames down the steering making it less aggressive and twitchy and making it easier to drive also making it more suitable to loose surfaces.\n\nThis part is designed and engineered to be a precision drop in replacement exceeding the factory part's accuracy and specification.\n\n\nLast 4 pictures are only for recerence, you will receive ONE SILVER ANODIZED front bulkhead.\n\nThis is NOT an original Tamiya product but we make the parts as good as possible to match the original.\n\nWe ensure that all parts are well packaged, all parcels are send trackable and we will provide the tracking number once the parcel is shipped.\n\nIf you need a quote for shipping to your country, feel free to ask.\nFor any other question don't hastate to contact us.",
     color: "Silver",
     images: [
       "/images/20260323_101647.jpg",
       "/images/20260323_101705.jpg",
       "/images/20260323_101718.jpg",
       "/images/20260323_101726.jpg",
+      "/images/20260301_175143.jpg",
+      "/images/20260301_175318.jpg",
+      "/images/20260301_175755.jpg",
+      "/images/20260301_180019.jpg"
+    ]
+    },
+  {
+    image: "/images/20260401_100940.jpg",
+    id: "Tamiya-Astute-Silver-Hard-Anoized-Front-Bulkhead",
+    title: "Tamiya Super Astute One Piece Aluminium Silver Hard Anodized D5 Front Bulkhead 30",
+    price: 70.00,
+    stock: 1,
+    description: "1 piece of aluminium replacement reproduction front bulkhead - (D5) for Tamiya Super Astute and Astute made of high grade 6082 alloy, SILVER HARD ANODIZED.\n\nThis high grade 6082 one piece aluminium bulkhead is designed as a direct fit upgrade for the Tamiya Astute, Super Astute front bulkhead with increased Kick-up angle. and a total weight of 51 grams.\nFactory kick-up is 15 degrees, this part has 30 degrees bringing it inline with other popular race buggies of the late 80's & 90's like the RC10.\n\nThe increased kick-up gives the buggy much better handling on rough and bumpy tracks, allowing the suspension to absorb the bumps and track better through rough sections.\nIt also tames down the steering making it less aggressive and twitchy and making it easier to drive also making it more suitable to loose surfaces.\n\nThis part is designed and engineered to be a precision drop in replacement exceeding the factory part's accuracy and specification.\n\n\nLast 4 pictures are only for recerence, you will receive ONE SILVER HARD ANODIZED front bulkhead.\n\nThis is NOT an original Tamiya product but we make the parts as good as possible to match the original.\n\nWe ensure that all parts are well packaged, all parcels are send trackable and we will provide the tracking number once the parcel is shipped.\n\nIf you need a quote for shipping to your country, feel free to ask.\nFor any other question don't hastate to contact us.",
+    color: "Silver",
+    images: [
+      "/images/20260401_100940.jpg",
+      "/images/20260401_101023.jpg",
+      "/images/20260401_101109.jpg",
+      "/images/20260401_101120.jpg",
+      "/images/20260301_175143.jpg",
+      "/images/20260301_175318.jpg",
+      "/images/20260301_175755.jpg",
+      "/images/20260301_180019.jpg"
+    ]
+    },
+  {
+    image: "/images/20260401_101419.jpg",
+    id: "Tamiya-Astute-Red-Anoized-Front-Bulkhead",
+    title: "Tamiya Super Astute One Piece Aluminium Red Anodized D5 Front Bulkhead 30",
+    price: 70.00,
+    stock: 1,
+    description: "1 piece of aluminium replacement reproduction front bulkhead - (D5) for Tamiya Super Astute and Astute made of high grade 6082 alloy, RED ANODIZED.\n\nThis high grade 6082 one piece aluminium bulkhead is designed as a direct fit upgrade for the Tamiya Astute, Super Astute front bulkhead with increased Kick-up angle. and a total weight of 51 grams.\nFactory kick-up is 15 degrees, this part has 30 degrees bringing it inline with other popular race buggies of the late 80's & 90's like the RC10.\n\nThe increased kick-up gives the buggy much better handling on rough and bumpy tracks, allowing the suspension to absorb the bumps and track better through rough sections.\nIt also tames down the steering making it less aggressive and twitchy and making it easier to drive also making it more suitable to loose surfaces.\n\nThis part is designed and engineered to be a precision drop in replacement exceeding the factory part's accuracy and specification.\n\n\nLast 4 pictures are only for recerence, you will receive ONE RED ANODIZED front bulkhead.\n\nThis is NOT an original Tamiya product but we make the parts as good as possible to match the original.\n\nWe ensure that all parts are well packaged, all parcels are send trackable and we will provide the tracking number once the parcel is shipped.\n\nIf you need a quote for shipping to your country, feel free to ask.\nFor any other question don't hastate to contact us.",
+    color: "Red",
+    images: [
+      "/images/20260401_101419.jpg",
+      "/images/20260401_101425.jpg",
+      "/images/20260401_101435.jpg",
+      "/images/20260401_101441.jpg",
+      "/images/20260301_175143.jpg",
+      "/images/20260301_175318.jpg",
+      "/images/20260301_175755.jpg",
+      "/images/20260301_180019.jpg"
+    ]
+    },
+  {
+    image: "/images/20260401_101333.jpg",
+    id: "Tamiya-Astute-Black-Anoized-Front-Bulkhead",
+    title: "Tamiya Super Astute One Piece Aluminium Black Anodized D5 Front Bulkhead 30",
+    price: 70.00,
+    stock: 1,
+    description: "1 piece of aluminium replacement reproduction front bulkhead - (D5) for Tamiya Super Astute and Astute made of high grade 6082 alloy, BLACK ANODIZED.\n\nThis high grade 6082 one piece aluminium bulkhead is designed as a direct fit upgrade for the Tamiya Astute, Super Astute front bulkhead with increased Kick-up angle. and a total weight of 51 grams.\nFactory kick-up is 15 degrees, this part has 30 degrees bringing it inline with other popular race buggies of the late 80's & 90's like the RC10.\n\nThe increased kick-up gives the buggy much better handling on rough and bumpy tracks, allowing the suspension to absorb the bumps and track better through rough sections.\nIt also tames down the steering making it less aggressive and twitchy and making it easier to drive also making it more suitable to loose surfaces.\n\nThis part is designed and engineered to be a precision drop in replacement exceeding the factory part's accuracy and specification.\n\n\nLast 4 pictures are only for recerence, you will receive ONE BLACK ANODIZED front bulkhead.\n\nThis is NOT an original Tamiya product but we make the parts as good as possible to match the original.\n\nWe ensure that all parts are well packaged, all parcels are send trackable and we will provide the tracking number once the parcel is shipped.\n\nIf you need a quote for shipping to your country, feel free to ask.\nFor any other question don't hastate to contact us.",
+    color: "SBlack",
+    images: [
+      "/images/20260401_101333.jpg",
+      "/images/20260401_101343.jpg",
+      "/images/20260401_101344.jpg",
+      "/images/20260401_101407.jpg",
       "/images/20260301_175143.jpg",
       "/images/20260301_175318.jpg",
       "/images/20260301_175755.jpg",
