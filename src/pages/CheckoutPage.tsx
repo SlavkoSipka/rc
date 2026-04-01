@@ -6,7 +6,7 @@ import { useDiscount } from '../contexts/DiscountContext';
 import { supabase } from '../lib/supabase';
 import { Header } from '../components/Header'; 
 import { Footer } from '../components/Footer';
-import { formatPrice } from '../utils/format';
+import { formatPrice, sumDiscountedLineTotals } from '../utils/format';
 import { useRef, useState } from 'react';
 import emailjs from '@emailjs/browser';
 
@@ -252,7 +252,7 @@ export function CheckoutPage() {
   };
 
   const subtotal = itemsWithPrices.reduce((total, item) => total + (item.currentPrice * item.quantity), 0);
-  const discountedSubtotal = applyDiscount(subtotal);
+  const discountedSubtotal = sumDiscountedLineTotals(itemsWithPrices, applyDiscount);
   const totalQuantity = items.reduce((total, item) => total + item.quantity, 0);
   const shipping = totalQuantity > 0 ? 8.50 + (Math.max(0, totalQuantity - 1) * 2) : 0;
   const total = discountedSubtotal + shipping;
