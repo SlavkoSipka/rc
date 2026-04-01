@@ -38,11 +38,12 @@ export function PaymentPage() {
   
   // Get latest prices from Supabase for each item (already discounted in database)
   const [itemsWithPrices, setItemsWithPrices] = useState(items);
+  const [pricesLoaded, setPricesLoaded] = useState(false);
   
   useEffect(() => {
     const fetchLatestPrices = async () => {
       const updatedItems = await Promise.all(
-        items.map(async (item) => {
+        items.map(async (item: any) => {
           const { data } = await supabase
             .from('products')
             .select('price')
@@ -56,6 +57,7 @@ export function PaymentPage() {
         })
       );
       setItemsWithPrices(updatedItems);
+      setPricesLoaded(true);
     };
     
     fetchLatestPrices();
@@ -142,9 +144,9 @@ export function PaymentPage() {
     }
   }, []); // Empty dependency array ensures script is loaded only once
 
-  // Initialize PayPal buttons after script loads
+  // Initialize PayPal buttons after script loads AND prices are fetched
   useEffect(() => {
-    if (paypalScriptLoaded && window.paypal && paypalButtonsContainer.current) {
+    if (paypalScriptLoaded && pricesLoaded && window.paypal && paypalButtonsContainer.current) {
       // Clear existing buttons
       paypalButtonsContainer.current.innerHTML = '';
       
@@ -246,7 +248,7 @@ export function PaymentPage() {
           setPaypalError('Failed to load PayPal buttons. Please refresh the page and try again.');
         });
     }
-  }, [paypalScriptLoaded, itemsWithPrices, shipping, navigate]);
+  }, [paypalScriptLoaded, pricesLoaded, shipping, navigate]);
 
   // Helper function to get country code for PayPal
   const getCountryCode = (country: string): string => {
