@@ -61,21 +61,26 @@ export function PaymentPage() {
     fetchLatestPrices();
   }, [items]);
 
-  // Format items for PayPal — round each unit price first, then derive item_total
-  // from the same rounded values so PayPal's ITEM_TOTAL check always passes.
-  const paypalItems = itemsWithPrices.map((item: any) => ({
-    name: item.title.substring(0, 127),
-    unit_amount: {
-      currency_code: PAYPAL_CONFIG.CURRENCY,
-      value: parseFloat(applyDiscount(item.currentPrice ?? item.price).toFixed(2)).toString()
-    },
-    quantity: item.quantity.toString(),
-    category: 'PHYSICAL_GOODS'
-  }));
+  // Build PayPal line items and compute item_total from the same rounded values
+  // so PayPal's ITEM_TOTAL check is guaranteed to pass.
+  const buildPaypalData = () => {
+    const items = itemsWithPrices.map((item: any) => ({
+      name: item.title.substring(0, 127),
+      unit_amount: {
+        currency_code: PAYPAL_CONFIG.CURRENCY,
+        value: parseFloat(applyDiscount(item.currentPrice ?? item.price).toFixed(2)).toString()
+      },
+      quantity: item.quantity.toString(),
+      category: 'PHYSICAL_GOODS'
+    }));
+    const itemTotal = items.reduce((sum: number, pi: any) => {
+      return sum + parseFloat(pi.unit_amount.value) * parseInt(pi.quantity);
+    }, 0);
+    return { items, itemTotal };
+  };
 
-  const paypalItemTotal = paypalItems.reduce((sum: number, pi: any) => {
-    return sum + parseFloat(pi.unit_amount.value) * parseInt(pi.quantity);
-  }, 0);
+  const paypalDataRef = useRef(buildPaypalData());
+  paypalDataRef.current = buildPaypalData();
 
   const sendOrderConfirmation = async (paypalOrderData: any) => {
     try {
@@ -154,17 +159,18 @@ export function PaymentPage() {
           },
           createOrder: (_data: any, actions: any) => {
             console.log('Creating PayPal order...');
+            const { items: ppItems, itemTotal } = paypalDataRef.current;
             return actions.order.create({
               intent: PAYPAL_CONFIG.INTENT,
               purchase_units: [{
                 reference_id: 'default',
                 amount: {
                   currency_code: PAYPAL_CONFIG.CURRENCY,
-                  value: parseFloat((paypalItemTotal + shipping).toFixed(2)).toString(),
+                  value: parseFloat((itemTotal + shipping).toFixed(2)).toString(),
                   breakdown: {
                     item_total: {
                       currency_code: PAYPAL_CONFIG.CURRENCY,
-                      value: parseFloat(paypalItemTotal.toFixed(2)).toString()
+                      value: parseFloat(itemTotal.toFixed(2)).toString()
                     },
                     shipping: {
                       currency_code: PAYPAL_CONFIG.CURRENCY,
@@ -172,7 +178,7 @@ export function PaymentPage() {
                     }
                   }
                 },
-                items: paypalItems,
+                items: ppItems,
                 description: `Order from Custom RC Parts - ${items.length} item(s)`,
                 shipping: {
                   name: {
@@ -240,7 +246,7 @@ export function PaymentPage() {
           setPaypalError('Failed to load PayPal buttons. Please refresh the page and try again.');
         });
     }
-  }, [paypalScriptLoaded, items, itemsWithPrices, shipping, navigate, paypalItems, paypalItemTotal, paypalButtonsContainer]);
+  }, [paypalScriptLoaded, itemsWithPrices, shipping, navigate]);
 
   // Helper function to get country code for PayPal
   const getCountryCode = (country: string): string => {
