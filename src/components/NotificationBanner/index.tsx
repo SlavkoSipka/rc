@@ -13,7 +13,7 @@ export function NotificationBanner() {
 
   if (!isVisible) return null;
 
-  const message = `⚡⚡⚡ IMPORTANT NOTICE...Our post office and customs has suspended export to USA due to the new import regulations and added taxes. We are monitoring this situation and hope that this will be sorted quickly⚡⚡⚡`;
+  const message = `⚡⚡⚡ IMPORTANT NOTICE...Our post office and customs has suspended export to USA due to the new import regulations and added taxes. We are monitoring this situation and hope that this will be sorted quickly⚡⚡⚡\nTracking numbers are being uploaded to PayPal right after dispatch`;
 
   return (
     <div className="bg-red-600 text-white py-3 relative">
