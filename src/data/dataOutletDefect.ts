@@ -30,26 +30,12 @@ export const outletDefectProducts: Product[] = [
       "/images/w7.webp",
       "/images/w8.webp"
     ]
-  },
-  {
-    image: "/images/20260317_180344.jpg",
-    id: "tamiya-super-astute-red-anodized-bell-cranks-outlet",
-    title: "Tamiya Super Astute Aluminium Red Anodized Bell Cranks Steering Arms outlet",
-    price: 22.00,
-    stock: 1,
-    description: "The extension is in a different color, other then that, the part is fully functional\n\n1 pair of aluminium replacement reproduction bell cranks (D2 and D3) for Tamiya Super Astute and Astute made of high grade 6082 alloy, RED anodized.\n\n\nLast 2 pictures are only for recerence, you will receive one set of RED HARD bell cranks from the first picture, and you need one ball nut for instalation as shown on the last picture.\n\nThis is NOT an original Tamiya product but we make the parts as good as possible to match the original.\n\nWe ensure that all parts are well packaged, all parcels are send trackable and we will provide the tracking number once the parcel is shipped.\n\nIf you need a quote for shipping to your country, feel free to ask.\nFor any other question don't hastate to contact us.",
-    color: "Red",
-    images: [
-      "/images/20260317_180344.jpg",
-      "/images/173.webp",
-      "/images/174.webp"
-    ]
      },
   {
     image: "/images/20260402_193411.jpg",
     id: "Tamiya-Astute-Silver-Front-Bulkhead-Outlet",
     title: "Tamiya Super Astute One Piece Aluminium Silver Anodized D5 Front Bulkhead 30 Outlet",
-    price: 70.00,
+    price: 58.00,
     stock: 1,
     description: "As shown in the picture, small mistake during machining on the lower side, other then that the Bulkhead is perfect\n\n\n\n1 piece of aluminium replacement reproduction front bulkhead - (D5) for Tamiya Super Astute and Astute made of high grade 6082 alloy, SILVER ANODIZED.\n\nThis high grade 6082 one piece aluminium bulkhead is designed as a direct fit upgrade for the Tamiya Astute, Super Astute front bulkhead with increased Kick-up angle. and a total weight of 51 grams.\nFactory kick-up is 15 degrees, this part has 30 degrees bringing it inline with other popular race buggies of the late 80's & 90's like the RC10.\n\nThe increased kick-up gives the buggy much better handling on rough and bumpy tracks, allowing the suspension to absorb the bumps and track better through rough sections.\nIt also tames down the steering making it less aggressive and twitchy and making it easier to drive also making it more suitable to loose surfaces.\n\nThis part is designed and engineered to be a precision drop in replacement exceeding the factory part's accuracy and specification.\n\n\nLast 4 pictures are only for recerence, you will receive ONE SILVER ANODIZED front bulkhead.\n\nThis is NOT an original Tamiya product but we make the parts as good as possible to match the original.\n\nWe ensure that all parts are well packaged, all parcels are send trackable and we will provide the tracking number once the parcel is shipped.\n\nIf you need a quote for shipping to your country, feel free to ask.\nFor any other question don't hastate to contact us.",
     color: "Silver",
