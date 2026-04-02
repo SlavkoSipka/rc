@@ -120,7 +120,6 @@ export const products: Product[] = [
     images: [
       "/images/p18.webp",
       "/images/p19.webp",
-      "/images/123.webp",
       "/images/124.webp",
       "/images/125.webp",
       "/images/126.webp",
