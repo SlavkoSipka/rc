@@ -512,20 +512,6 @@ export const products: Product[] = [
       "/images/211.webp",
       "/images/212.webp"
     ]
-  },
-  {
-    image: "/images/76.webp",
-    id: "yokomo-super-dogfighter-rere-yz870c-motor-mount",
-    title: "Yokomo Super Dogfighter Rere YZ-870C Aluminium Motor Mount Black Anodized",
-    price: 72.99,
-    stock: 1,
-    description: "One Yokomo Super Dogfighter Rere YZ-870C Motor Mount BLACK Anodized\n\nThis motor mount is made of high grade 6082 aluminium, CNC machined up to the highest standards and afterwards anodized for maximum scratch resistance\n\nCAUTION... this motor mount will only fit the rere superdogfighter, this motor mount will not fit the old yokomo YZ10 ect...\n\nPLEASE NOTE!!!\nScrews are not included beside those already shown in th pictures\n\nIMPORTANT!!!\nOnly parts from the first picture are included, last picture is only for reference.",
-    color: "Black",
-    images: [
-      "/images/76.webp",
-      "/images/77.webp",
-      "/images/78.webp"
-    ]
     },
   {
     image: "/images/20251016_170847.jpg",
