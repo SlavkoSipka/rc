@@ -45,18 +45,4 @@ export const outletDefectProducts: Product[] = [
       "/images/174.webp"
     ]
   },
-  {
-    image: "/images/20260317_184854.jpg",
-    id: "yokomo-super-dogfighter-rere-yz-870c-aluminium-bulkheads-anodized-blue-outlet",
-    title: "Yokomo Super Dogfighter Rere YZ-870C Aluminium Motor Mount Blue Anodized outlet",
-    price: 35.00,
-    description: "Visible are some decolorations during the anodizing process, odher then that the motor mount is fully functional\n\nOne Yokomo Super Dogfighter Rere YZ-870C Motor Mount BLUE Anodized,\n\nThis motor mount is made of high grade 6082 aluminium, CNC machined up to the highest standards and afterwards hard anodized for maximum scratch resistance\n\n\nCAUTION... this motor mount will only fit the rere superdogfighter, this motor mount will not fit the old yokomo YZ10 ect...\n\nPLEASE NOTE!!!\nScrews are not included beside those already shown in th pictures\n\nIMPORTANT!!!\nOnly parts from the first picture are included, last picture is only for reference.\n\n\n\nThis is NOT an original Tamiya product but we make the parts as good as possible to match the original.\n\nWe ensure that all parts are well packaged, all parcels are send trackable and we will provide the tracking number once the parcel is shipped.\n\nIf you need a quote for shipping to your country, feel free to ask.\nFor any other question don't hesitate to contact us.",
-    color: "Blue",
-    images: [
-      "/images/20260317_184854.jpg",
-      "/images/20260317_184858.jpg",
-      "/images/20260317_184918.jpg",
-      "/images/20260317_184923.jpg"
-      ]
-  },
 ]
