@@ -13,6 +13,7 @@ import { PaymentPage } from './pages/PaymentPage';
 import { CheckoutSuccessPage } from './pages/CheckoutSuccessPage';
 import { TermsAndPrivacyPage } from './pages/TermsAndPrivacyPage';
 import { ProjectPage } from './pages/ProjectPage';
+import { AdminProductsPage } from './pages/AdminProductsPage';
 import { NotificationBanner } from './components/NotificationBanner';
 
 function App() {
@@ -43,6 +44,7 @@ function App() {
         <Route path="/checkout/success" element={<CheckoutSuccessPage />} />
         <Route path="/terms-and-privacy" element={<TermsAndPrivacyPage />} />
         <Route path="/about-project" element={<ProjectPage />} />
+        <Route path="/admin/products" element={<AdminProductsPage />} />
       </Routes>
     </div>
   );

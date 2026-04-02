@@ -21,20 +21,26 @@ export function HomePage() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const productsRef = useRef<HTMLDivElement>(null);
-  const [productData, setProductData] = useState<Record<string, { price: number; stock: number }>>({});
+  const [productData, setProductData] = useState<
+    Record<string, { price: number; stock: number; is_new: boolean }>
+  >({});
 
-  // Jedan batch fetch za SVE proizvode - cena i stanje
+  // Jedan batch fetch za SVE proizvode - cena, stanje, is_new
   useEffect(() => {
     async function fetchAllProductData() {
       const { data, error } = await supabase
         .from('products')
-        .select('id, price, stock');
+        .select('id, price, stock, is_new');
       
       if (!error && data) {
-        const map = data.reduce((acc, item) => ({
+        const map = data.reduce((acc, item: { id: string; price: number; stock: number | null; is_new?: boolean | null }) => ({
           ...acc,
-          [item.id]: { price: item.price, stock: item.stock }
-        }), {} as Record<string, { price: number; stock: number }>);
+          [item.id]: {
+            price: item.price,
+            stock: item.stock ?? 0,
+            is_new: Boolean(item.is_new)
+          }
+        }), {} as Record<string, { price: number; stock: number; is_new: boolean }>);
         setProductData(map);
       }
     }
@@ -77,10 +83,33 @@ export function HomePage() {
   const startIndex = (currentPage - 1) * PRODUCTS_PER_PAGE;
   const paginatedProducts = sortedProducts.slice(startIndex, startIndex + PRODUCTS_PER_PAGE);
 
+  const newProducts = useMemo(() => {
+    return products.filter((p) => productData[p.id]?.is_new);
+  }, [productData]);
+
   return (
     <>
       <Header />
       <Hero />
+
+      {/* New Products — proizvodi sa is_new = true u Supabase; i dalje uključeni u Featured ispod */}
+      {newProducts.length > 0 && (
+        <section className="py-12 bg-white border-b border-gray-100">
+          <div className="container mx-auto px-4">
+            <h2 className="text-2xl font-bold mb-8">New Products</h2>
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+              {newProducts.map((product) => (
+                <ProductCard
+                  key={`new-${product.id}`}
+                  {...product}
+                  preloadedPrice={productData[product.id]?.price}
+                  preloadedStock={productData[product.id]?.stock}
+                />
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
       
       {/* Featured Products */}
       <section className="py-12 bg-blue-50">
