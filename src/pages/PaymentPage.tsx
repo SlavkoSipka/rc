@@ -6,6 +6,7 @@ import { useProductStock } from '../hooks/useProductStock';
 import { useDiscount } from '../contexts/DiscountContext';
 import { supabase } from '../lib/supabase';
 import { PAYPAL_CONFIG } from '../config/paypal';
+import { getCountryCode } from '../data/countries';
 import { formatPrice } from '../utils/format';
 import emailjs from '@emailjs/browser';
 
@@ -249,38 +250,6 @@ export function PaymentPage() {
         });
     }
   }, [paypalScriptLoaded, pricesLoaded, shipping, navigate]);
-
-  // Helper function to get country code for PayPal
-  const getCountryCode = (country: string): string => {
-    const countryMap: { [key: string]: string } = {
-      'United States': 'US',
-      'Canada': 'CA',
-      'United Kingdom': 'GB',
-      'Germany': 'DE',
-      'France': 'FR',
-      'Italy': 'IT',
-      'Spain': 'ES',
-      'Australia': 'AU',
-      'Japan': 'JP',
-      'China': 'CN',
-      'India': 'IN',
-      'Brazil': 'BR',
-      'Mexico': 'MX',
-      'Russia': 'RU',
-      'South Korea': 'KR',
-      'Serbia': 'RS',
-      'Netherlands': 'NL',
-      'Belgium': 'BE',
-      'Austria': 'AT',
-      'Switzerland': 'CH',
-      'Poland': 'PL',
-      'Sweden': 'SE',
-      'Norway': 'NO',
-      'Denmark': 'DK',
-      'Finland': 'FI'
-    };
-    return countryMap[country] || 'US';
-  };
 
   return (
     <>
