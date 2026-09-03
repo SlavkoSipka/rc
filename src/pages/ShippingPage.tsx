@@ -23,6 +23,12 @@ export function ShippingPage() {
                   the package is "in transit" to you.
                 </p>
 
+                <h2 className="text-xl font-bold mb-4">Shipping Costs</h2>
+                <ul className="space-y-2 text-gray-600 mb-8">
+                  <li>United States: flat &euro;25.90 ($30) per order, regardless of how many items you buy.</li>
+                  <li>All other countries: &euro;8.50 for the first item, plus &euro;2 for each additional item.</li>
+                </ul>
+
                 <h2 className="text-xl font-bold mb-4">Dispatch</h2>
                 <p className="text-gray-600 mb-8">
                   All orders paid for by 2.45pm CET will be posted that same working day.

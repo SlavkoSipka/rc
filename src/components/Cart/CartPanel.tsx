@@ -2,6 +2,7 @@ import { ShoppingBag, X, Plus, Minus, Trash2 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useCart } from '../../contexts/CartContext';
 import { formatPrice } from '../../utils/format';
+import { calculateShipping, readShippingCountry } from '../../utils/shipping';
 import { useEffect, useState, useCallback } from 'react';
 import { useDiscount } from '../../contexts/DiscountContext';
 import { supabase } from '../../lib/supabase';
@@ -19,6 +20,7 @@ export function CartPanel({ isOpen, onClose }: CartPanelProps) {
   const { items, updateQuantity, removeFromCart } = useCart();
   const navigate = useNavigate();
   const [prices, setPrices] = useState<PriceMap>({});
+  const [country, setCountry] = useState<string>(readShippingCountry);
   const { applyDiscount } = useDiscount();
   
   const fetchPrices = useCallback(async () => {
@@ -42,6 +44,10 @@ export function CartPanel({ isOpen, onClose }: CartPanelProps) {
     fetchPrices();
   }, [fetchPrices]);
 
+  useEffect(() => {
+    if (isOpen) setCountry(readShippingCountry());
+  }, [isOpen]);
+
   const itemsWithPrices = items.map(item => ({
     ...item,
     currentPrice: prices[item.id] ?? item.price
@@ -49,7 +55,7 @@ export function CartPanel({ isOpen, onClose }: CartPanelProps) {
 
   const subtotal = itemsWithPrices.reduce((total, item) => total + (applyDiscount(item.currentPrice) * item.quantity), 0);
   const totalQuantity = items.reduce((total, item) => total + item.quantity, 0);
-  const shipping = totalQuantity > 0 ? 8.50 + (Math.max(0, totalQuantity - 1) * 2) : 0;
+  const shipping = calculateShipping(totalQuantity, country);
   const total = subtotal + shipping;
 
   if (!isOpen) return null;

@@ -40,7 +40,7 @@ export function ProductInfo({
             €{formatPrice(originalPrice || price)}
           </span>
         </div>
-        <span className="text-sm text-gray-500">+ €8.50 shipping</span>
+        <span className="text-sm text-gray-500">+ shipping from €8.50</span>
       </div>
       
       <div className="flex items-center gap-2">

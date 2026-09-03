@@ -7,6 +7,7 @@ import { supabase } from '../lib/supabase';
 import { Header } from '../components/Header'; 
 import { Footer } from '../components/Footer';
 import { formatPrice, sumDiscountedLineTotals } from '../utils/format';
+import { calculateShipping, storeShippingCountry } from '../utils/shipping';
 import { useRef, useState } from 'react';
 import emailjs from '@emailjs/browser';
 
@@ -244,6 +245,7 @@ export function CheckoutPage() {
       case 'Zimbabwe': countryCode = '+263'; break;
     }
     
+    storeShippingCountry(country);
     setShippingInfo(prev => ({
       ...prev,
       country,
@@ -254,7 +256,7 @@ export function CheckoutPage() {
   const subtotal = itemsWithPrices.reduce((total, item) => total + (item.currentPrice * item.quantity), 0);
   const discountedSubtotal = sumDiscountedLineTotals(itemsWithPrices, applyDiscount);
   const totalQuantity = items.reduce((total, item) => total + item.quantity, 0);
-  const shipping = totalQuantity > 0 ? 8.50 + (Math.max(0, totalQuantity - 1) * 2) : 0;
+  const shipping = calculateShipping(totalQuantity, shippingInfo.country);
   const total = discountedSubtotal + shipping;
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
