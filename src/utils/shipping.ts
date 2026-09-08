@@ -2,16 +2,12 @@
  * Single source of truth for shipping costs.
  *
  * The shop prices and charges in EUR (see PAYPAL_CONFIG.CURRENCY), so the
- * $30 flat rate for the United States is stored as a fixed EUR conversion
- * rather than converted at runtime: 30 USD x 0.863349 = 25.90 EUR
- * (rate taken on 2026-09-03). Update US_SHIPPING_EUR when the rate is
- * refreshed so the checkout total never depends on a live FX call.
+ * rate to the United States is a fixed EUR amount, not a converted one:
+ * the checkout total never depends on a live FX call.
  */
-export const US_SHIPPING_USD = 30;
-export const USD_TO_EUR_RATE = 0.863349;
 
 /** Flat rate to the United States, regardless of quantity. */
-export const US_SHIPPING_EUR = 25.90;
+export const US_SHIPPING_EUR = 28;
 
 /** Rest of the world: first item, then a surcharge per additional item. */
 export const BASE_SHIPPING_EUR = 8.50;
