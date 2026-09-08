@@ -25,7 +25,7 @@ export function ShippingPage() {
 
                 <h2 className="text-xl font-bold mb-4">Shipping Costs</h2>
                 <ul className="space-y-2 text-gray-600 mb-8">
-                  <li>United States: flat &euro;28 per order, regardless of how many items you buy.</li>
+                  <li>United States: flat &euro;30 per order, regardless of how many items you buy.</li>
                   <li>All other countries: &euro;8.50 for the first item, plus &euro;2 for each additional item.</li>
                 </ul>
 

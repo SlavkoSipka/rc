@@ -7,7 +7,7 @@
  */
 
 /** Flat rate to the United States, regardless of quantity. */
-export const US_SHIPPING_EUR = 28;
+export const US_SHIPPING_EUR = 30;
 
 /** Rest of the world: first item, then a surcharge per additional item. */
 export const BASE_SHIPPING_EUR = 8.50;
