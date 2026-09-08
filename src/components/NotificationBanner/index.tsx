@@ -13,10 +13,10 @@ export function NotificationBanner() {
 
   if (!isVisible) return null;
 
-  const message = `⚡⚡⚡ IMPORTANT NOTICE...Our post office and customs has suspended export to USA due to the new import regulations and added taxes. We are monitoring this situation and hope that this will be sorted quickly⚡⚡⚡\nTracking numbers are being uploaded to PayPal right after dispatch`;
+  const message = `⚡⚡⚡ IMPORTANT NOTICE...We are now able to offer FedEx E-Commerce shipping to the United States of America. Its the only way to ship our products to America at the moment⚡⚡⚡\nTracking numbers are being uploaded to PayPal right after dispatch`;
 
   return (
-    <div className="bg-red-600 text-white py-3 relative">
+    <div className="bg-green-600 text-white py-3 relative">
       <div className="container mx-auto px-4 pr-12 text-center text-sm font-medium whitespace-pre-line">
         {message}
       </div>
