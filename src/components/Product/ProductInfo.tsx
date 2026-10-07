@@ -1,4 +1,5 @@
-import { Package, Truck } from 'lucide-react';
+import { Package, Truck, Barcode } from 'lucide-react';
+import type { ProductIdentifiers } from '../../lib/productIdentifiers';
 import { formatPrice } from '../../utils/format';
 import { useDiscount } from '../../contexts/DiscountContext';
 
@@ -13,6 +14,7 @@ interface ProductInfoProps {
   shipping?: string;
   location?: string;
   stock: number;
+  identifiers?: ProductIdentifiers;
 }
 
 export function ProductInfo({ 
@@ -25,7 +27,8 @@ export function ProductInfo({
   condition = 'New', 
   shipping = 'Standard International Shipping', 
   location = 'Serbia', 
-  stock 
+  stock,
+  identifiers
 }: ProductInfoProps) {
   const { applyDiscount } = useDiscount();
   const discountedPrice = applyDiscount(price);
@@ -99,6 +102,22 @@ export function ProductInfo({
             <p className="text-sm text-gray-500">From {location}</p>
           </div>
         </div>
+
+        {identifiers && (
+          <div className="flex items-start gap-3">
+            <Barcode className="w-5 h-5 text-gray-400 mt-0.5" />
+            <div>
+              <p className="font-medium">Product identifiers</p>
+              <p className="text-gray-600">SKU: {identifiers.merchantProductId}</p>
+              {identifiers.manufacturerProductId && (
+                <p className="text-gray-600">Part number (MPN): {identifiers.manufacturerProductId}</p>
+              )}
+              {identifiers.standardProductId && (
+                <p className="text-gray-600">EAN / GTIN: {identifiers.standardProductId}</p>
+              )}
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

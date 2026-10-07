@@ -15,6 +15,7 @@ import { outletDefectProducts } from '../data/dataOutletDefect';
 import { outletUsedProducts } from '../data/dataOutletUsed';
 import { useProductStock } from '../hooks/useProductStock';
 import { useDiscount } from '../contexts/DiscountContext';
+import { fetchProductIdentifiers, ProductIdentifiers } from '../lib/productIdentifiers';
 
 export function ProductPage() {
   const { id } = useParams();
@@ -25,6 +26,20 @@ export function ProductPage() {
   const [isCartOpen, setIsCartOpen] = useState(false);
   const { stock, price, loading, error } = useProductStock(id ?? '');
   const { applyDiscount } = useDiscount();
+  const [identifiers, setIdentifiers] = useState<ProductIdentifiers | undefined>();
+
+  useEffect(() => {
+    if (!id) return;
+    let cancelled = false;
+    setIdentifiers(undefined);
+    fetchProductIdentifiers([id]).then((result) => {
+      if (!cancelled) setIdentifiers(result[id]);
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, [id]);
+
   const isOutletDefect = outletDefectProducts.some(p => p.id === id);
   const isOutletUsed = outletUsedProducts.some(p => p.id === id);
   const discountPercentage = isOutletDefect ? 50 : isOutletUsed ? 30 : 0;
@@ -164,6 +179,7 @@ export function ProductPage() {
                   shipping={product.shipping}
                   location={product.location}
                   stock={stock ?? 0}
+                  identifiers={identifiers}
                 />
                 
                 <div className="pt-6 border-t">

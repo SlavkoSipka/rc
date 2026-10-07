@@ -9,6 +9,7 @@ import { PAYPAL_CONFIG } from '../config/paypal';
 import { getCountryCode } from '../data/countries';
 import { formatPrice } from '../utils/format';
 import { sendOrderEmail } from '../utils/orderEmail';
+import { fetchProductIdentifiers, formatIdentifiersForCustoms } from '../lib/productIdentifiers';
 
 declare global {
   interface Window {
@@ -44,6 +45,7 @@ export function PaymentPage() {
   
   useEffect(() => {
     const fetchLatestPrices = async () => {
+      const identifiersPromise = fetchProductIdentifiers(items.map((item: any) => item.id));
       const updatedItems = await Promise.all(
         items.map(async (item: any) => {
           const { data } = await supabase
@@ -58,7 +60,11 @@ export function PaymentPage() {
           };
         })
       );
-      setItemsWithPrices(updatedItems);
+      const identifiers = await identifiersPromise;
+      setItemsWithPrices(updatedItems.map((item: any) => ({
+        ...item,
+        identifiers: identifiers[item.id]
+      })));
       setPricesLoaded(true);
     };
     
@@ -75,7 +81,9 @@ export function PaymentPage() {
         value: parseFloat(applyDiscount(item.currentPrice ?? item.price).toFixed(2)).toString()
       },
       quantity: item.quantity.toString(),
-      category: 'PHYSICAL_GOODS'
+      category: 'PHYSICAL_GOODS',
+      // M-PID, so the transaction in PayPal shows which product was sold
+      ...(item.identifiers ? { sku: item.identifiers.merchantProductId } : {})
     }));
     const itemTotal = items.reduce((sum: number, pi: any) => {
       return sum + parseFloat(pi.unit_amount.value) * parseInt(pi.quantity);
@@ -85,6 +93,8 @@ export function PaymentPage() {
 
   const paypalDataRef = useRef(buildPaypalData());
   paypalDataRef.current = buildPaypalData();
+  const itemsWithPricesRef = useRef(itemsWithPrices);
+  itemsWithPricesRef.current = itemsWithPrices;
 
   const sendOrderConfirmation = (paypalOrderData: any) => {
     const capture = paypalOrderData?.purchase_units?.[0]?.payments?.captures?.[0];
@@ -105,7 +115,9 @@ export function PaymentPage() {
       shipping_state: shippingInfo.state,
       shipping_zip: shippingInfo.zipCode,
       shipping_country: shippingInfo.country,
-      items_list: items.map((item: any) => `${item.title} (${item.quantity}x)`).join('\n'),
+      items_list: itemsWithPricesRef.current
+        .map((item: any) => `${item.title} (${item.quantity}x)\n${formatIdentifiersForCustoms(item.identifiers)}`)
+        .join('\n\n'),
       subtotal: formatPrice(subtotal),
       shipping_cost: formatPrice(shipping),
       total: formatPrice(total)
