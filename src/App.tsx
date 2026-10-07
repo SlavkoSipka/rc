@@ -15,9 +15,15 @@ import { TermsAndPrivacyPage } from './pages/TermsAndPrivacyPage';
 import { ProjectPage } from './pages/ProjectPage';
 import { AdminProductsPage } from './pages/AdminProductsPage';
 import { NotificationBanner } from './components/NotificationBanner';
+import { flushPendingOrderEmails } from './utils/orderEmail';
 
 function App() {
   const location = useLocation();
+
+  useEffect(() => {
+    // Retry order emails that a previous visit could not send
+    flushPendingOrderEmails();
+  }, []);
 
   useEffect(() => {
     // Scroll to top on route change

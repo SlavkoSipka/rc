@@ -8,7 +8,7 @@ import { supabase } from '../lib/supabase';
 import { PAYPAL_CONFIG } from '../config/paypal';
 import { getCountryCode } from '../data/countries';
 import { formatPrice } from '../utils/format';
-import emailjs from '@emailjs/browser';
+import { sendOrderEmail } from '../utils/orderEmail';
 
 declare global {
   interface Window {
@@ -23,6 +23,7 @@ export function PaymentPage() {
   const [paypalScriptLoaded, setPaypalScriptLoaded] = useState(false);
   const paypalButtonsContainer = useRef<HTMLDivElement>(null);
   const [paypalError, setPaypalError] = useState<string | null>(null);
+  const [processingOrder, setProcessingOrder] = useState(false);
   
   // Get order data from location state
   const orderData = location.state;
@@ -85,34 +86,30 @@ export function PaymentPage() {
   const paypalDataRef = useRef(buildPaypalData());
   paypalDataRef.current = buildPaypalData();
 
-  const sendOrderConfirmation = async (paypalOrderData: any) => {
-    try {
-      await emailjs.send(
-        'service_fhgz9k5',
-        'template_19flt1j',
-        {
-          order_id: paypalOrderData.id,
-          customer_name: `${shippingInfo.firstName} ${shippingInfo.lastName}`,
-          customer_email: paypalOrderData.payer.email_address,
-          customer_phone: shippingInfo.phone,
-          shipping_firstName: shippingInfo.firstName,
-          shipping_lastName: shippingInfo.lastName,
-          shipping_phone: shippingInfo.phone,
-          shipping_address: shippingInfo.address + (shippingInfo.address2 ? `\n${shippingInfo.address2}` : ''),
-          shipping_city: shippingInfo.city,
-          shipping_state: shippingInfo.state,
-          shipping_zip: shippingInfo.zipCode,
-          shipping_country: shippingInfo.country,
-          items_list: items.map((item: any) => `${item.title} (${item.quantity}x)`).join('\n'),
-          subtotal: formatPrice(subtotal),
-          shipping_cost: formatPrice(shipping),
-          total: formatPrice(total)
-        },
-        'Gc6J4VIypmQDaGtLS'
-      );
-    } catch (error) {
-      console.error('Failed to send order confirmation:', error);
-    }
+  const sendOrderConfirmation = (paypalOrderData: any) => {
+    const capture = paypalOrderData?.purchase_units?.[0]?.payments?.captures?.[0];
+    const payerName = paypalOrderData?.payer?.name;
+    return sendOrderEmail(paypalOrderData?.id || `unknown-${Date.now()}`, {
+      order_id: paypalOrderData?.id || 'unknown',
+      paypal_transaction_id: capture?.id || '',
+      payment_status: capture?.status || paypalOrderData?.status || '',
+      customer_name: `${shippingInfo.firstName} ${shippingInfo.lastName}`,
+      customer_email: paypalOrderData?.payer?.email_address || '',
+      paypal_payer_name: payerName ? `${payerName.given_name || ''} ${payerName.surname || ''}`.trim() : '',
+      customer_phone: shippingInfo.phone,
+      shipping_firstName: shippingInfo.firstName,
+      shipping_lastName: shippingInfo.lastName,
+      shipping_phone: shippingInfo.phone,
+      shipping_address: shippingInfo.address + (shippingInfo.address2 ? `\n${shippingInfo.address2}` : ''),
+      shipping_city: shippingInfo.city,
+      shipping_state: shippingInfo.state,
+      shipping_zip: shippingInfo.zipCode,
+      shipping_country: shippingInfo.country,
+      items_list: items.map((item: any) => `${item.title} (${item.quantity}x)`).join('\n'),
+      subtotal: formatPrice(subtotal),
+      shipping_cost: formatPrice(shipping),
+      total: formatPrice(total)
+    });
   };
 
   // Load PayPal script only once when component mounts
@@ -204,35 +201,35 @@ export function PaymentPage() {
             });
           },
           onApprove: async (_data: any, actions: any) => {
+            setProcessingOrder(true);
+            let order: any;
             try {
               console.log('Capturing PayPal order...');
-              const order = await actions.order.capture();
+              order = await actions.order.capture();
               console.log('PayPal order captured:', order);
-              
-              // Update stock quantities in Supabase
-              for (const item of items) {
-                const { error } = await supabase.rpc(
-                  'update_product_stock',
-                  { 
-                    product_id: item.id,
-                    quantity: item.quantity
-                  }
-                );
-                
-                if (error) {
-                  console.error('Error updating stock:', error);
-                  // Don't throw error here, order was successful
-                }
-              }
-              
-              await sendOrderConfirmation(order);
-              navigate('/checkout/success');
             } catch (error) {
-              console.error('Failed to update stock quantities:', error);
-              // Order was successful even if stock update failed
-              await sendOrderConfirmation(order);
-              navigate('/checkout/success');
+              console.error('PayPal capture error:', error);
+              setProcessingOrder(false);
+              setPaypalError('Your payment could not be completed. Please try again.');
+              return;
             }
+
+            // The money is taken at this point. Start the order email first so nothing
+            // below can delay or prevent it, and update stock alongside it.
+            const emailSent = sendOrderConfirmation(order);
+            const stockUpdates = items.map(async (item: any) => {
+              const { error } = await supabase.rpc('update_product_stock', {
+                product_id: item.id,
+                quantity: item.quantity
+              });
+              if (error) {
+                // Don't fail the order, payment was successful
+                console.error('Error updating stock:', error);
+              }
+            });
+
+            await Promise.allSettled([emailSent, ...stockUpdates]);
+            navigate('/checkout/success');
           },
           onError: (err: any) => {
             console.error('PayPal error:', err);
@@ -321,7 +318,14 @@ export function PaymentPage() {
                 </div>
               )}
               
-              <div ref={paypalButtonsContainer}></div>
+              {processingOrder && (
+                <div className="flex items-center justify-center py-8">
+                  <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
+                  <span className="ml-2 text-gray-600">Processing your order, please don't close this page...</span>
+                </div>
+              )}
+
+              <div ref={paypalButtonsContainer} className={processingOrder ? 'hidden' : undefined}></div>
             </div>
           </div>
         </div>
