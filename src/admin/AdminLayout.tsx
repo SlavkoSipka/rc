@@ -1,6 +1,7 @@
-import { FormEvent, useState } from 'react';
-import { NavLink, Outlet } from 'react-router-dom';
+import { FormEvent, useEffect, useState } from 'react';
+import { NavLink, Outlet, useLocation } from 'react-router-dom';
 import { supabase } from '../lib/supabase';
+import { countOrdersWithoutInvoice } from './adminData';
 import { useAdminSession } from './useAdminSession';
 
 function LoginForm() {
@@ -58,8 +59,23 @@ function LoginForm() {
 const navClass = ({ isActive }: { isActive: boolean }) =>
   `px-3 py-2 rounded text-sm font-medium ${isActive ? 'bg-blue-600 text-white' : 'text-gray-700 hover:bg-gray-200'}`;
 
+// Orders still waiting for an invoice, refreshed every minute and when the page changes
+function useNewOrdersCount(enabled: boolean) {
+  const [count, setCount] = useState(0);
+  const location = useLocation();
+  useEffect(() => {
+    if (!enabled) return;
+    const refresh = () => countOrdersWithoutInvoice().then(setCount);
+    void refresh();
+    const timer = setInterval(refresh, 60000);
+    return () => clearInterval(timer);
+  }, [enabled, location.pathname]);
+  return count;
+}
+
 export function AdminLayout() {
   const { session, status } = useAdminSession();
+  const newOrders = useNewOrdersCount(status === 'admin');
 
   if (status === 'loading') {
     return <p className="p-8 text-gray-500">Učitavanje…</p>;
@@ -92,7 +108,12 @@ export function AdminLayout() {
         <div className="container mx-auto px-4 py-3 flex flex-wrap items-center gap-2">
           <span className="font-bold mr-4">Custom RC Parts · Admin</span>
           <nav className="flex flex-wrap gap-1">
-            <NavLink to="/admin/orders" className={navClass}>Porudžbine</NavLink>
+            <NavLink to="/admin/orders" className={navClass}>
+              Porudžbine
+              {newOrders > 0 && (
+                <span className="ml-1.5 px-1.5 rounded-full bg-amber-400 text-gray-900 text-xs font-bold">{newOrders}</span>
+              )}
+            </NavLink>
             <NavLink to="/admin/invoices" end className={navClass}>Fakture</NavLink>
             <NavLink to="/admin/invoices/new" className={navClass}>Nova faktura</NavLink>
             <NavLink to="/admin/products" className={navClass}>Proizvodi</NavLink>

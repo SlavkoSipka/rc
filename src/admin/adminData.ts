@@ -60,6 +60,26 @@ export interface ProductInvoiceData {
 
 const ORDER_SELECT = '*, order_items(*), invoices(id, prefix, number, year)';
 
+// Practice order for trying the panel out: saved like a real one, marked by its PayPal order id
+export const DEMO_ORDER_PREFIX = 'PRIMER-';
+export const DEMO_INVOICE_PREFIX = 'PRIMER';
+export const isDemoOrder = (order: Pick<AdminOrder, 'paypal_order_id'>) =>
+  Boolean(order.paypal_order_id?.startsWith(DEMO_ORDER_PREFIX));
+
+export async function deleteOrder(id: string) {
+  const invoices = await supabase.from('invoices').delete().eq('order_id', id);
+  if (invoices.error) throw new Error(invoices.error.message);
+  const { error } = await supabase.from('orders').delete().eq('id', id);
+  if (error) throw new Error(error.message);
+}
+
+// Orders that still need an invoice, for the badge in the admin menu
+export async function countOrdersWithoutInvoice(): Promise<number> {
+  const { data, error } = await supabase.from('orders').select('id, invoices(id)');
+  if (error) return 0;
+  return (data ?? []).filter((order: { invoices: unknown[] }) => order.invoices.length === 0).length;
+}
+
 export async function fetchOrders(): Promise<AdminOrder[]> {
   const { data, error } = await supabase
     .from('orders')

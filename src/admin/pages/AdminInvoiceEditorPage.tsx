@@ -5,7 +5,10 @@ import { outletDefectProducts } from '../../data/dataOutletDefect';
 import { outletUsedProducts } from '../../data/dataOutletUsed';
 import {
   AdminOrder,
+  DEMO_INVOICE_PREFIX,
   ProductInvoiceData,
+  deleteOrder,
+  isDemoOrder,
   fetchInvoice,
   fetchOrder,
   fetchProductInvoiceData,
@@ -260,6 +263,8 @@ export function AdminInvoiceEditorPage() {
       }
 
       if (!existingId) {
+        // A practice invoice gets its own series so the real numbering is not used up
+        if (loadedOrder && isDemoOrder(loadedOrder)) draft = { ...draft, prefix: DEMO_INVOICE_PREFIX };
         draft = { ...draft, number: await suggestInvoiceNumber(draft.prefix, draft.year) };
         draft.exchangeRate = await fetchNbsEurRate(draft.invoiceDate);
       }
@@ -358,6 +363,30 @@ export function AdminInvoiceEditorPage() {
         </h1>
         {order && <Link to="/admin/orders" className="text-sm text-blue-600 hover:underline">← porudžbine</Link>}
       </div>
+
+      {order && isDemoOrder(order) && (
+        <div className="bg-amber-50 border border-amber-200 rounded-lg p-4 text-sm space-y-2">
+          <p>
+            <strong>Ovo je PRIMER porudžbine</strong>, da vidiš kako ide faktura. Nije prava kupovina. Faktura
+            dobija seriju „PRIMER“, pa pravi brojevi (BC-E-CRCP 244, 245…) ostaju netaknuti.
+          </p>
+          <button
+            type="button"
+            onClick={async () => {
+              if (!window.confirm('Obrisati primer porudžbinu i njenu fakturu?')) return;
+              try {
+                await deleteOrder(order.id);
+                navigate('/admin/orders');
+              } catch (e) {
+                setMessage((e as Error).message);
+              }
+            }}
+            className="text-red-700 underline"
+          >
+            Obriši primer kad završiš
+          </button>
+        </div>
+      )}
 
       {order && <OrderSummary order={order} />}
 
