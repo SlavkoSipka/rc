@@ -41,7 +41,6 @@ export function invoiceTotals(invoice: InvoiceData) {
 // What has to be fixed before the invoice can go out
 export function invoiceProblems(invoice: InvoiceData): string[] {
   const problems: string[] = [];
-  const { total } = invoiceTotals(invoice);
   if (!invoice.prefix.trim() || !invoice.number || !invoice.year) problems.push('Broj fakture nije popunjen.');
   if (!invoice.invoiceTo.trim()) problems.push('Kupac (Invoice to) nije popunjen.');
   if (invoice.lines.length === 0) problems.push('Faktura nema nijednu stavku.');
@@ -57,9 +56,6 @@ export function invoiceProblems(invoice: InvoiceData): string[] {
     }
   });
   if (!invoice.exchangeRate) problems.push('Nema srednjeg kursa NBS.');
-  if (invoice.orderTotal != null && Math.abs(invoice.orderTotal - total) > 0.005) {
-    problems.push(`Ukupno na fakturi (${total.toFixed(2)} EUR) nije isto kao uplata kupca (${invoice.orderTotal.toFixed(2)} EUR).`);
-  }
   return problems;
 }
 

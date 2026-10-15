@@ -476,7 +476,13 @@ export function AdminInvoiceEditorPage() {
           <span>Neto: <strong>{totals.netWeightKg.toFixed(3)} kg</strong></span>
           <span>Bruto: <strong>{totals.grossWeightKg.toFixed(3)} kg</strong></span>
           <span>Ukupno: <strong>€{totals.total.toFixed(2)}</strong></span>
-          {invoice.orderTotal != null && <span>Uplaćeno: <strong>€{invoice.orderTotal.toFixed(2)}</strong></span>}
+          {invoice.orderTotal != null && (
+            // Prices may be changed on purpose, so a different total is only shown, not a warning
+            <span className={Math.abs(invoice.orderTotal - totals.total) > 0.005 ? 'text-gray-500' : undefined}>
+              Uplaćeno: <strong>€{invoice.orderTotal.toFixed(2)}</strong>
+              {Math.abs(invoice.orderTotal - totals.total) > 0.005 && ' (razlikuje se od fakture)'}
+            </span>
+          )}
           {totals.totalRsd != null && <span>RSD: <strong>{totals.totalRsd.toFixed(2)}</strong></span>}
         </div>
         {problems.length > 0 && (
