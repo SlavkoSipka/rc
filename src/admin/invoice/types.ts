@@ -13,6 +13,11 @@ export interface InvoiceLine {
   merchantProductId: string;       // M-PID
   manufacturerProductId: string;   // NS-PID
   standardProductId: string;       // S-PID (EAN/GTIN), '' when the product has none
+  // Optional overrides; when empty the invoice shows the value worked out from the fields above
+  amountOverride?: number | null;  // line amount instead of quantity x unit price
+  vatPercent?: string;             // "VAT Percent" column
+  orderNumber?: string;            // "Broj narudžbenice / Order Number" column
+  customsText?: string;            // the customs row under the item
   // Order lines only: what the buyer bought, so pieces and price per piece can be derived
   // (a set of 8 inserts sold for 12 EUR is invoiced as 8 Pcs x 1.50 EUR)
   orderTitle?: string;
@@ -40,6 +45,14 @@ export interface InvoiceData {
   packaging: string;               // "1 Envelope"
   purpose: string;                 // what the goods are used for (FedEx asks for it per item)
   orderTotal: number | null;       // amount the buyer paid, to check the invoice against it
+  // Optional overrides of texts and totals the invoice otherwise works out itself
+  shippingLabel?: string;          // "Shipping - Troškovi transporta"
+  hsSummary?: string;              // HS code under the items ("9503.0090")
+  originSummary?: string;          // country of origin under the items
+  totalPiecesOverride?: number | null;
+  netWeightOverride?: number | null;
+  // Fixed texts of the layout (company details, VAT note, responsible person), by cell address
+  fixedTexts?: Record<string, string>;
 }
 
 export interface SavedInvoice {

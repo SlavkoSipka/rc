@@ -10,6 +10,7 @@ import {
   deleteOrder,
   isDemoOrder,
   fetchInvoice,
+  fetchLatestFixedTexts,
   fetchOrder,
   fetchProductInvoiceData,
   rememberInvoiceLines,
@@ -25,13 +26,21 @@ import {
   invoiceNumberText,
   invoiceProblems,
   invoiceTotals,
-  lineAmount,
   lineFromProduct,
   round3,
   suggestInvoiceNumber,
   withPiecesPerUnit
 } from '../invoice/invoiceLogic';
 import { downloadInvoiceXlsx } from '../invoice/invoiceXlsx';
+import {
+  DEFAULT_SHIPPING_LABEL,
+  EDITABLE_FIXED_TEXTS,
+  customsText,
+  defaultHsSummary,
+  defaultOriginSummary,
+  templateText
+} from '../invoice/invoiceSheet';
+import { InvoicePreview } from '../components/InvoicePreview';
 import type { InvoiceData, InvoiceLine } from '../invoice/types';
 
 const siteTitles: Record<string, string> = Object.fromEntries(
@@ -95,11 +104,13 @@ function OrderSummary({ order }: { order: AdminOrder }) {
 function LineEditor({
   line,
   index,
+  purpose,
   onChange,
   onRemove
 }: {
   line: InvoiceLine;
   index: number;
+  purpose: string;
   onChange: (line: InvoiceLine) => void;
   onRemove: () => void;
 }) {
@@ -123,18 +134,21 @@ function LineEditor({
         <button onClick={onRemove} className="text-sm text-red-600 hover:underline shrink-0">Ukloni</button>
       </div>
       <div className="grid grid-cols-2 md:grid-cols-12 gap-2">
-        <Field label="Opis (engleski - srpski)" className="col-span-2 md:col-span-5">
+        <Field label="Opis (engleski - srpski)" className="col-span-2 md:col-span-12">
           <input value={line.description} onChange={(e) => update({ description: e.target.value })} className={inputClass} />
         </Field>
+        <Field label="Jedinica" className="md:col-span-2">
+          <input value={line.unit} onChange={(e) => update({ unit: e.target.value })} className={inputClass} />
+        </Field>
         {fromOrder && (
-          <Field label="Kom./pak." className="md:col-span-1">
+          <Field label="Kom. u pak." className="md:col-span-2">
             <NumberField value={line.piecesPerUnit} onChange={(v) => onChange(withPiecesPerUnit(line, v ?? 1))} />
           </Field>
         )}
-        <Field label="Količina" className="md:col-span-1">
+        <Field label="Količina" className="md:col-span-2">
           <NumberField value={line.quantity} onChange={(v) => update({ quantity: v ?? 0 })} />
         </Field>
-        <Field label="Cena/kom €" className="md:col-span-1">
+        <Field label="Cena/kom €" className={fromOrder ? 'md:col-span-2' : 'md:col-span-3'}>
           <NumberField value={line.unitPrice} onChange={(v) => update({ unitPrice: v ?? 0 })} />
         </Field>
         <Field label="Neto kg/kom" className="md:col-span-2">
@@ -144,8 +158,12 @@ function LineEditor({
             placeholder="kg"
           />
         </Field>
-        <Field label="Iznos" className={fromOrder ? 'md:col-span-2' : 'md:col-span-3'}>
-          <p className="py-1 text-sm font-medium">€{lineAmount(line).toFixed(2)}</p>
+        <Field label="Iznos €" className={fromOrder ? 'md:col-span-2' : 'md:col-span-3'}>
+          <NumberField
+            value={line.amountOverride ?? null}
+            onChange={(v) => update({ amountOverride: v })}
+            placeholder={(line.quantity * line.unitPrice).toFixed(2)}
+          />
         </Field>
       </div>
       <div className="grid grid-cols-2 md:grid-cols-12 gap-2">
@@ -164,8 +182,23 @@ function LineEditor({
         <Field label="NS-PID" className="md:col-span-4">
           <input value={line.manufacturerProductId} onChange={(e) => update({ manufacturerProductId: e.target.value })} className={`${inputClass} font-mono`} />
         </Field>
-        <Field label="EAN / S-PID" className="col-span-2 md:col-span-4">
+        <Field label="EAN / S-PID" className="md:col-span-4">
           <input value={line.standardProductId} onChange={(e) => update({ standardProductId: e.target.value })} className={`${inputClass} font-mono`} placeholder="NO" />
+        </Field>
+        <Field label="PDV %" className="md:col-span-4">
+          <input value={line.vatPercent ?? ''} onChange={(e) => update({ vatPercent: e.target.value })} className={inputClass} />
+        </Field>
+        <Field label="Broj narudžbenice" className="md:col-span-8">
+          <input value={line.orderNumber ?? ''} onChange={(e) => update({ orderNumber: e.target.value })} className={inputClass} />
+        </Field>
+        <Field label="Carinski red ispod stavke (prazno = sam se sastavi iz polja iznad)" className="col-span-2 md:col-span-12">
+          <textarea
+            rows={2}
+            value={line.customsText ?? ''}
+            onChange={(e) => update({ customsText: e.target.value })}
+            placeholder={customsText(line, purpose)}
+            className={`${inputClass} text-xs`}
+          />
         </Field>
       </div>
     </div>
@@ -267,6 +300,9 @@ export function AdminInvoiceEditorPage() {
         if (loadedOrder && isDemoOrder(loadedOrder)) draft = { ...draft, prefix: DEMO_INVOICE_PREFIX };
         draft = { ...draft, number: await suggestInvoiceNumber(draft.prefix, draft.year) };
         draft.exchangeRate = await fetchNbsEurRate(draft.invoiceDate);
+        // Company details and notes as they were changed on the last invoice
+        const fixedTexts = await fetchLatestFixedTexts();
+        if (fixedTexts) draft.fixedTexts = fixedTexts;
       }
       if (cancelled) return;
       setProducts(catalog);
@@ -356,178 +392,233 @@ export function AdminInvoiceEditorPage() {
   };
 
   return (
-    <div className="space-y-4 max-w-5xl">
-      <div className="flex flex-wrap items-center gap-3">
-        <h1 className="text-2xl font-bold">
-          {savedId ? `Faktura ${invoiceNumberText(invoice)}` : 'Nova faktura'}
-        </h1>
-        {order && <Link to="/admin/orders" className="text-sm text-blue-600 hover:underline">← porudžbine</Link>}
+    <div className="grid xl:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] gap-6 items-start">
+      <div className="space-y-4 min-w-0">
+        <div className="flex flex-wrap items-center gap-3">
+          <h1 className="text-2xl font-bold">
+            {savedId ? `Faktura ${invoiceNumberText(invoice)}` : 'Nova faktura'}
+          </h1>
+          {order && <Link to="/admin/orders" className="text-sm text-blue-600 hover:underline">← porudžbine</Link>}
+        </div>
+
+        {order && isDemoOrder(order) && (
+          <div className="bg-amber-50 border border-amber-200 rounded-lg p-4 text-sm space-y-2">
+            <p>
+              <strong>Ovo je PRIMER porudžbine</strong>, da vidiš kako ide faktura. Nije prava kupovina. Faktura
+              dobija seriju „PRIMER“, pa pravi brojevi (BC-E-CRCP 244, 245…) ostaju netaknuti.
+            </p>
+            <button
+              type="button"
+              onClick={async () => {
+                if (!window.confirm('Obrisati primer porudžbinu i njenu fakturu?')) return;
+                try {
+                  await deleteOrder(order.id);
+                  navigate('/admin/orders');
+                } catch (e) {
+                  setMessage((e as Error).message);
+                }
+              }}
+              className="text-red-700 underline"
+            >
+              Obriši primer kad završiš
+            </button>
+          </div>
+        )}
+
+        {order && <OrderSummary order={order} />}
+
+        <Section title="Zaglavlje">
+          <div className="grid grid-cols-2 md:grid-cols-6 gap-2">
+            <Field label="Serija" className="md:col-span-2">
+              <input value={invoice.prefix} onChange={(e) => update({ prefix: e.target.value })} className={inputClass} />
+            </Field>
+            <Field label="Broj">
+              <div className="flex gap-1">
+                <NumberField value={invoice.number} onChange={(v) => update({ number: Math.max(0, Math.round(v ?? 0)) })} />
+                {!savedId && (
+                  <button type="button" onClick={nextNumber} title="Sledeći slobodan broj" className="px-2 border rounded text-sm">↻</button>
+                )}
+              </div>
+            </Field>
+            <Field label="Godina">
+              <NumberField value={invoice.year} onChange={(v) => update({ year: Math.round(v ?? invoice.year) })} />
+            </Field>
+            <Field label="Datum fakture">
+              <input type="date" value={invoice.invoiceDate} onChange={(e) => changeInvoiceDate(e.target.value)} className={inputClass} />
+            </Field>
+            <Field label="Datum prometa">
+              <input type="date" value={invoice.deliveryDate} onChange={(e) => update({ deliveryDate: e.target.value })} className={inputClass} />
+            </Field>
+            <Field label="Broj transakcije (PayPal / eBay order)" className="col-span-2 md:col-span-3">
+              <input value={invoice.transactionId} onChange={(e) => update({ transactionId: e.target.value })} className={`${inputClass} font-mono`} />
+            </Field>
+            <Field label="Način plaćanja" className="md:col-span-2">
+              <input value={invoice.paymentMethod} onChange={(e) => update({ paymentMethod: e.target.value })} className={inputClass} />
+            </Field>
+            <Field label="Mesto izdavanja / prometa">
+              <input
+                value={invoice.invoicePlace}
+                onChange={(e) => update({ invoicePlace: e.target.value, deliveryPlace: e.target.value })}
+                className={inputClass}
+              />
+            </Field>
+          </div>
+          <p className="text-sm text-gray-600">Broj na fakturi: <strong>{invoiceNumberText(invoice)}</strong></p>
+        </Section>
+
+        <Section title="Kupac">
+          <div className="grid md:grid-cols-2 gap-3">
+            <Field label="Primalac računa (Invoice to)">
+              <textarea
+                rows={5}
+                value={invoice.invoiceTo}
+                onChange={(e) => {
+                  const sameAsBefore = invoice.shipTo === invoice.invoiceTo;
+                  update({ invoiceTo: e.target.value, ...(sameAsBefore ? { shipTo: e.target.value } : {}) });
+                }}
+                className={inputClass}
+              />
+            </Field>
+            <Field label="Primalac isporuke (Ship to)">
+              <textarea rows={5} value={invoice.shipTo} onChange={(e) => update({ shipTo: e.target.value })} className={inputClass} />
+            </Field>
+          </div>
+        </Section>
+
+        <Section title="Stavke">
+          <p className="text-sm text-gray-600">
+            Ono što ovde upišeš (opis, materijal, težina, komadi u pakovanju, poreklo) zapamti se za taj
+            proizvod i sledeći put se popuni samo.
+          </p>
+          {invoice.lines.map((line, index) => (
+            <LineEditor
+              key={index}
+              line={line}
+              index={index}
+              purpose={invoice.purpose}
+              onChange={(next) => updateLine(index, next)}
+              onRemove={() => update({ lines: invoice.lines.filter((_, i) => i !== index) })}
+            />
+          ))}
+          <div className="grid md:grid-cols-[1fr_auto] gap-2">
+            <ProductPicker products={products} onPick={addProduct} />
+            <button type="button" onClick={addBlankLine} className="px-3 py-1 border rounded text-sm hover:bg-gray-50">
+              + Prazna stavka
+            </button>
+          </div>
+        </Section>
+
+        <Section title="Dostava, težina i kurs">
+          <div className="grid grid-cols-2 md:grid-cols-6 gap-2">
+            <Field label="Dostava (EUR)">
+              <NumberField value={invoice.shipping} onChange={(v) => update({ shipping: v ?? 0 })} />
+            </Field>
+            <Field label="Bruto težina (kg)">
+              <NumberField
+                value={invoice.grossWeightKg}
+                onChange={(v) => update({ grossWeightKg: v })}
+                placeholder={totals.grossWeightKg.toFixed(3)}
+              />
+            </Field>
+            <Field label="Pakovanje (Collet)">
+              <input value={invoice.packaging} onChange={(e) => update({ packaging: e.target.value })} className={inputClass} />
+            </Field>
+            <Field label="Namena robe (za carinu)" className="md:col-span-3">
+              <input value={invoice.purpose} onChange={(e) => update({ purpose: e.target.value })} className={inputClass} />
+            </Field>
+            <Field label={`Srednji kurs NBS na ${formatDateSr(invoice.invoiceDate)}`} className="md:col-span-2">
+              <div className="flex gap-1">
+                <NumberField value={invoice.exchangeRate} onChange={(v) => update({ exchangeRate: v })} />
+                <button type="button" onClick={() => loadRate(invoice.invoiceDate)} className="px-2 border rounded text-sm whitespace-nowrap">
+                  {rateLoading ? '…' : 'Učitaj'}
+                </button>
+              </div>
+            </Field>
+            <Field label="Tekst za dostavu" className="col-span-2 md:col-span-4">
+              <input
+                value={invoice.shippingLabel ?? ''}
+                onChange={(e) => update({ shippingLabel: e.target.value })}
+                placeholder={DEFAULT_SHIPPING_LABEL}
+                className={inputClass}
+              />
+            </Field>
+            <Field label="HS kod (dole)" className="md:col-span-2">
+              <input value={invoice.hsSummary ?? ''} onChange={(e) => update({ hsSummary: e.target.value })} placeholder={defaultHsSummary(invoice)} className={inputClass} />
+            </Field>
+            <Field label="Zemlja porekla (dole)" className="md:col-span-2">
+              <input value={invoice.originSummary ?? ''} onChange={(e) => update({ originSummary: e.target.value })} placeholder={defaultOriginSummary(invoice)} className={inputClass} />
+            </Field>
+            <Field label="Ukupno komada">
+              <NumberField
+                value={invoice.totalPiecesOverride ?? null}
+                onChange={(v) => update({ totalPiecesOverride: v })}
+                placeholder={String(invoice.lines.reduce((sum, line) => sum + line.quantity, 0))}
+              />
+            </Field>
+            <Field label="Ukupno neto (kg)">
+              <NumberField
+                value={invoice.netWeightOverride ?? null}
+                onChange={(v) => update({ netWeightOverride: v })}
+                placeholder={invoice.lines.reduce((sum, line) => sum + (line.unitNetWeightKg ?? 0) * line.quantity, 0).toFixed(3)}
+              />
+            </Field>
+          </div>
+          <p className="text-xs text-gray-500">Siva polja su izračunata sama. Upiši vrednost ako hoćeš nešto drugo, ili obriši da se vrati na izračunato.</p>
+        </Section>
+
+        <details className="bg-white rounded-lg shadow p-4">
+          <summary className="font-semibold cursor-pointer">Podaci firme i fiksni tekstovi</summary>
+          <p className="text-xs text-gray-500 mt-2">Izmene ovde se pamte i za sledeće fakture.</p>
+          <div className="grid md:grid-cols-2 gap-2 mt-3">
+            {EDITABLE_FIXED_TEXTS.map(({ address, label }) => (
+              <Field key={address} label={label}>
+                <input
+                  value={invoice.fixedTexts?.[address] ?? templateText(address)}
+                  onChange={(e) => update({ fixedTexts: { ...(invoice.fixedTexts ?? {}), [address]: e.target.value } })}
+                  className={inputClass}
+                />
+              </Field>
+            ))}
+          </div>
+        </details>
+
+        <section className="bg-white rounded-lg shadow p-4 space-y-3 sticky bottom-2">
+          <div className="flex flex-wrap gap-x-8 gap-y-1 text-sm">
+            <span>Ukupno komada: <strong>{totals.totalPieces}</strong></span>
+            <span>Neto: <strong>{totals.netWeightKg.toFixed(3)} kg</strong></span>
+            <span>Bruto: <strong>{totals.grossWeightKg.toFixed(3)} kg</strong></span>
+            <span>Ukupno: <strong>€{totals.total.toFixed(2)}</strong></span>
+            {invoice.orderTotal != null && (
+              // Prices may be changed on purpose, so a different total is only shown, not a warning
+              <span className={Math.abs(invoice.orderTotal - totals.total) > 0.005 ? 'text-gray-500' : undefined}>
+                Uplaćeno: <strong>€{invoice.orderTotal.toFixed(2)}</strong>
+                {Math.abs(invoice.orderTotal - totals.total) > 0.005 && ' (razlikuje se od fakture)'}
+              </span>
+            )}
+            {totals.totalRsd != null && <span>RSD: <strong>{totals.totalRsd.toFixed(2)}</strong></span>}
+          </div>
+          {problems.length > 0 && (
+            <ul className="text-sm text-amber-800 bg-amber-50 border border-amber-200 rounded p-2 list-disc pl-6">
+              {problems.map((p) => <li key={p}>{p}</li>)}
+            </ul>
+          )}
+          {message && <p className="text-sm text-blue-800">{message}</p>}
+          <button
+            onClick={save}
+            disabled={saving}
+            className="px-5 py-2 bg-blue-600 text-white rounded font-medium hover:bg-blue-700 disabled:bg-gray-400"
+          >
+            {saving ? 'Čuvanje…' : savedId ? 'Sačuvaj izmene i preuzmi Excel' : 'Sačuvaj i preuzmi Excel'}
+          </button>
+        </section>
       </div>
 
-      {order && isDemoOrder(order) && (
-        <div className="bg-amber-50 border border-amber-200 rounded-lg p-4 text-sm space-y-2">
-          <p>
-            <strong>Ovo je PRIMER porudžbine</strong>, da vidiš kako ide faktura. Nije prava kupovina. Faktura
-            dobija seriju „PRIMER“, pa pravi brojevi (BC-E-CRCP 244, 245…) ostaju netaknuti.
-          </p>
-          <button
-            type="button"
-            onClick={async () => {
-              if (!window.confirm('Obrisati primer porudžbinu i njenu fakturu?')) return;
-              try {
-                await deleteOrder(order.id);
-                navigate('/admin/orders');
-              } catch (e) {
-                setMessage((e as Error).message);
-              }
-            }}
-            className="text-red-700 underline"
-          >
-            Obriši primer kad završiš
-          </button>
+      <aside className="xl:sticky xl:top-4 space-y-2">
+        <h2 className="font-semibold text-sm text-gray-600">Pregled: ovako izgleda odštampano (menja se dok kucaš)</h2>
+        <div className="bg-white rounded-lg shadow p-3">
+          <InvoicePreview invoice={invoice} />
         </div>
-      )}
-
-      {order && <OrderSummary order={order} />}
-
-      <Section title="Zaglavlje">
-        <div className="grid grid-cols-2 md:grid-cols-6 gap-2">
-          <Field label="Serija" className="md:col-span-2">
-            <input value={invoice.prefix} onChange={(e) => update({ prefix: e.target.value })} className={inputClass} />
-          </Field>
-          <Field label="Broj">
-            <div className="flex gap-1">
-              <NumberField value={invoice.number} onChange={(v) => update({ number: Math.max(0, Math.round(v ?? 0)) })} />
-              {!savedId && (
-                <button type="button" onClick={nextNumber} title="Sledeći slobodan broj" className="px-2 border rounded text-sm">↻</button>
-              )}
-            </div>
-          </Field>
-          <Field label="Godina">
-            <NumberField value={invoice.year} onChange={(v) => update({ year: Math.round(v ?? invoice.year) })} />
-          </Field>
-          <Field label="Datum fakture">
-            <input type="date" value={invoice.invoiceDate} onChange={(e) => changeInvoiceDate(e.target.value)} className={inputClass} />
-          </Field>
-          <Field label="Datum prometa">
-            <input type="date" value={invoice.deliveryDate} onChange={(e) => update({ deliveryDate: e.target.value })} className={inputClass} />
-          </Field>
-          <Field label="Broj transakcije (PayPal / eBay order)" className="col-span-2 md:col-span-3">
-            <input value={invoice.transactionId} onChange={(e) => update({ transactionId: e.target.value })} className={`${inputClass} font-mono`} />
-          </Field>
-          <Field label="Način plaćanja" className="md:col-span-2">
-            <input value={invoice.paymentMethod} onChange={(e) => update({ paymentMethod: e.target.value })} className={inputClass} />
-          </Field>
-          <Field label="Mesto izdavanja / prometa">
-            <input
-              value={invoice.invoicePlace}
-              onChange={(e) => update({ invoicePlace: e.target.value, deliveryPlace: e.target.value })}
-              className={inputClass}
-            />
-          </Field>
-        </div>
-        <p className="text-sm text-gray-600">Broj na fakturi: <strong>{invoiceNumberText(invoice)}</strong></p>
-      </Section>
-
-      <Section title="Kupac">
-        <div className="grid md:grid-cols-2 gap-3">
-          <Field label="Primalac računa (Invoice to)">
-            <textarea
-              rows={5}
-              value={invoice.invoiceTo}
-              onChange={(e) => {
-                const sameAsBefore = invoice.shipTo === invoice.invoiceTo;
-                update({ invoiceTo: e.target.value, ...(sameAsBefore ? { shipTo: e.target.value } : {}) });
-              }}
-              className={inputClass}
-            />
-          </Field>
-          <Field label="Primalac isporuke (Ship to)">
-            <textarea rows={5} value={invoice.shipTo} onChange={(e) => update({ shipTo: e.target.value })} className={inputClass} />
-          </Field>
-        </div>
-      </Section>
-
-      <Section title="Stavke">
-        <p className="text-sm text-gray-600">
-          Ono što ovde upišeš (opis, materijal, težina, komadi u pakovanju, poreklo) zapamti se za taj
-          proizvod i sledeći put se popuni samo.
-        </p>
-        {invoice.lines.map((line, index) => (
-          <LineEditor
-            key={index}
-            line={line}
-            index={index}
-            onChange={(next) => updateLine(index, next)}
-            onRemove={() => update({ lines: invoice.lines.filter((_, i) => i !== index) })}
-          />
-        ))}
-        <div className="grid md:grid-cols-[1fr_auto] gap-2">
-          <ProductPicker products={products} onPick={addProduct} />
-          <button type="button" onClick={addBlankLine} className="px-3 py-1 border rounded text-sm hover:bg-gray-50">
-            + Prazna stavka
-          </button>
-        </div>
-      </Section>
-
-      <Section title="Dostava, težina i kurs">
-        <div className="grid grid-cols-2 md:grid-cols-6 gap-2">
-          <Field label="Dostava (EUR)">
-            <NumberField value={invoice.shipping} onChange={(v) => update({ shipping: v ?? 0 })} />
-          </Field>
-          <Field label="Bruto težina (kg)">
-            <NumberField
-              value={invoice.grossWeightKg}
-              onChange={(v) => update({ grossWeightKg: v })}
-              placeholder={totals.grossWeightKg.toFixed(3)}
-            />
-          </Field>
-          <Field label="Pakovanje (Collet)">
-            <input value={invoice.packaging} onChange={(e) => update({ packaging: e.target.value })} className={inputClass} />
-          </Field>
-          <Field label="Namena robe (za carinu)" className="md:col-span-3">
-            <input value={invoice.purpose} onChange={(e) => update({ purpose: e.target.value })} className={inputClass} />
-          </Field>
-          <Field label={`Srednji kurs NBS na ${formatDateSr(invoice.invoiceDate)}`} className="md:col-span-2">
-            <div className="flex gap-1">
-              <NumberField value={invoice.exchangeRate} onChange={(v) => update({ exchangeRate: v })} />
-              <button type="button" onClick={() => loadRate(invoice.invoiceDate)} className="px-2 border rounded text-sm whitespace-nowrap">
-                {rateLoading ? '…' : 'Učitaj'}
-              </button>
-            </div>
-          </Field>
-        </div>
-      </Section>
-
-      <section className="bg-white rounded-lg shadow p-4 space-y-3 sticky bottom-2">
-        <div className="flex flex-wrap gap-x-8 gap-y-1 text-sm">
-          <span>Ukupno komada: <strong>{totals.totalPieces}</strong></span>
-          <span>Neto: <strong>{totals.netWeightKg.toFixed(3)} kg</strong></span>
-          <span>Bruto: <strong>{totals.grossWeightKg.toFixed(3)} kg</strong></span>
-          <span>Ukupno: <strong>€{totals.total.toFixed(2)}</strong></span>
-          {invoice.orderTotal != null && (
-            // Prices may be changed on purpose, so a different total is only shown, not a warning
-            <span className={Math.abs(invoice.orderTotal - totals.total) > 0.005 ? 'text-gray-500' : undefined}>
-              Uplaćeno: <strong>€{invoice.orderTotal.toFixed(2)}</strong>
-              {Math.abs(invoice.orderTotal - totals.total) > 0.005 && ' (razlikuje se od fakture)'}
-            </span>
-          )}
-          {totals.totalRsd != null && <span>RSD: <strong>{totals.totalRsd.toFixed(2)}</strong></span>}
-        </div>
-        {problems.length > 0 && (
-          <ul className="text-sm text-amber-800 bg-amber-50 border border-amber-200 rounded p-2 list-disc pl-6">
-            {problems.map((p) => <li key={p}>{p}</li>)}
-          </ul>
-        )}
-        {message && <p className="text-sm text-blue-800">{message}</p>}
-        <button
-          onClick={save}
-          disabled={saving}
-          className="px-5 py-2 bg-blue-600 text-white rounded font-medium hover:bg-blue-700 disabled:bg-gray-400"
-        >
-          {saving ? 'Čuvanje…' : savedId ? 'Sačuvaj izmene i preuzmi Excel' : 'Sačuvaj i preuzmi Excel'}
-        </button>
-      </section>
+      </aside>
     </div>
   );
 }

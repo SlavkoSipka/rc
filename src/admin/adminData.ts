@@ -154,6 +154,17 @@ export async function fetchInvoice(id: string): Promise<SavedInvoice> {
   return data as SavedInvoice;
 }
 
+// Company details / notes as edited on the most recent invoice, used for the next one
+export async function fetchLatestFixedTexts(): Promise<Record<string, string> | null> {
+  const { data, error } = await supabase
+    .from('invoices')
+    .select('data')
+    .order('created_at', { ascending: false })
+    .limit(1);
+  if (error) return null;
+  return (data?.[0]?.data as InvoiceData | undefined)?.fixedTexts ?? null;
+}
+
 export async function highestInvoiceNumber(prefix: string, year: number): Promise<number> {
   const { data, error } = await supabase
     .from('invoices')

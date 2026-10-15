@@ -21,7 +21,7 @@ export const invoiceNumberText = (invoice: Pick<InvoiceData, 'prefix' | 'number'
   `${invoice.prefix} ${invoice.number}/${invoice.year}`;
 
 export function lineAmount(line: InvoiceLine) {
-  return round2(line.quantity * line.unitPrice);
+  return line.amountOverride != null ? round2(line.amountOverride) : round2(line.quantity * line.unitPrice);
 }
 
 export function lineNetWeight(line: InvoiceLine) {
@@ -31,8 +31,8 @@ export function lineNetWeight(line: InvoiceLine) {
 export function invoiceTotals(invoice: InvoiceData) {
   const itemsTotal = round2(invoice.lines.reduce((sum, line) => sum + lineAmount(line), 0));
   const total = round2(itemsTotal + invoice.shipping);
-  const totalPieces = invoice.lines.reduce((sum, line) => sum + line.quantity, 0);
-  const netWeightKg = round3(invoice.lines.reduce((sum, line) => sum + lineNetWeight(line), 0));
+  const totalPieces = invoice.totalPiecesOverride ?? invoice.lines.reduce((sum, line) => sum + line.quantity, 0);
+  const netWeightKg = invoice.netWeightOverride ?? round3(invoice.lines.reduce((sum, line) => sum + lineNetWeight(line), 0));
   const grossWeightKg = invoice.grossWeightKg ?? round3(netWeightKg + INVOICE_DEFAULTS.packagingWeightKg);
   const totalRsd = invoice.exchangeRate ? Math.round(total * invoice.exchangeRate * 10000) / 10000 : null;
   return { itemsTotal, total, totalPieces, netWeightKg, grossWeightKg, totalRsd };
