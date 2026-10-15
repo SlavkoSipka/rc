@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import { createContext, useCallback, useContext, useState, useEffect, ReactNode } from 'react';
 import { Product } from '../types';
 import { supabase } from '../lib/supabase';
 import { useProductStock } from '../hooks/useProductStock';
@@ -104,9 +104,10 @@ export function CartProvider({ children }: { children: ReactNode }) {
     );
   };
 
-  const clearCart = () => {
+  // Stable, because CheckoutSuccessPage calls it from an effect that depends on it
+  const clearCart = useCallback(() => {
     setItems([]);
-  };
+  }, []);
 
   const getCartCount = () => {
     return items.reduce((total, item) => total + item.quantity, 0);
