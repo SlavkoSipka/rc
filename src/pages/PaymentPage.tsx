@@ -9,6 +9,7 @@ import { PAYPAL_CONFIG } from '../config/paypal';
 import { getCountryCode } from '../data/countries';
 import { formatPrice } from '../utils/format';
 import { sendOrderEmail } from '../utils/orderEmail';
+import { recordOrder } from '../utils/orderRecord';
 import { fetchProductIdentifiers, formatIdentifiersForCustoms } from '../lib/productIdentifiers';
 
 declare global {
@@ -124,6 +125,41 @@ export function PaymentPage() {
     });
   };
 
+  // Saves the order for the admin panel (export invoice). Unit prices are the ones PayPal
+  // charged, taken from the same line items that were sent to PayPal.
+  const saveOrder = (paypalOrderData: any) => {
+    const capture = paypalOrderData?.purchase_units?.[0]?.payments?.captures?.[0];
+    const payerName = paypalOrderData?.payer?.name;
+    const paidItems = paypalDataRef.current.items;
+    return recordOrder({
+      paypal_order_id: paypalOrderData?.id || `unknown-${Date.now()}`,
+      paypal_capture_id: capture?.id || '',
+      payment_status: capture?.status || paypalOrderData?.status || '',
+      payer_email: paypalOrderData?.payer?.email_address || '',
+      payer_name: payerName ? `${payerName.given_name || ''} ${payerName.surname || ''}`.trim() : '',
+      first_name: shippingInfo.firstName,
+      last_name: shippingInfo.lastName,
+      phone: `${shippingInfo.countryCode || ''} ${shippingInfo.phone}`.trim(),
+      address: shippingInfo.address,
+      address2: shippingInfo.address2 || '',
+      city: shippingInfo.city,
+      state: shippingInfo.state,
+      zip_code: shippingInfo.zipCode,
+      country: shippingInfo.country,
+      country_code: getCountryCode(shippingInfo.country),
+      currency: PAYPAL_CONFIG.CURRENCY,
+      subtotal: paypalDataRef.current.itemTotal,
+      shipping,
+      total: parseFloat((paypalDataRef.current.itemTotal + shipping).toFixed(2)),
+      items: itemsWithPricesRef.current.map((item: any, index: number) => ({
+        product_id: item.id,
+        title: item.title,
+        quantity: item.quantity,
+        unit_price: parseFloat(paidItems[index]?.unit_amount.value ?? item.price)
+      }))
+    });
+  };
+
   // Load PayPal script only once when component mounts
   useEffect(() => {
     setPaypalError(null);
@@ -226,9 +262,10 @@ export function PaymentPage() {
               return;
             }
 
-            // The money is taken at this point. Start the order email first so nothing
-            // below can delay or prevent it, and update stock alongside it.
+            // The money is taken at this point. Start the order email and saving the order
+            // first so nothing below can delay or prevent them, and update stock alongside.
             const emailSent = sendOrderConfirmation(order);
+            const orderSaved = saveOrder(order);
             const stockUpdates = items.map(async (item: any) => {
               const { error } = await supabase.rpc('update_product_stock', {
                 product_id: item.id,
@@ -240,7 +277,7 @@ export function PaymentPage() {
               }
             });
 
-            await Promise.allSettled([emailSent, ...stockUpdates]);
+            await Promise.allSettled([emailSent, orderSaved, ...stockUpdates]);
             navigate('/checkout/success');
           },
           onError: (err: any) => {

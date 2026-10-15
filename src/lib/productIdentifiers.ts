@@ -49,11 +49,16 @@ export async function fetchProductIdentifiers(productIds?: string[]): Promise<Re
   }
 }
 
-// One line per item for the order email / customs declaration
-export function formatIdentifiersForCustoms(ids: ProductIdentifiers | undefined): string {
+// Product ID Type of our M-PID, as FedEx asks for it next to the Merchant Product ID
+export const MERCHANT_PRODUCT_ID_TYPE = 'SKU';
+
+// One line per item for the order email / commercial invoice, in the order and wording FedEx
+// asks for: M-PID, NS-PID, S-PID, with "NO" when the product has no standard barcode
+export function formatIdentifiersForCustoms(ids: Pick<ProductIdentifiers, 'merchantProductId' | 'manufacturerProductId' | 'standardProductId'> | undefined): string {
   if (!ids) return 'Product IDs: not available';
-  const spid = ids.standardProductId
-    ? `S-PID (C129): ${ids.standardProductId}`
-    : 'S-PID: none (Y081)';
-  return `M-PID (C127): ${ids.merchantProductId} | NS-PID (C128): ${ids.manufacturerProductId || '-'} | ${spid}`;
+  return [
+    `M-PID: ${ids.merchantProductId} (${MERCHANT_PRODUCT_ID_TYPE})`,
+    `NS-PID: ${ids.manufacturerProductId || '-'}`,
+    `S-PID: ${ids.standardProductId || 'NO'}`
+  ].join(' | ');
 }

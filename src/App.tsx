@@ -1,5 +1,5 @@
 import { Routes, Route } from 'react-router-dom';
-import { useEffect } from 'react';
+import { Suspense, lazy, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { HomePage } from './pages/HomePage';
 
@@ -13,16 +13,19 @@ import { PaymentPage } from './pages/PaymentPage';
 import { CheckoutSuccessPage } from './pages/CheckoutSuccessPage';
 import { TermsAndPrivacyPage } from './pages/TermsAndPrivacyPage';
 import { ProjectPage } from './pages/ProjectPage';
-import { AdminProductsPage } from './pages/AdminProductsPage';
 import { NotificationBanner } from './components/NotificationBanner';
 import { flushPendingOrderEmails } from './utils/orderEmail';
+import { flushPendingOrderRecords } from './utils/orderRecord';
+
+const AdminApp = lazy(() => import('./admin/AdminApp'));
 
 function App() {
   const location = useLocation();
 
   useEffect(() => {
-    // Retry order emails that a previous visit could not send
+    // Retry order emails / saving orders that a previous visit could not finish
     flushPendingOrderEmails();
+    flushPendingOrderRecords();
   }, []);
 
   useEffect(() => {
@@ -37,7 +40,7 @@ function App() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <NotificationBanner />
+      {!location.pathname.startsWith('/admin') && <NotificationBanner />}
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/product/:id" element={<ProductPage />} />
@@ -50,7 +53,14 @@ function App() {
         <Route path="/checkout/success" element={<CheckoutSuccessPage />} />
         <Route path="/terms-and-privacy" element={<TermsAndPrivacyPage />} />
         <Route path="/about-project" element={<ProjectPage />} />
-        <Route path="/admin/products" element={<AdminProductsPage />} />
+        <Route
+          path="/admin/*"
+          element={
+            <Suspense fallback={<p className="p-8 text-gray-500">Učitavanje…</p>}>
+              <AdminApp />
+            </Suspense>
+          }
+        />
       </Routes>
     </div>
   );
