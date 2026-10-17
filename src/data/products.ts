@@ -20,6 +20,24 @@ export const products: Product[] = [
     ]
   },
   {
+    image: "/images/143.webp",
+    id: "tamiya-dyna-storm-blaster-tr15t-dark-blue-bulkhead",
+    title: "Tamiya Dyna Storm - Blaster - TR15T Aluminium Dark Blue Bulkhead",
+    price: 74.99,
+    color: "Blue",
+    stock: 1,
+    description: "1 aluminium replacement reproduction D5 bulkhead. This product replaces the original bulkhead on your Dyna Storm - Blaster - TR15T. Made of high grade 6082 aluminium, DARK BLUE anodized.\n\nThe bulkhead includes 4 brass inserts so you can tune your front weight for optimal traction and control.\nThe weight of the bulkhead without inserts is 28 grams, the brass inserts in total weight 26g, each insert is arround 6.5g.\n\nIf i forgot to mention something, dont hesitate to send me a message.\n\nHardware is not included beside the grub screws.\n\nPLEASE NOTE!!!\nOTHER PICTURES ARE ONLY FOR REFERENCE, NO OTHER PARTS ARE INCLUDED BESIDE THE BULKHEAD AND BRASS INSERTS FROM THE FIRST PICTURE\n\nThis is NOT an original Tamiya product but we make the parts as good as possible to match the original.\n\nWe ensure that all parts are well packaged, all parcels are send trackable and we will provide the tracking number once the parcel is shipped.\n\nIf you need a quote for shipping to your country, feel free to ask.\nFor any other question don't hesitate to contact us.",
+    images: [
+      "/images/20260917_171419.jpg",
+      "/images/20260917_171704.jpg",
+      "/images/145.webp",
+      "/images/146.webp",
+      "/images/147.webp",
+      "/images/148.webp",
+      "/images/149.webp"
+    ]
+  },
+  {
     image: "/images/150.webp",
     id: "tamiya-trf201-211-201xmw-silver-anodized-hinge-pin-brace",
     title: "Tamiya TRF201, 211, 201 XMW Aluminium silver hard anodized hinge pin brace",
