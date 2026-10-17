@@ -20,7 +20,7 @@ export const products: Product[] = [
     ]
   },
   {
-    image: "/images/143.webp",
+    image: "/images/20260917_171419.jpg",
     id: "tamiya-dyna-storm-blaster-tr15t-dark-blue-bulkhead",
     title: "Tamiya Dyna Storm - Blaster - TR15T Aluminium Dark Blue Bulkhead",
     price: 74.99,
