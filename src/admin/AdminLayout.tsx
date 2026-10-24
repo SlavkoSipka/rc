@@ -117,6 +117,7 @@ export function AdminLayout() {
             <NavLink to="/admin/invoices" end className={navClass}>Fakture</NavLink>
             <NavLink to="/admin/invoices/new" className={navClass}>Nova faktura</NavLink>
             <NavLink to="/admin/products" className={navClass}>Proizvodi</NavLink>
+            <NavLink to="/admin/labels" className={navClass}>Nalepnice</NavLink>
           </nav>
           <div className="ml-auto flex items-center gap-3 text-sm text-gray-600">
             <span className="hidden sm:inline">{session?.user.email}</span>
