@@ -5,6 +5,10 @@ import type { InvoiceData, InvoiceLine } from './types';
 
 export const round2 = (value: number) => Math.round((value + Number.EPSILON) * 100) / 100;
 export const round3 = (value: number) => Math.round((value + Number.EPSILON) * 1000) / 1000;
+export const round4 = (value: number) => Math.round((value + Number.EPSILON) * 10000) / 10000;
+
+// 0.039 -> "0.039", 0.0004 -> "0.0004" (a fourth decimal only when it matters)
+export const formatKg = (value: number) => (round3(value) === round4(value) ? value.toFixed(3) : value.toFixed(4));
 
 export const todayIso = () => {
   const now = new Date();
@@ -25,14 +29,14 @@ export function lineAmount(line: InvoiceLine) {
 }
 
 export function lineNetWeight(line: InvoiceLine) {
-  return line.unitNetWeightKg == null ? 0 : round3(line.quantity * line.unitNetWeightKg);
+  return line.unitNetWeightKg == null ? 0 : round4(line.quantity * line.unitNetWeightKg);
 }
 
 export function invoiceTotals(invoice: InvoiceData) {
   const itemsTotal = round2(invoice.lines.reduce((sum, line) => sum + lineAmount(line), 0));
   const total = round2(itemsTotal + invoice.shipping);
   const totalPieces = invoice.totalPiecesOverride ?? invoice.lines.reduce((sum, line) => sum + line.quantity, 0);
-  const netWeightKg = invoice.netWeightOverride ?? round3(invoice.lines.reduce((sum, line) => sum + lineNetWeight(line), 0));
+  const netWeightKg = invoice.netWeightOverride ?? round4(invoice.lines.reduce((sum, line) => sum + lineNetWeight(line), 0));
   const grossWeightKg = invoice.grossWeightKg ?? round3(netWeightKg + INVOICE_DEFAULTS.packagingWeightKg);
   const totalRsd = invoice.exchangeRate ? Math.round(total * invoice.exchangeRate * 10000) / 10000 : null;
   return { itemsTotal, total, totalPieces, netWeightKg, grossWeightKg, totalRsd };

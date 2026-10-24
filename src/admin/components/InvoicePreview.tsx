@@ -1,9 +1,8 @@
 import { useLayoutEffect, useMemo, useRef, useState } from 'react';
-import { buildInvoiceSheet, SheetCell, SheetStyle } from '../invoice/invoiceSheet';
+import { buildInvoiceSheet, columnPx, SheetCell, SheetStyle } from '../invoice/invoiceSheet';
 import type { InvoiceData } from '../invoice/types';
 
-// Excel units -> screen pixels (Arial 10: one character is about 7px wide)
-const columnPx = (chars: number) => Math.round(chars * 7 + 5);
+// Excel points -> screen pixels (columns: columnPx, the same widths the row heights are worked out with)
 const pointsPx = (points: number) => points * (4 / 3);
 
 const BORDER_CSS: Record<string, string> = {
@@ -123,7 +122,8 @@ export function InvoicePreview({ invoice }: { invoice: InvoiceData }) {
                       textAlign: (style.alignment.horizontal as 'left' | 'center' | 'right') ?? (typeof cell.value === 'number' ? 'right' : 'left'),
                       verticalAlign: style.alignment.vertical === 'top' ? 'top' : style.alignment.vertical === 'bottom' ? 'bottom' : 'middle',
                       whiteSpace: wrap ? 'pre-wrap' : 'pre',
-                      overflow: span || wrap ? 'hidden' : 'visible',
+                      // Column widths are close to Excel's, not exact: a one-line text may run a little over its cell
+                      overflow: wrap ? 'hidden' : 'visible',
                       lineHeight: 1.15
                     }}
                   >

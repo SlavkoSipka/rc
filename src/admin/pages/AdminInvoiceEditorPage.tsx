@@ -27,7 +27,7 @@ import {
   invoiceProblems,
   invoiceTotals,
   lineFromProduct,
-  round3,
+  formatKg,
   suggestInvoiceNumber,
   withPiecesPerUnit
 } from '../invoice/invoiceLogic';
@@ -55,6 +55,27 @@ function Field({ label, children, className }: { label: string; children: ReactN
       <span className="block text-xs text-gray-500 mb-0.5">{label}</span>
       {children}
     </label>
+  );
+}
+
+// A value the invoice works out itself unless one is typed in. A typed value stays until it is
+// cleared, so it is framed in amber with a button back to the worked-out value.
+function AutoNumberField({ value, computed, onChange }: { value: number | null; computed: string; onChange: (v: number | null) => void }) {
+  const manual = value != null;
+  return (
+    <div className="flex gap-1">
+      <NumberField
+        value={value}
+        onChange={onChange}
+        placeholder={computed}
+        className={`w-full border rounded px-2 py-1 text-sm ${manual ? 'border-amber-400 bg-amber-50' : ''}`}
+      />
+      {manual && (
+        <button type="button" onClick={() => onChange(null)} title={`Vrati izračunato (${computed})`} className="px-1.5 border rounded text-xs text-amber-800 whitespace-nowrap">
+          auto
+        </button>
+      )}
+    </div>
   );
 }
 
@@ -154,15 +175,15 @@ function LineEditor({
         <Field label="Neto kg/kom" className="md:col-span-2">
           <NumberField
             value={line.unitNetWeightKg}
-            onChange={(v) => update({ unitNetWeightKg: v == null ? null : round3(v) })}
+            onChange={(v) => update({ unitNetWeightKg: v })}
             placeholder="kg"
           />
         </Field>
         <Field label="Iznos €" className={fromOrder ? 'md:col-span-2' : 'md:col-span-3'}>
-          <NumberField
+          <AutoNumberField
             value={line.amountOverride ?? null}
             onChange={(v) => update({ amountOverride: v })}
-            placeholder={(line.quantity * line.unitPrice).toFixed(2)}
+            computed={(line.quantity * line.unitPrice).toFixed(2)}
           />
         </Field>
       </div>
@@ -514,10 +535,10 @@ export function AdminInvoiceEditorPage() {
               <NumberField value={invoice.shipping} onChange={(v) => update({ shipping: v ?? 0 })} />
             </Field>
             <Field label="Bruto težina (kg)">
-              <NumberField
+              <AutoNumberField
                 value={invoice.grossWeightKg}
                 onChange={(v) => update({ grossWeightKg: v })}
-                placeholder={totals.grossWeightKg.toFixed(3)}
+                computed={formatKg(invoiceTotals({ ...invoice, grossWeightKg: null }).grossWeightKg)}
               />
             </Field>
             <Field label="Pakovanje (Collet)">
@@ -549,21 +570,21 @@ export function AdminInvoiceEditorPage() {
               <input value={invoice.originSummary ?? ''} onChange={(e) => update({ originSummary: e.target.value })} placeholder={defaultOriginSummary(invoice)} className={inputClass} />
             </Field>
             <Field label="Ukupno komada">
-              <NumberField
+              <AutoNumberField
                 value={invoice.totalPiecesOverride ?? null}
                 onChange={(v) => update({ totalPiecesOverride: v })}
-                placeholder={String(invoice.lines.reduce((sum, line) => sum + line.quantity, 0))}
+                computed={String(invoiceTotals({ ...invoice, totalPiecesOverride: null }).totalPieces)}
               />
             </Field>
             <Field label="Ukupno neto (kg)">
-              <NumberField
+              <AutoNumberField
                 value={invoice.netWeightOverride ?? null}
                 onChange={(v) => update({ netWeightOverride: v })}
-                placeholder={invoice.lines.reduce((sum, line) => sum + (line.unitNetWeightKg ?? 0) * line.quantity, 0).toFixed(3)}
+                computed={formatKg(invoiceTotals({ ...invoice, netWeightOverride: null }).netWeightKg)}
               />
             </Field>
           </div>
-          <p className="text-xs text-gray-500">Siva polja su izračunata sama. Upiši vrednost ako hoćeš nešto drugo, ili obriši da se vrati na izračunato.</p>
+          <p className="text-xs text-gray-500">Siva polja su izračunata sama i menjaju se sa stavkama. Kad upišeš svoju vrednost, polje postane žuto i više se ne menja samo; „auto“ ga vraća na izračunato.</p>
         </Section>
 
         <details className="bg-white rounded-lg shadow p-4">
@@ -585,8 +606,8 @@ export function AdminInvoiceEditorPage() {
         <section className="bg-white rounded-lg shadow p-4 space-y-3 sticky bottom-2">
           <div className="flex flex-wrap gap-x-8 gap-y-1 text-sm">
             <span>Ukupno komada: <strong>{totals.totalPieces}</strong></span>
-            <span>Neto: <strong>{totals.netWeightKg.toFixed(3)} kg</strong></span>
-            <span>Bruto: <strong>{totals.grossWeightKg.toFixed(3)} kg</strong></span>
+            <span>Neto: <strong>{formatKg(totals.netWeightKg)} kg</strong>{invoice.netWeightOverride != null && ' (ručno)'}</span>
+            <span>Bruto: <strong>{formatKg(totals.grossWeightKg)} kg</strong>{invoice.grossWeightKg != null && ' (ručno)'}</span>
             <span>Ukupno: <strong>€{totals.total.toFixed(2)}</strong></span>
             {invoice.orderTotal != null && (
               // Prices may be changed on purpose, so a different total is only shown, not a warning
