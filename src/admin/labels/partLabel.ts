@@ -1,7 +1,7 @@
 // The part label stuck on the bag header card: 60 x 9 mm, our code (M-PID) in large letters,
 // two short lines of text and a Code 128 barcode of the code. Layout as in the card design
-// (dizajn/kartica_19.py). Drawn as SVG for the preview and as a PDF (one label per page, for a
-// label printer with a 62 mm roll) for printing.
+// (dizajn/kartica_19.py). Drawn as SVG for the preview, and as a PDF for printing: one label per
+// page for a label printer with a 62 mm roll, or A4 / A3 sheets with cut lines for a print shop.
 
 import { code128Widths } from './code128';
 
@@ -106,33 +106,59 @@ function pdfString(text: string) {
   return `(${out})`;
 }
 
-function pageContent(label: PartLabel) {
-  const y = (mm: number) => (LABEL_H - mm) * PT; // PDF y runs upwards
+// One label with its top-left corner at (left, top) mm, on a page `pageH` mm tall
+function labelContent(label: PartLabel, left: number, top: number, pageH: number) {
+  const x = (mm: number) => (left + mm) * PT;
+  const y = (mm: number) => (pageH - top - mm) * PT; // PDF y runs upwards
   return labelOps(label).map((op) => {
-    if (op.kind === 'rect') return `0 g ${num(op.x * PT)} ${num(y(op.y + op.h))} ${num(op.w * PT)} ${num(op.h * PT)} re f`;
+    if (op.kind === 'rect') return `0 g ${num(x(op.x))} ${num(y(op.y + op.h))} ${num(op.w * PT)} ${num(op.h * PT)} re f`;
     const width = textWidth(op.text, op.size, op.bold) * op.scaleX;
-    const x = op.anchor === 'middle' ? op.x - width / 2 : op.x;
+    const start = op.anchor === 'middle' ? op.x - width / 2 : op.x;
     return `BT ${op.grey ? '0.27' : '0'} g /${op.bold ? 'F2' : 'F1'} ${num(op.size * PT)} Tf ${num(op.scaleX * 100)} Tz ` +
-      `${num(x * PT)} ${num(y(op.y))} Td ${pdfString(op.text)} Tj ET`;
+      `${num(x(start))} ${num(y(op.y))} Td ${pdfString(op.text)} Tj ET`;
   }).join('\n');
 }
 
-export function labelsPdf(labels: PartLabel[]): Blob {
+// Cut line around a label: a rounded rectangle stroked in the spot colour "CutContour", the name
+// print & cut software (VersaWorks, Onyx, Caldera, Summa...) takes as the line to cut, not to print
+const CUT_RADIUS = 1.2;
+const CUT_LINE_MM = 0.25;
+function cutLine(left: number, top: number, w: number, h: number, pageH: number) {
+  const r = CUT_RADIUS;
+  const k = r * 0.5523; // Bezier handle for a quarter circle
+  const X = (mm: number) => num(mm * PT);
+  const Y = (mm: number) => num((pageH - mm) * PT);
+  const [l, t, rt, b] = [left, top, left + w, top + h];
+  return `/CS0 CS 1 SCN ${num(CUT_LINE_MM * PT)} w ` +
+    `${X(l + r)} ${Y(t)} m ${X(rt - r)} ${Y(t)} l ${X(rt - r + k)} ${Y(t)} ${X(rt)} ${Y(t + r - k)} ${X(rt)} ${Y(t + r)} c ` +
+    `${X(rt)} ${Y(b - r)} l ${X(rt)} ${Y(b - r + k)} ${X(rt - r + k)} ${Y(b)} ${X(rt - r)} ${Y(b)} c ` +
+    `${X(l + r)} ${Y(b)} l ${X(l + r - k)} ${Y(b)} ${X(l)} ${Y(b - r + k)} ${X(l)} ${Y(b - r)} c ` +
+    `${X(l)} ${Y(t + r)} l ${X(l)} ${Y(t + r - k)} ${X(l + r - k)} ${Y(t)} ${X(l + r)} ${Y(t)} c h S`;
+}
+
+interface PdfPage {
+  w: number; // mm
+  h: number;
+  content: string;
+}
+
+function writePdf(pages: PdfPage[]): Blob {
   const objects: string[] = [];
   const add = (body: string) => objects.push(body); // object number = index + 1
   add('<< /Type /Catalog /Pages 2 0 R >>');
   add(''); // pages, filled in below
   add('<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>');
   add('<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold /Encoding /WinAnsiEncoding >>');
-  const pages: number[] = [];
-  for (const label of labels) {
-    const content = pageContent(label);
-    add(`<< /Length ${content.length} >>\nstream\n${content}\nendstream`);
-    add(`<< /Type /Page /Parent 2 0 R /MediaBox [0 0 ${num(LABEL_W * PT)} ${num(LABEL_H * PT)}] ` +
-      `/Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents ${objects.length} 0 R >>`);
-    pages.push(objects.length);
+  // CutContour, shown as 100 % magenta where the software does not know it
+  add('[/Separation /CutContour /DeviceCMYK << /FunctionType 2 /Domain [0 1] /C0 [0 0 0 0] /C1 [0 1 0 0] /N 1 >>]');
+  const kids: number[] = [];
+  for (const page of pages) {
+    add(`<< /Length ${page.content.length} >>\nstream\n${page.content}\nendstream`);
+    add(`<< /Type /Page /Parent 2 0 R /MediaBox [0 0 ${num(page.w * PT)} ${num(page.h * PT)}] ` +
+      `/Resources << /Font << /F1 3 0 R /F2 4 0 R >> /ColorSpace << /CS0 5 0 R >> >> /Contents ${objects.length} 0 R >>`);
+    kids.push(objects.length);
   }
-  objects[1] = `<< /Type /Pages /Kids [${pages.map((n) => `${n} 0 R`).join(' ')}] /Count ${pages.length} >>`;
+  objects[1] = `<< /Type /Pages /Kids [${kids.map((n) => `${n} 0 R`).join(' ')}] /Count ${kids.length} >>`;
 
   // Everything above is plain ASCII, so string length = byte offset
   let pdf = '%PDF-1.4\n';
@@ -146,4 +172,49 @@ export function labelsPdf(labels: PartLabel[]): Blob {
     offsets.map((o) => `${String(o).padStart(10, '0')} 00000 n \n`).join('') +
     `trailer\n<< /Size ${objects.length + 1} /Root 1 0 R >>\nstartxref\n${xref}\n%%EOF\n`;
   return new Blob([pdf], { type: 'application/pdf' });
+}
+
+// For a label printer with a 62 mm roll: one label per page
+export function labelsPdf(labels: PartLabel[]): Blob {
+  return writePdf(labels.map((label) => ({ w: LABEL_W, h: LABEL_H, content: labelContent(label, 0, 0, LABEL_H) })));
+}
+
+// ---- Sheets for the print shop ----------------------------------------------------------------
+
+export const SHEETS = { A4: [210, 297], A3: [297, 420] } as const;
+export type SheetSize = keyof typeof SHEETS;
+// print = the labels only, cut = only the cut lines (same place on the same pages), preview = both
+export type SheetLayer = 'print' | 'cut' | 'preview';
+
+const SHEET_MARGIN = 10; // mm free around the edge (the print & cut software puts its marks there)
+const LABEL_GAP = 3; // mm between two labels, so the cuts do not touch
+
+export function sheetLayout(size: SheetSize) {
+  const [w, h] = SHEETS[size];
+  const cols = Math.floor((w - 2 * SHEET_MARGIN + LABEL_GAP) / (LABEL_W + LABEL_GAP));
+  const rows = Math.floor((h - 2 * SHEET_MARGIN + LABEL_GAP) / (LABEL_H + LABEL_GAP));
+  const left = (w - (cols * LABEL_W + (cols - 1) * LABEL_GAP)) / 2;
+  const top = (h - (rows * LABEL_H + (rows - 1) * LABEL_GAP)) / 2;
+  return { w, h, cols, rows, perPage: cols * rows, left, top };
+}
+
+export function labelSheetsPdf(labels: PartLabel[], size: SheetSize, layer: SheetLayer): Blob {
+  const layout = sheetLayout(size);
+  const pageCount = Math.max(1, Math.ceil(labels.length / layout.perPage));
+  const pages: PdfPage[] = [];
+  for (let p = 0; p < pageCount; p++) {
+    const parts: string[] = [];
+    labels.slice(p * layout.perPage, (p + 1) * layout.perPage).forEach((label, i) => {
+      const left = layout.left + (i % layout.cols) * (LABEL_W + LABEL_GAP);
+      const top = layout.top + Math.floor(i / layout.cols) * (LABEL_H + LABEL_GAP);
+      if (layer !== 'cut') parts.push(labelContent(label, left, top, layout.h));
+      if (layer !== 'print') parts.push(cutLine(left, top, LABEL_W, LABEL_H, layout.h));
+    });
+    if (layer !== 'cut') {
+      const footer = `CUSTOM RC PARTS · nalepnice sa šiframa ${LABEL_W} x ${LABEL_H} mm · tabak ${p + 1} / ${pageCount}`;
+      parts.push(`BT 0.55 g /F1 ${num(2 * PT)} Tf 100 Tz ${num(layout.left * PT)} ${num(4 * PT)} Td ${pdfString(footer)} Tj ET`);
+    }
+    pages.push({ w: layout.w, h: layout.h, content: parts.join('\n') });
+  }
+  return writePdf(pages);
 }

@@ -5,11 +5,33 @@ import { outletUsedProducts } from '../../data/dataOutletUsed';
 import { ProductInvoiceData, fetchProductInvoiceData } from '../adminData';
 import { NumberField } from '../components/NumberField';
 import { isCode128Encodable } from '../labels/code128';
-import { LABEL_H, LABEL_W, PartLabel, labelSvg, labelsPdf } from '../labels/partLabel';
+import {
+  LABEL_H,
+  LABEL_W,
+  PartLabel,
+  SHEETS,
+  SheetLayer,
+  SheetSize,
+  labelSheetsPdf,
+  labelSvg,
+  labelsPdf,
+  sheetLayout
+} from '../labels/partLabel';
 import { todayIso } from '../invoice/invoiceLogic';
 
 const allSiteProducts = [...siteProducts, ...outletDefectProducts, ...outletUsedProducts];
 const siteById = Object.fromEntries(allSiteProducts.map((p) => [p.id, p]));
+// Used or damaged single pieces: no stock of labels needed for those
+const outletIds = new Set([...outletDefectProducts, ...outletUsedProducts].map((p) => p.id));
+
+function downloadBlob(blob: Blob, fileName: string) {
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement('a');
+  link.href = url;
+  link.download = fileName;
+  link.click();
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
+}
 
 const inputClass = 'w-full border rounded px-2 py-1 text-sm';
 
@@ -134,12 +156,7 @@ export function AdminLabelsPage() {
 
   const download = () => {
     const labels = rows.flatMap((r) => Array.from({ length: r.quantity }, () => ({ code: r.code, name: r.name, detail: r.detail })));
-    const url = URL.createObjectURL(labelsPdf(labels));
-    const link = document.createElement('a');
-    link.href = url;
-    link.download = `nalepnice-${todayIso()}.pdf`;
-    link.click();
-    setTimeout(() => URL.revokeObjectURL(url), 1000);
+    downloadBlob(labelsPdf(labels), `nalepnice-${todayIso()}.pdf`);
   };
 
   if (loading) return <p className="text-gray-500">Učitavanje proizvoda…</p>;
@@ -149,11 +166,15 @@ export function AdminLabelsPage() {
       <h1 className="text-2xl font-bold">Nalepnice za kartice</h1>
       <p className="text-sm text-gray-600">
         Nalepnica {LABEL_W} × {LABEL_H} mm koja se lepi na belo polje kartice: šifra, naziv, jedan red više i bar kod
-        šifre. Izaberi proizvode i koliko komada, pa preuzmi PDF: svaka nalepnica je jedna strana {LABEL_W} × {LABEL_H} mm,
-        za štampač nalepnica sa rolnom od 62 mm.
+        šifre. Za štampariju: tabaci sa svim proizvodima i linijama za sečenje. Za svoj štampač: izaberi proizvode i
+        koliko komada, svaka nalepnica je jedna strana {LABEL_W} × {LABEL_H} mm (rolna od 62 mm). Tekst koji ovde
+        izmeniš za neki proizvod koristi se i na tabacima.
       </p>
       {error && <p className="text-sm text-red-600">{error}</p>}
 
+      <PrintShopSheets products={products} />
+
+      <h2 className="text-lg font-semibold pt-2">Pojedinačne nalepnice (štampač sa rolnom)</h2>
       <div className="relative">
         <input
           value={query}
@@ -233,5 +254,90 @@ export function AdminLabelsPage() {
         </div>
       )}
     </div>
+  );
+}
+
+// Every product of the shop, N labels each, on A4 / A3 sheets for a print shop: the print file,
+// the cut lines (same pages, spot colour CutContour) and a preview with both
+function PrintShopSheets({ products }: { products: Record<string, ProductInvoiceData> }) {
+  const [perProduct, setPerProduct] = useState(20);
+  const [size, setSize] = useState<SheetSize>('A4');
+  const [withOutlet, setWithOutlet] = useState(false);
+  const [fullRows, setFullRows] = useState(true);
+
+  const chosen = useMemo(
+    () =>
+      Object.values(products)
+        .filter((p) => siteById[p.id] && (withOutlet || !outletIds.has(p.id)))
+        .filter((p) => {
+          const code = p.merchant_product_id?.trim();
+          return Boolean(code && isCode128Encodable(code));
+        })
+        .sort((a, b) => (a.merchant_product_id ?? '').localeCompare(b.merchant_product_id ?? '')),
+    [products, withOutlet]
+  );
+  const layout = sheetLayout(size);
+  // Each product in whole rows, so every product is a strip of its own after cutting
+  const count = fullRows ? Math.ceil(perProduct / layout.cols) * layout.cols : perProduct;
+  const total = chosen.length * count;
+  const pages = Math.ceil(total / layout.perPage);
+
+  const download = (layer: SheetLayer) => {
+    const saved = readSavedTexts();
+    const labels: PartLabel[] = chosen.flatMap((p) => {
+      const label = { code: (p.merchant_product_id ?? '').trim(), ...(saved[p.id] ?? defaultTexts(p)) };
+      return Array.from({ length: count }, () => label);
+    });
+    const name = { print: 'STAMPA', cut: 'SECENJE', preview: 'PREGLED' }[layer];
+    downloadBlob(labelSheetsPdf(labels, size, layer), `nalepnice-sifre-${size}-${name}.pdf`);
+  };
+
+  return (
+    <section className="bg-white rounded-lg shadow p-4 space-y-3">
+      <h2 className="text-lg font-semibold">Tabaci za štampariju (svi proizvodi)</h2>
+      <div className="flex flex-wrap items-end gap-4 text-sm">
+        <label className="block w-36">
+          <span className="block text-xs text-gray-500 mb-0.5">Komada po proizvodu</span>
+          <NumberField value={perProduct} onChange={(v) => setPerProduct(Math.max(1, Math.round(v ?? 1)))} />
+        </label>
+        <label className="block">
+          <span className="block text-xs text-gray-500 mb-0.5">Tabak</span>
+          <select value={size} onChange={(e) => setSize(e.target.value as SheetSize)} className="border rounded px-2 py-1 text-sm">
+            {Object.entries(SHEETS).map(([key, [w, h]]) => (
+              <option key={key} value={key}>{key} ({w} × {h} mm)</option>
+            ))}
+          </select>
+        </label>
+        <label className="flex items-center gap-2">
+          <input type="checkbox" checked={fullRows} onChange={(e) => setFullRows(e.target.checked)} />
+          Svaki proizvod u punim redovima
+        </label>
+        <label className="flex items-center gap-2">
+          <input type="checkbox" checked={withOutlet} onChange={(e) => setWithOutlet(e.target.checked)} />
+          I outlet (polovni / sa greškom)
+        </label>
+      </div>
+      <p className="text-sm text-gray-700">
+        <strong>{chosen.length}</strong> proizvoda × <strong>{count}</strong> kom.
+        {count !== perProduct && ` (${perProduct} dopunjeno do punog reda od ${layout.cols})`} ={' '}
+        <strong>{total}</strong> nalepnica na <strong>{pages}</strong> {size} tabaka ({layout.perPage} po tabaku,{' '}
+        {layout.cols} × {layout.rows}).
+      </p>
+      <div className="flex flex-wrap gap-2">
+        <button onClick={() => download('print')} disabled={total === 0} className="px-4 py-2 bg-blue-600 text-white rounded font-medium hover:bg-blue-700 disabled:bg-gray-300">
+          1. PDF za štampu
+        </button>
+        <button onClick={() => download('cut')} disabled={total === 0} className="px-4 py-2 bg-white border rounded font-medium hover:bg-gray-50 disabled:text-gray-400">
+          2. Linije za sečenje
+        </button>
+        <button onClick={() => download('preview')} disabled={total === 0} className="px-4 py-2 bg-white border rounded font-medium hover:bg-gray-50 disabled:text-gray-400">
+          3. Pregled (oba zajedno)
+        </button>
+      </div>
+      <p className="text-xs text-gray-500">
+        Linije za sečenje su zaobljeni okviri oko svake nalepnice u spot boji „CutContour“ (magenta), na istom mestu
+        kao u fajlu za štampu, pa štamparija po njima pravi rez. Razmak između nalepnica je 3 mm, ivica tabaka 10 mm.
+      </p>
+    </section>
   );
 }
