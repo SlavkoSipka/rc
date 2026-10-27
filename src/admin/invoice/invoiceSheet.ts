@@ -118,23 +118,28 @@ const CHAR_WIDTHS: [string, number][] = [
   ['W', 944]
 ];
 const charWidth = (ch: string) => CHAR_WIDTHS.find(([chars]) => chars.includes(ch))?.[1] ?? 556;
-const textWidth = (text: string) => [...text].reduce((sum, ch) => sum + charWidth(ch), 0) / 1000;
+// Excel (above all on a Mac) draws text a little wider than the font metrics say: 8 % extra
+const SAFETY = 1.08;
+const textWidth = (text: string) => ([...text].reduce((sum, ch) => sum + charWidth(ch), 0) / 1000) * SAFETY;
+const CELL_PADDING_PX = 6;
+const pointsToPx = (points: number) => points * (4 / 3);
 
-// Width in pixels of a column `chars` Excel characters wide, measured on the generated sheet:
-// the description cell (23.82 characters) holds "Servo posts - Nosači servo motora" (16.5 font
-// sizes of Arial Bold) on one line, but not 18.6 font sizes
-export const columnPx = (chars: number) => Math.round(chars * 7.75);
+// Width in pixels of a column `chars` Excel characters wide, by Excel's own rule
+// (Arial 10, a digit 7 px wide): a 2.71 column is 19 px
+export const columnPx = (chars: number) => Math.trunc(((256 * chars + Math.trunc(128 / 7)) / 256) * 7);
 
-// Width in pixels of template columns `from`..`to` (letters)
-const columnsPx = (from: string, to: string) =>
-  template.columns.slice(columnIndex(from), columnIndex(to) + 1).reduce((sum, chars) => sum + columnPx(chars), 0);
+// Width in pixels of template columns `from`..`to` (letters, or 1-based numbers)
+const columnsPx = (from: string | number, to: string | number) =>
+  template.columns
+    .slice(typeof from === 'number' ? from - 1 : columnIndex(from), typeof to === 'number' ? to : columnIndex(to) + 1)
+    .reduce((sum, chars) => sum + columnPx(chars), 0);
 
 // How many lines a text takes in a cell `widthPx` wide with an Arial `fontSize` font.
 // Wrapped word by word like Excel does; a word longer than a line is broken where it ends.
 function lineCount(text: string | null | undefined, widthPx: number, fontSize: number) {
   if (!text) return 1;
-  const perLine = (widthPx - 4) / (fontSize * (4 / 3)); // usable width, in font sizes
-  const space = charWidth(' ') / 1000;
+  const perLine = (widthPx - CELL_PADDING_PX) / pointsToPx(fontSize); // usable width, in font sizes
+  const space = (charWidth(' ') / 1000) * SAFETY;
   return text.split('\n').reduce((n, part) => {
     let lines = 1;
     let used = 0;
@@ -155,7 +160,7 @@ function lineCount(text: string | null | undefined, widthPx: number, fontSize: n
 const DESCRIPTION_PX = columnsPx('B', 'J');
 const CUSTOMS_PX = columnsPx('B', 'AL');
 const ORDER_NUMBER_PX = columnsPx('AD', 'AF');
-const ADDRESS_PX = columnsPx('W', 'AL');
+const ADDRESS_PX = columnsPx('W', 'AK'); // the address boxes are W..AK
 
 // Height in points of a row whose tallest cell has `lines` lines of an Arial `fontSize` font
 // (Excel gives Arial 8 about 11.25 pt per line), plus a little room above and below
@@ -204,10 +209,17 @@ export function buildInvoiceSheet(invoice: InvoiceData): InvoiceSheet {
     }
   };
 
+  // Cells holding invoice data or company details: these must fit (see fitOneLineTexts)
+  const filled = new Set<string>();
   const set = (address: string, value: string | number | null) => {
     const match = /^([A-Z]+)(\d+)$/.exec(address);
     if (!match) return;
     ensureRow(Number(match[2])).cells[columnIndex(match[1])].value = value;
+    filled.add(`${match[2]}:${columnIndex(match[1]) + 1}`);
+  };
+  const markFixedText = (address: string, rowShift: number) => {
+    const match = /^([A-Z]+)(\d+)$/.exec(address);
+    if (match) filled.add(`${Number(match[2]) + rowShift}:${columnIndex(match[1]) + 1}`);
   };
 
   // Header and table head, merges spanning several rows included
@@ -233,14 +245,16 @@ export function buildInvoiceSheet(invoice: InvoiceData): InvoiceSheet {
   set('F22', invoice.paymentMethod);
   set('W10', invoice.invoiceTo);
   set('W16', invoice.shipTo);
-  // The address boxes have a fixed size: longer addresses get a smaller font so nothing is cut off
-  for (const [address, text, rowsTall] of [['W10', invoice.invoiceTo, 5], ['W16', invoice.shipTo, 6]] as const) {
-    const cell = rows[Number(address.slice(1)) - 1].cells[columnIndex('W')];
-    const lines = lineCount(text, ADDRESS_PX, cell.style.font.size);
-    if (lines > rowsTall) {
-      const size = Math.max(6, Math.floor((cell.style.font.size * rowsTall) / lines));
-      cell.style = { ...cell.style, font: { ...cell.style.font, size } };
-    }
+  // The address boxes have a fixed size: a longer address gets the largest font that still fits
+  for (const [address, text] of [['W10', invoice.invoiceTo], ['W16', invoice.shipTo]] as const) {
+    const r = Number(address.slice(1));
+    const merge = merges.find(([r1, c1]) => r1 === r && c1 === columnIndex('W') + 1);
+    if (!merge) continue;
+    const boxHeight = rows.slice(merge[0] - 1, merge[2]).reduce((sum, rw) => sum + rw.height, 0) - 4;
+    const cell = rows[r - 1].cells[columnIndex('W')];
+    let size = cell.style.font.size;
+    while (size > 5 && lineCount(text, ADDRESS_PX, size) * size * 1.25 > boxHeight) size -= 0.5;
+    if (size !== cell.style.font.size) cell.style = { ...cell.style, font: { ...cell.style.font, size } };
   }
 
   // Items: the original item row, then the customs row under it
@@ -343,7 +357,71 @@ export function buildInvoiceSheet(invoice: InvoiceData): InvoiceSheet {
   set(at('AF', 44), invoice.exchangeRate);
   set(at('D', 52), `Bruto weight:  ~ ${kg(totals.grossWeightKg)}kg          Collet = ${invoice.packaging}`);
 
+  // Company details, VAT note and responsible person, wherever they ended up
+  for (const { address } of EDITABLE_FIXED_TEXTS) {
+    markFixedText(address, Number(/\d+$/.exec(address)?.[0]) >= FOOTER_FIRST_ROW ? shift : 0);
+  }
+  fitOneLineTexts(rows, merges, filled);
   return { columns: template.columns, rows, merges };
+}
+
+// A number as its cell's number format shows it ("#,##0.00" -> "1,234.50")
+function shownText(cell: SheetCell) {
+  if (typeof cell.value !== 'number') return String(cell.value ?? '');
+  const format = (cell.style.numFmt ?? 'General').split(';')[0];
+  if (format === 'General' || format === '@') return String(cell.value);
+  const decimals = format.includes('.') ? (format.split('.')[1].match(/0/g) ?? []).length : 0;
+  return cell.value.toLocaleString('en-US', {
+    minimumFractionDigits: decimals,
+    maximumFractionDigits: decimals,
+    useGrouping: format.includes(',')
+  });
+}
+
+// Excel cuts off text at the edge of a merged cell, and shows #### for a number wider than its
+// cell. Every one-line text that does not fit first takes the empty cells to its right in the
+// same row (the merge grows), and what still does not fit gets a smaller font. Invoice data and
+// company details (`cells`, "row:column") get the safety margin; the printed labels of the
+// layout only change when they really do not fit, so the layout stays as it was.
+function fitOneLineTexts(rows: InvoiceSheet['rows'], merges: InvoiceSheet['merges'], cells: Set<string>) {
+  const covered = new Set<string>();
+  const mergeAt = new Map<string, number>();
+  merges.forEach(([r1, c1, r2, c2], index) => {
+    mergeAt.set(`${r1}:${c1}`, index);
+    for (let r = r1; r <= r2; r++) for (let c = c1; c <= c2; c++) if (r !== r1 || c !== c1) covered.add(`${r}:${c}`);
+  });
+  const isFree = (r: number, c: number) =>
+    rows[r - 1].cells[c - 1].value === null && !covered.has(`${r}:${c}`) && !mergeAt.has(`${r}:${c}`);
+
+  rows.forEach((row, ri) => {
+    const r = ri + 1;
+    row.cells.forEach((cell, ci) => {
+      const c = ci + 1;
+      if (cell.value === null || covered.has(`${r}:${c}`) || cell.style.alignment.wrapText) return;
+      const index = mergeAt.get(`${r}:${c}`);
+      const merge = index === undefined ? undefined : merges[index];
+      if (merge && merge[0] !== merge[2]) return; // boxes over several rows are fitted where they are filled
+      if (!merge && typeof cell.value === 'string') return; // a lone text runs on over empty cells
+      const text = shownText(cell);
+      if (!text.trim()) return;
+      const margin = cells.has(`${r}:${c}`) ? 1 : 1 / SAFETY;
+      const needed = textWidth(text) * margin * pointsToPx(cell.style.font.size) + CELL_PADDING_PX;
+      let lastColumn = merge ? merge[3] : c;
+      let width = columnsPx(c, lastColumn);
+      if (merge) {
+        while (width < needed && lastColumn < row.cells.length && isFree(r, lastColumn + 1)) {
+          lastColumn++;
+          covered.add(`${r}:${lastColumn}`);
+          width += columnPx(template.columns[lastColumn - 1]);
+        }
+        if (lastColumn !== merge[3]) merges[index as number] = [r, c, r, lastColumn];
+      }
+      if (width < needed) {
+        const size = Math.max(5, Math.floor(((cell.style.font.size * width) / needed) * 2) / 2);
+        cell.style = { ...cell.style, font: { ...cell.style.font, size } };
+      }
+    });
+  });
 }
 
 function columnLetters(index: number) {
