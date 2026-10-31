@@ -1831,6 +1831,32 @@ export const products: Product[] = [
       "/images/p15.webp",
       "/images/p16.webp"
     ]
+    },
+  {
+    image: "/images/20260917_165336.jpg",
+    id: "tamiya-top-force-df01-dark-blue-aluminium-upgrade-kit",
+    title: "Tamiya Top Force DF01 dark blue aluminium upgrade kit",
+    price: 12.99,
+    description: "1 set of aluminium DARK BLUE anodized replacement reproduction parts for the Tamiya Top force.\nThis set is designed to replace the common weak spots on the DF01 chassis and boost overall performance.\n\nThis setup has been raced by many professional drivers and tested during hard race conditions\n\nOne set includes:\n\n- Gearbox reinforcement set (4pieces)\nFront U-shaped brace 1x\nBraces for the rear upper gearbox cover 2x\nMotor mount plate 1x\n- J10 damper tower mount\n- J3 chassis support\n- J4 upper chassis support\n- J7 chassis support\n- J2 and J6 wing mount\n- Steering brace\n- Servo post (1 pair)\n- Rear gearbox cover with a 2mm gap between the gearbox and the cover\nThis cover will only fit if you run 2mm thick FRP or Carbon shock tower. The gap between the cover and gearbox is precisely calculatet and there is not enough space for thicker shock towers!!!\nThis gearbox cover is designed to reach the two shock tower mounting holes and strengthen this part of the gearbox preventing it from crack's, ect.\n- Rear hinge pin brace setup with 8 inserts for adjustable toe in/out - antisquat including 2 hardened grinded pins and rear/front braces.\nCAUTION, to install this parts you have to modify the rear gearbox, which means cutting the arm mounts or drill a bigger hole to make room for adjustments!!!\n\nHardware is not included.\n\nPLEASE NOTE!!!\nOTHER PICTURES ARE ONLY FOR REFERENCE, NO OTHER PARTS ARE INCLUDED BESIDE THE ALLOY PARTS FROM THE FIRST PICTURE\n\nThis is NOT an original Tamiya product but we make the parts as good as possible to match the original.\n\nWe ensure that all parts are well packaged, all parcels are send trackable and we will provide the tracking number once the parcel is shipped.\n\nIf you need a quote for shipping to your country, feel free to ask.\nFor any other question don't hesitate to contact us.",
+    color: "Blue",
+    images: [
+      "/images/20260917_165248.jpg",
+      "/images/p2.webp",
+      "/images/p3.webp",
+      "/images/p4.webp",
+      "/images/p5.webp",
+      "/images/p6.webp",
+      "/images/p7.webp",
+      "/images/p8.webp",
+      "/images/p9.webp",
+      "/images/p10.webp",
+      "/images/p11.webp",
+      "/images/p12.webp",
+      "/images/p13.webp",
+      "/images/p14.webp",
+      "/images/p15.webp",
+      "/images/p16.webp"
+    ]
   },
   {
     image: "/images/p17.webp",
