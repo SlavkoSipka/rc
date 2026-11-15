@@ -7,25 +7,10 @@ import { ProductCard } from '../components/ProductCard';
 import { Pagination } from '../components/Pagination'; 
 import { products } from '../data/products';
 import { supabase } from '../lib/supabase';
+import { loadProductIdentifiers, searchProducts } from '../lib/productSearch';
+import type { ProductIdentifiers } from '../lib/productIdentifiers';
 
 const PRODUCTS_PER_PAGE = 25;
-
-function getFilteredProducts(query: string) {
-  // Special case for DF01 to include variations
-  if (query.toUpperCase() === 'DF01') {
-    return products.filter(product =>
-      product.title.toLowerCase().includes('df01') || 
-      product.id.toLowerCase().includes('df01') ||
-      product.title.toLowerCase().includes('top force') ||
-      product.id.toLowerCase().includes('top-force')
-    );
-  }
-  
-  return products.filter(product =>
-    product.title.toLowerCase().includes(query.toLowerCase()) ||
-    product.id.toLowerCase().includes(query.toLowerCase())
-  ).slice(0, 100);
-}
 
 type SortOption = 'relevance' | 'cheaper' | 'expensive' | 'popular';
 
@@ -37,6 +22,11 @@ export function SearchPage() {
   const [currentPage, setCurrentPage] = useState(1);
   const resultsRef = useRef<HTMLDivElement>(null);
   const [productData, setProductData] = useState<Record<string, { price: number; stock: number }>>({});
+  const [identifiers, setIdentifiers] = useState<Record<string, ProductIdentifiers>>({});
+
+  useEffect(() => {
+    loadProductIdentifiers().then(setIdentifiers);
+  }, []);
 
   // Jedan batch fetch za sve podatke
   useEffect(() => {
@@ -68,7 +58,7 @@ export function SearchPage() {
   }, [query]);
 
   const searchResults = useMemo(() => {
-    const filtered = getFilteredProducts(query);
+    const filtered = searchProducts(products, query, identifiers).slice(0, 100);
 
     return [...filtered].sort((a, b) => {
       const aPrice = productData[a.id]?.price ?? a.price;
@@ -85,7 +75,7 @@ export function SearchPage() {
           return 0; // zadržava originalni redosled filtriranja
       }
     });
-  }, [query, sortOption, productData]);
+  }, [query, sortOption, productData, identifiers]);
 
   const totalPages = Math.ceil(searchResults.length / PRODUCTS_PER_PAGE);
   const startIndex = (currentPage - 1) * PRODUCTS_PER_PAGE;

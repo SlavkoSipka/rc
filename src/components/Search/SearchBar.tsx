@@ -5,6 +5,8 @@ import { products } from '../../data/products';
 import { Product } from '../../types';
 import { supabase } from '../../lib/supabase';
 import { formatPrice } from '../../utils/format';
+import { loadProductIdentifiers, searchProducts } from '../../lib/productSearch';
+import type { ProductIdentifiers } from '../../lib/productIdentifiers';
 
 interface SearchBarProps {
   value: string;
@@ -17,13 +19,19 @@ export function SearchBar({ value, onChange }: SearchBarProps) {
   const [prices, setPrices] = useState<Record<string, number>>({});
   const navigate = useNavigate();
   const wrapperRef = useRef<HTMLDivElement>(null);
+  const [identifiers, setIdentifiers] = useState<Record<string, ProductIdentifiers>>({});
+
+  useEffect(() => {
+    loadProductIdentifiers().then(setIdentifiers);
+  }, []);
 
   useEffect(() => {
     if (value) {
       handleSearch(value);
       setIsOpen(true);
     }
-  }, [value]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [value, identifiers]);
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
@@ -55,12 +63,7 @@ export function SearchBar({ value, onChange }: SearchBarProps) {
   const handleSearch = (searchQuery: string) => {
     onChange(searchQuery);
     if (searchQuery.length >= 1) {
-      // Special case for DF01 to include variations
-      const searchTerm = searchQuery.toUpperCase() === 'DF01' ? 'df01' : searchQuery.toLowerCase();
-      const filtered = products.filter(product =>
-        product.title.toLowerCase().includes(searchTerm) ||
-        product.id.toLowerCase().includes(searchTerm)
-      );
+      const filtered = searchProducts(products, searchQuery, identifiers);
       setSuggestions(filtered.slice(0, 10));
       fetchPrices(filtered.slice(0, 10).map(p => p.id));
       setIsOpen(true);
