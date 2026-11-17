@@ -108,12 +108,15 @@ export function MainHeader() {
               <div className="flex-1">
                 <SearchBar value={searchQuery} onChange={setSearchQuery} />
               </div>
-              <Link
-                to="/outlet"
+              <button
+                type="button"
+                onClick={() => {
+                  if (searchQuery.trim()) navigate(`/search?q=${encodeURIComponent(searchQuery.trim())}`);
+                }}
                 className="px-8 py-2.5 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors shadow-sm whitespace-nowrap min-w-[120px] text-center"
               >
-                Outlet
-              </Link>
+                Search
+              </button>
             </div>
           </div>
 
@@ -359,6 +362,12 @@ export function MainHeader() {
             </div>
           </div>
           <div className="flex items-center gap-3">
+            <Link
+              to="/outlet"
+              className="hidden md:inline-block px-5 py-2.5 bg-orange-500 text-white font-medium rounded-lg hover:bg-orange-600 transition-colors shadow-sm whitespace-nowrap"
+            >
+              Outlet
+            </Link>
             <button 
               className="md:hidden"
               onClick={() => setIsMobileSearchOpen(!isMobileSearchOpen)}
