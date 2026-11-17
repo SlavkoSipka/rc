@@ -41,6 +41,7 @@ import {
   templateText
 } from '../invoice/invoiceSheet';
 import { InvoicePreview } from '../components/InvoicePreview';
+import { ShippingLabelPanel } from '../components/ShippingLabelPanel';
 import type { InvoiceData, InvoiceLine } from '../invoice/types';
 
 const siteTitles: Record<string, string> = Object.fromEntries(
@@ -602,6 +603,8 @@ export function AdminInvoiceEditorPage() {
             ))}
           </div>
         </details>
+
+        <ShippingLabelPanel invoice={invoice} />
 
         <section className="bg-white rounded-lg shadow p-4 space-y-3 sticky bottom-2">
           <div className="flex flex-wrap gap-x-8 gap-y-1 text-sm">
