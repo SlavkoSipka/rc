@@ -257,8 +257,8 @@ export function buildInvoiceSheet(invoice: InvoiceData): InvoiceSheet {
     if (size !== cell.style.font.size) cell.style = { ...cell.style, font: { ...cell.style.font, size } };
   }
 
-  // Item rows are framed with solid lines: the template's hairlines are too faint on paper. Each
-  // group of merged columns gets a thin box; the template's medium lines stay medium.
+  // The product name of each item gets a solid box: the template's hairlines are too faint on
+  // paper. The rest of the row keeps the template's lines (medium bands stay medium).
   const frame = (r: number, groups: [string, string][]) => {
     const solid = (edge?: { style: string }) =>
       edge && ['medium', 'thick', 'double'].includes(edge.style) ? edge : { style: 'thin' };
@@ -275,10 +275,7 @@ export function buildInvoiceSheet(invoice: InvoiceData): InvoiceSheet {
       }
     }
   };
-  const ITEM_COLUMNS: [string, string][] = [
-    ['A', 'A'], ['B', 'J'], ['K', 'L'], ['M', 'O'], ['P', 'R'], ['S', 'S'], ['T', 'T'],
-    ['U', 'X'], ['Y', 'AB'], ['AC', 'AC'], ['AD', 'AF'], ['AG', 'AL']
-  ];
+  const PRODUCT_NAME: [string, string][] = [['B', 'J']];
 
   // Items: the original item row, then the customs row under it
   let row = ITEM_ROW;
@@ -316,7 +313,7 @@ export function buildInvoiceSheet(invoice: InvoiceData): InvoiceSheet {
       rowHeight(lineCount(line.orderNumber, ORDER_NUMBER_PX, orderNumberSize), orderNumberSize)
     );
     rows[row - 1].height = Math.max(templateRows[ITEM_ROW - 1].height, itemHeight);
-    frame(row, ITEM_COLUMNS);
+    frame(row, PRODUCT_NAME);
     row++;
 
     copyRow(ITEM_ROW, row, { values: false, merges: false });
@@ -329,12 +326,10 @@ export function buildInvoiceSheet(invoice: InvoiceData): InvoiceSheet {
       alignment: { horizontal: 'left', vertical: 'middle', wrapText: true }
     };
     rows[row - 1].height = Math.max(12, rowHeight(lineCount(details.value as string, CUSTOMS_PX, 7), 7));
-    frame(row, [['A', 'A'], ['B', 'AL']]);
     row++;
   });
 
   copyRow(SHIPPING_ROW, row, { values: false });
-  frame(row, ITEM_COLUMNS);
   if (invoice.shipping > 0) {
     set(`A${row}`, invoice.lines.length + 1);
     const label = invoice.shippingLabel?.trim() || DEFAULT_SHIPPING_LABEL;
