@@ -2,6 +2,52 @@ import { Product } from '../types';
 
 export const products: Product[] = [
   {
+    image: "/images/sa-kit-silver-1.webp",
+    id: "tamiya-super-astute-silver-hard-anodized-aluminium-upgrade-kit",
+    title: "Tamiya Super Astute Silver Hard Anodized Aluminium Upgrade Kit",
+    price: 180.00,
+    stock: 1,
+    description: "This upgrade kit contains\n\n#1 - 1 piece of aluminium replacement reproduction front bulkhead - (D5) for Tamiya Super Astute and Astute made of high grade 6082 alloy, SILVER HARD anodized.\n\nThis high grade 6082 one piece aluminium bulkhead is designed as a direct fit upgrade for the Tamiya Astute, Super Astute front bulkhead with increased Kick-up angle. and a total weight of 51 grams.\nFactory kick-up is 15 degrees, this part has 30 degrees bringing it inline with other popular race buggies of the late 80's & 90's like the RC10.\n\nThe increased kick-up gives the buggy much better handling on rough and bumpy tracks, allowing the suspension to absorb the bumps and track better through rough sections.\nIt also tames down the steering making it less aggressive and twitchy and making it easier to drive also making it more suitable to loose surfaces.\n\n#2 - 1 pair of aluminium replacement reproduction rear arm mounts, pivot blocks (D1) with machined delrin inserts for the Tamiya Super Astute and Astute made of high grade 6082 alloy, SILVER HARD anodized.\n\nThese rear arm mounts, pivot blocks are designed to add the missing anti squat angle to the rear arm mounts.\nIt is also possible to add an extra toe in but with less anti squat (1.30 degree) angle by selecting the middle position of the inserts.\nMax anti squat angle is 2.60 degree\nThe mounts are delivered with 4 machined delrin inserts which can be rotated.\n\nA set includes:\n- 2 rear arm mounts, pivot blocks\n- 4 machined delrin inserts\n\nThis part is designed and engineered to be a precision drop in replacement exceeding the factory part's accuracy and specification.\n\n#3 - 1 piece of aluminium replacement reproduction rear bulkhead - damper tower mount (D4) for Tamiya Super Astute and Astute made of high grade 6082 alloy, SILVER HARD anodized.\n\n#4 - 1 pair of aluminium replacement reproduction bell cranks (D2 and D3) for Tamiya Super Astute and Astute made of high grade 6082 alloy, SILVER HARD anodized.\n\n#5 - 1 piece of aluminium replacement reproduction gearbox idler gear counter brace (A1) for the Tamiya Super Astute and Astute made of high grade 6082 alloy, SILVER HARD anodized.\n\n\nLast 6 pictures are only for reference, you will receive only parts from the first picture.\n\nThis is NOT an original Tamiya product but we make the parts as good as possible to match the original.\n\nWe ensure that all parts are well packaged, all parcels are sent trackable and we will provide the tracking number once the parcel is shipped.\n\nIf you need a quote for shipping to your country, feel free to ask.\nFor any other question don't hesitate to contact us.",
+    color: "Silver",
+    images: [
+      "/images/sa-kit-silver-1.webp",
+      "/images/sa-kit-silver-2.webp",
+      "/images/sa-kit-silver-3.webp",
+      "/images/sa-kit-silver-4.webp",
+      "/images/sa-kit-silver-5.webp",
+      "/images/sa-kit-silver-6.webp",
+      "/images/sa-kit-ref-1.webp",
+      "/images/sa-kit-ref-2.webp",
+      "/images/sa-kit-ref-3.webp",
+      "/images/sa-kit-ref-4.webp",
+      "/images/sa-kit-ref-5.webp",
+      "/images/sa-kit-ref-6.webp"
+    ]
+  },
+  {
+    image: "/images/sa-kit-black-1.webp",
+    id: "tamiya-super-astute-black-anodized-aluminium-upgrade-kit",
+    title: "Tamiya Super Astute Black Anodized Aluminium Upgrade Kit",
+    price: 180.00,
+    stock: 1,
+    description: "This upgrade kit contains\n\n#1 - 1 piece of aluminium replacement reproduction front bulkhead - (D5) for Tamiya Super Astute and Astute made of high grade 6082 alloy, BLACK anodized.\n\nThis high grade 6082 one piece aluminium bulkhead is designed as a direct fit upgrade for the Tamiya Astute, Super Astute front bulkhead with increased Kick-up angle. and a total weight of 51 grams.\nFactory kick-up is 15 degrees, this part has 30 degrees bringing it inline with other popular race buggies of the late 80's & 90's like the RC10.\n\nThe increased kick-up gives the buggy much better handling on rough and bumpy tracks, allowing the suspension to absorb the bumps and track better through rough sections.\nIt also tames down the steering making it less aggressive and twitchy and making it easier to drive also making it more suitable to loose surfaces.\n\n#2 - 1 pair of aluminium replacement reproduction rear arm mounts, pivot blocks (D1) with machined delrin inserts for the Tamiya Super Astute and Astute made of high grade 6082 alloy, BLACK anodized.\n\nThese rear arm mounts, pivot blocks are designed to add the missing anti squat angle to the rear arm mounts.\nIt is also possible to add an extra toe in but with less anti squat (1.30 degree) angle by selecting the middle position of the inserts.\nMax anti squat angle is 2.60 degree\nThe mounts are delivered with 4 machined delrin inserts which can be rotated.\n\nA set includes:\n- 2 rear arm mounts, pivot blocks\n- 4 machined delrin inserts\n\nThis part is designed and engineered to be a precision drop in replacement exceeding the factory part's accuracy and specification.\n\n#3 - 1 piece of aluminium replacement reproduction rear bulkhead - damper tower mount (D4) for Tamiya Super Astute and Astute made of high grade 6082 alloy, BLACK anodized.\n\n#4 - 1 pair of aluminium replacement reproduction bell cranks (D2 and D3) for Tamiya Super Astute and Astute made of high grade 6082 alloy, BLACK anodized.\n\n#5 - 1 piece of aluminium replacement reproduction gearbox idler gear counter brace (A1) for the Tamiya Super Astute and Astute made of high grade 6082 alloy, BLACK anodized.\n\n\nLast 6 pictures are only for reference, you will receive only parts from the first picture.\n\nThis is NOT an original Tamiya product but we make the parts as good as possible to match the original.\n\nWe ensure that all parts are well packaged, all parcels are sent trackable and we will provide the tracking number once the parcel is shipped.\n\nIf you need a quote for shipping to your country, feel free to ask.\nFor any other question don't hesitate to contact us.",
+    color: "Black",
+    images: [
+      "/images/sa-kit-black-1.webp",
+      "/images/sa-kit-black-2.webp",
+      "/images/sa-kit-black-3.webp",
+      "/images/sa-kit-black-4.webp",
+      "/images/sa-kit-black-5.webp",
+      "/images/sa-kit-black-6.webp",
+      "/images/sa-kit-ref-1.webp",
+      "/images/sa-kit-ref-2.webp",
+      "/images/sa-kit-ref-3.webp",
+      "/images/sa-kit-ref-4.webp",
+      "/images/sa-kit-ref-5.webp",
+      "/images/sa-kit-ref-6.webp"
+    ]
+  },
+  {
     image: "/images/143.webp",
     id: "tamiya-dyna-storm-blaster-tr15t-blue-bulkhead",
     title: "Tamiya Dyna Storm - Blaster - TR15T Aluminium Blue Bulkhead",
