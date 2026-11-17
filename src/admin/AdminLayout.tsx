@@ -116,6 +116,7 @@ export function AdminLayout() {
             </NavLink>
             <NavLink to="/admin/invoices" end className={navClass}>Fakture</NavLink>
             <NavLink to="/admin/invoices/new" className={navClass}>Nova faktura</NavLink>
+            <NavLink to="/admin/envelopes" className={navClass}>Koverte</NavLink>
             <NavLink to="/admin/products" className={navClass}>Proizvodi</NavLink>
             <NavLink to="/admin/labels" className={navClass}>Nalepnice</NavLink>
           </nav>

@@ -104,7 +104,8 @@ const CSS = `
 * { box-sizing: border-box; }
 html, body { margin: 0; padding: 0; background: #fff; }
 body { font-family: Arial, Helvetica, sans-serif; color: #000; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-.sheet { position: relative; width: 210mm; height: 297mm; overflow: hidden; background: #fff; }
+.sheet { position: relative; width: 210mm; height: 297mm; overflow: hidden; background: #fff; break-after: page; }
+.sheet:last-of-type { break-after: auto; }
 .cut { position: absolute; left: 0; right: 0; border-top: 0.2mm dashed #999; }
 .empty { position: absolute; left: 6mm; right: 6mm; height: 87mm; border: 0.3mm dashed #cbd5e1; border-radius: 2mm;
   display: flex; align-items: center; justify-content: center; color: #94a3b8; font-size: 5mm; }
@@ -177,22 +178,32 @@ document.querySelectorAll('.fit').forEach(function (el) {
   while (size > 6 && tooBig()) { size -= 0.5; el.style.fontSize = size + 'pt'; }
 });`;
 
-// The whole A4 page; `strips` maps strip number (0-2) to the label printed there.
-// The preview also outlines the strips left empty.
-export function shippingSheetHtml(strips: Record<number, ShippingLabel>, preview = false) {
-  let body = '';
-  for (let i = 0; i < STRIPS; i++) {
-    const label = strips[i];
-    if (label) body += strip(label, i);
-    else if (preview) body += `<div class="empty" style="top:${i * STRIP_H + 6}mm">mesto ${i + 1} — prazno</div>`;
+// Shipments one after another, three per A4 page. `startStrip` (0-2) is the first free strip of
+// the first sheet, so a sheet already used at the top can go back in the printer. The preview
+// also outlines the strips left empty and the cutting lines.
+export function shippingSheetHtml(labels: ShippingLabel[], startStrip = 0, preview = false) {
+  const slots: (ShippingLabel | null)[] = [...Array<null>(startStrip).fill(null), ...labels];
+  const pageCount = Math.max(1, Math.ceil(slots.length / STRIPS));
+  let pages = '';
+  for (let page = 0; page < pageCount; page++) {
+    let body = '';
+    for (let i = 0; i < STRIPS; i++) {
+      const label = slots[page * STRIPS + i];
+      if (label) body += strip(label, i);
+      else if (preview) {
+        const used = page === 0 && i < startStrip;
+        body += `<div class="empty" style="top:${i * STRIP_H + 6}mm">mesto ${i + 1} — ${used ? 'već iskorišćeno' : 'prazno'}</div>`;
+      }
+    }
+    const cuts = preview ? [1, 2].map((i) => `<div class="cut" style="top:${i * STRIP_H}mm"></div>`).join('') : '';
+    pages += `<div class="sheet">${cuts}${body}</div>`;
   }
-  const cuts = preview ? [1, 2].map((i) => `<div class="cut" style="top:${i * STRIP_H}mm"></div>`).join('') : '';
-  return `<!doctype html><html lang="sr"><head><meta charset="utf-8"><title>Koverta</title><style>${CSS}</style></head>
-<body><div class="sheet">${cuts}${body}</div><script>${FIT_SCRIPT}</script></body></html>`;
+  return `<!doctype html><html lang="sr"><head><meta charset="utf-8"><title>Koverte</title><style>${CSS}${preview ? 'body{background:#e5e7eb}.sheet{margin-bottom:8mm}' : ''}</style></head>
+<body>${pages}<script>${FIT_SCRIPT}</script></body></html>`;
 }
 
 // Prints through a hidden frame, so no new window or popup is needed
-export function printShippingSheet(strips: Record<number, ShippingLabel>) {
+export function printShippingSheet(labels: ShippingLabel[], startStrip = 0) {
   const frame = document.createElement('iframe');
   frame.style.cssText = 'position:fixed;right:0;bottom:0;width:210mm;height:297mm;border:0;visibility:hidden';
   frame.onload = () => {
@@ -202,6 +213,6 @@ export function printShippingSheet(strips: Record<number, ShippingLabel>) {
     win.print();
     setTimeout(() => frame.remove(), 1000);
   };
-  frame.srcdoc = shippingSheetHtml(strips);
+  frame.srcdoc = shippingSheetHtml(labels, startStrip);
   document.body.appendChild(frame);
 }

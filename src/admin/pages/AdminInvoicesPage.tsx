@@ -36,6 +36,9 @@ export function AdminInvoicesPage() {
               <span className="text-sm text-gray-500 w-24">{formatDateSr(invoice.invoice_date)}</span>
               <span className="flex-1 min-w-[10rem]">{invoice.customer_name}</span>
               <span className="w-24 text-right">€{Number(invoice.total ?? 0).toFixed(2)}</span>
+              <Link to={`/admin/envelopes?invoice=${invoice.id}`} className="text-sm text-blue-600 hover:underline">
+                Koverta
+              </Link>
               <button
                 onClick={() => downloadInvoiceXlsx(invoice.data)}
                 className="text-sm text-blue-600 hover:underline"

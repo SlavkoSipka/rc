@@ -41,7 +41,6 @@ import {
   templateText
 } from '../invoice/invoiceSheet';
 import { InvoicePreview } from '../components/InvoicePreview';
-import { ShippingLabelPanel } from '../components/ShippingLabelPanel';
 import type { InvoiceData, InvoiceLine } from '../invoice/types';
 
 const siteTitles: Record<string, string> = Object.fromEntries(
@@ -421,6 +420,11 @@ export function AdminInvoiceEditorPage() {
             {savedId ? `Faktura ${invoiceNumberText(invoice)}` : 'Nova faktura'}
           </h1>
           {order && <Link to="/admin/orders" className="text-sm text-blue-600 hover:underline">← porudžbine</Link>}
+          {savedId && (
+            <Link to={`/admin/envelopes?invoice=${savedId}`} className="ml-auto text-sm px-3 py-1.5 border rounded bg-white hover:bg-gray-50">
+              Koverta (adrese + CN 22) →
+            </Link>
+          )}
         </div>
 
         {order && isDemoOrder(order) && (
@@ -603,8 +607,6 @@ export function AdminInvoiceEditorPage() {
             ))}
           </div>
         </details>
-
-        <ShippingLabelPanel invoice={invoice} />
 
         <section className="bg-white rounded-lg shadow p-4 space-y-3 sticky bottom-2">
           <div className="flex flex-wrap gap-x-8 gap-y-1 text-sm">

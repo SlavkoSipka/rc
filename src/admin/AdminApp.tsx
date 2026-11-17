@@ -1,6 +1,7 @@
 import { Navigate, Route, Routes } from 'react-router-dom';
 import { AdminLayout } from './AdminLayout';
 import { AdminInvoiceEditorPage } from './pages/AdminInvoiceEditorPage';
+import { AdminEnvelopesPage } from './pages/AdminEnvelopesPage';
 import { AdminInvoicesPage } from './pages/AdminInvoicesPage';
 import { AdminLabelsPage } from './pages/AdminLabelsPage';
 import { AdminOrdersPage } from './pages/AdminOrdersPage';
@@ -17,6 +18,7 @@ export default function AdminApp() {
         <Route path="invoices" element={<AdminInvoicesPage />} />
         <Route path="invoices/:invoiceId" element={<AdminInvoiceEditorPage />} />
         <Route path="products" element={<AdminProductsPage />} />
+        <Route path="envelopes" element={<AdminEnvelopesPage />} />
         <Route path="labels" element={<AdminLabelsPage />} />
       </Route>
     </Routes>
