@@ -11,7 +11,8 @@ export const outletDefectProducts: Product[] = [
     color: "Blue",
     images: [
       "/images/trf201-blue-outlet-1.webp",
-      "/images/trf201-blue-outlet-2.webp"
+      "/images/trf201-blue-outlet-2.webp",
+      "/images/trf201-blue-outlet-3.webp"
     ]
   },
   {
