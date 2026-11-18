@@ -251,7 +251,7 @@ export function AdminEnvelopesPage() {
             </label>
           </div>
           <p className="text-xs text-gray-500 mt-2">
-            Vrednost = zbir stavki bez poštarine; ukupna masa = bruto sa fakture (neto + koverta). Pamti se u ovom pregledaču.
+            Vrednost (3) i ukupna vrednost (7) = ukupno sa fakture, sa poštarinom; ukupna masa = bruto sa fakture (neto + koverta). Pamti se u ovom pregledaču.
           </p>
         </details>
       </div>

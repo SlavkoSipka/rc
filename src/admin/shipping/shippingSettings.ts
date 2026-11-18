@@ -62,10 +62,11 @@ export const PER_SHIPMENT_TITLES: Record<PerShipment, string> = {
   date: 'Datum (8)'
 };
 
-// Value = items without shipping; total weight = gross weight of the invoice (net + envelope)
+// The form has one row for all goods, so its value (3) and the total (7) are the same amount: the
+// invoice total with shipping. Total weight = gross weight of the invoice (net + envelope).
 export function fromInvoice(invoice: InvoiceData, settings: ShippingSettings): Record<PerShipment, string> {
   const totals = invoiceTotals(invoice);
-  const value = `${totals.itemsTotal.toFixed(2)} EUR`;
+  const value = `${totals.total.toFixed(2)} EUR`;
   return {
     recipient: (invoice.shipTo.trim() || invoice.invoiceTo).trim(),
     contents: settings.contentsTemplate.replace('{n}', String(totals.totalPieces)),

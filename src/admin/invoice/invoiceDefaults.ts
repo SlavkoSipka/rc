@@ -10,8 +10,8 @@ export const INVOICE_DEFAULTS = {
   countryOfOrigin: 'Serbia',
   purpose: 'spare part for RC model car',
   packaging: '1 Envelope',
-  // Envelope and padding added to the net weight for the suggested gross weight
-  packagingWeightKg: 0.05
+  // Empty envelope, added to the net weight of the items for the gross weight
+  packagingWeightKg: 0.024
 };
 
 // Last invoice number issued before invoices were made in the admin panel, per series.

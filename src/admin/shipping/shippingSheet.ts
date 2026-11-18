@@ -13,11 +13,11 @@ export interface ShippingLabel {
   otherText: string;    // "Other (please specify)" when category is 'other'
   contents: string;     // "4 PCS OF MODEL TOY CAR PARTS"
   netWeight: string;    // "0.036"
-  value: string;        // "75.00 EUR"
+  value: string;        // "90.00 EUR"
   hsCode: string;       // "9503.0090"
   origin: string;       // "Serbia"
   totalWeight: string;  // "0.086"
-  totalValue: string;   // "75.00 EUR"
+  totalValue: string;   // "90.00 EUR"
   date: string;         // "17.11.2026"
 }
 
@@ -94,8 +94,8 @@ function strip(label: ShippingLabel, index: number) {
   return `
 <div class="strip" style="top:${top}mm">
   <div class="cn22-slot">${cn22(label)}</div>
-  <div class="addr from"><div class="tag">From:</div><div class="fit" data-max="12">${lines(label.sender)}</div></div>
-  <div class="addr to"><div class="tag">To:</div><div class="fit bold" data-max="17">${lines(label.recipient)}</div></div>
+  <div class="addr from"><div class="fit" data-max="12">${lines(label.sender)}</div></div>
+  <div class="addr to"><div class="fit bold" data-max="17">${lines(label.recipient)}</div></div>
 </div>`;
 }
 
@@ -158,7 +158,6 @@ body { font-family: Arial, Helvetica, sans-serif; color: #000; -webkit-print-col
 /* Addresses, with a line above and below like the labels cut so far */
 .addr { position: absolute; left: 119mm; width: 85mm; border-top: 0.35mm solid #000; border-bottom: 0.35mm solid #000;
   padding: 1.5mm 2mm; display: flex; flex-direction: column; }
-.addr .tag { font-size: 3.2mm; font-weight: 700; }
 .addr .fit { flex: 1; display: flex; flex-direction: column; justify-content: center; text-align: center; overflow: hidden; line-height: 1.18; }
 .addr .ln { white-space: nowrap; }
 .addr .bold { font-weight: 700; }
