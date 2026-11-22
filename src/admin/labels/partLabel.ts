@@ -224,14 +224,18 @@ export function labelSheetsPdf(labels: PartLabel[], size: SheetSize, layer: Shee
 // columns; the lines run on into the margin, so they are still there after the first strip is cut
 // off. The first `skip` places are left empty: a sheet with its top already used can go back in.
 
+// Labels start close to the top edge (most office printers print from about 4-5 mm), the bottom
+// keeps room for the footer line
 const HAND_MARGIN = 12;
+const HAND_TOP = 6;
+const HAND_BOTTOM = 9;
 
 export function handSheetLayout() {
   const [w, h] = SHEETS.A4;
   const cols = Math.floor((w - 2 * HAND_MARGIN) / LABEL_W);
-  const rows = Math.floor((h - 2 * HAND_MARGIN) / LABEL_H);
+  const rows = Math.floor((h - HAND_TOP - HAND_BOTTOM) / LABEL_H);
   const left = (w - cols * LABEL_W) / 2;
-  const top = (h - rows * LABEL_H) / 2;
+  const top = HAND_TOP;
   return { w, h, cols, rows, perPage: cols * rows, left, top };
 }
 
@@ -265,7 +269,7 @@ export function handSheetsPdf(labels: PartLabel[], skip = 0): Blob {
       // Column lines over the used rows, running on above and below
       for (let c = 0; c <= layout.cols; c++) {
         const x = layout.left + c * LABEL_W;
-        lines.push(`${X(x)} ${Y(layout.top + firstRow * LABEL_H - 6)} m ${X(x)} ${Y(layout.top + (lastRow + 1) * LABEL_H + 6)} l`);
+        lines.push(`${X(x)} ${Y(Math.max(1, layout.top + firstRow * LABEL_H - 6))} m ${X(x)} ${Y(layout.top + (lastRow + 1) * LABEL_H + 6)} l`);
       }
       parts.push(`0.6 G ${num(0.2 * PT)} w ${lines.join(' ')} S`);
     }
