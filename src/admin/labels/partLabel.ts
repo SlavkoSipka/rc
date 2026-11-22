@@ -218,3 +218,60 @@ export function labelSheetsPdf(labels: PartLabel[], size: SheetSize, layer: Shee
   }
   return writePdf(pages);
 }
+
+// ---- A4 on the office printer, cut by hand ------------------------------------------------------
+// Labels side by side with no gap, so one straight cut along a grey line separates two rows or two
+// columns; the lines run on into the margin, so they are still there after the first strip is cut
+// off. The first `skip` places are left empty: a sheet with its top already used can go back in.
+
+const HAND_MARGIN = 12;
+
+export function handSheetLayout() {
+  const [w, h] = SHEETS.A4;
+  const cols = Math.floor((w - 2 * HAND_MARGIN) / LABEL_W);
+  const rows = Math.floor((h - 2 * HAND_MARGIN) / LABEL_H);
+  const left = (w - cols * LABEL_W) / 2;
+  const top = (h - rows * LABEL_H) / 2;
+  return { w, h, cols, rows, perPage: cols * rows, left, top };
+}
+
+export function handSheetsPdf(labels: PartLabel[], skip = 0): Blob {
+  const layout = handSheetLayout();
+  const slots: (PartLabel | null)[] = [...Array<null>(skip % layout.perPage).fill(null), ...labels];
+  const pageCount = Math.max(1, Math.ceil(slots.length / layout.perPage));
+  const X = (mm: number) => num(mm * PT);
+  const Y = (mm: number) => num((layout.h - mm) * PT);
+  const pages: PdfPage[] = [];
+  for (let p = 0; p < pageCount; p++) {
+    const page = slots.slice(p * layout.perPage, (p + 1) * layout.perPage);
+    const used = page.map((label, i) => (label ? i : -1)).filter((i) => i >= 0);
+    const parts: string[] = [];
+    page.forEach((label, i) => {
+      if (!label) return;
+      const left = layout.left + (i % layout.cols) * LABEL_W;
+      const top = layout.top + Math.floor(i / layout.cols) * LABEL_H;
+      parts.push(labelContent(label, left, top, layout.h));
+    });
+    if (used.length > 0) {
+      const firstRow = Math.floor(used[0] / layout.cols);
+      const lastRow = Math.floor(used[used.length - 1] / layout.cols);
+      const right = layout.left + layout.cols * LABEL_W;
+      const lines: string[] = [];
+      // Row lines over the whole width, running into both margins
+      for (let r = firstRow; r <= lastRow + 1; r++) {
+        const y = layout.top + r * LABEL_H;
+        lines.push(`${X(layout.left - 8)} ${Y(y)} m ${X(right + 8)} ${Y(y)} l`);
+      }
+      // Column lines over the used rows, running on above and below
+      for (let c = 0; c <= layout.cols; c++) {
+        const x = layout.left + c * LABEL_W;
+        lines.push(`${X(x)} ${Y(layout.top + firstRow * LABEL_H - 6)} m ${X(x)} ${Y(layout.top + (lastRow + 1) * LABEL_H + 6)} l`);
+      }
+      parts.push(`0.6 G ${num(0.2 * PT)} w ${lines.join(' ')} S`);
+    }
+    const footer = `CUSTOM RC PARTS · nalepnice ${LABEL_W} x ${LABEL_H} mm · stampa 100 %, bez skaliranja · tabak ${p + 1} / ${pageCount}`;
+    parts.push(`BT 0.55 g /F1 ${num(2 * PT)} Tf 100 Tz ${num(layout.left * PT)} ${num(4 * PT)} Td ${pdfString(footer)} Tj ET`);
+    pages.push({ w: layout.w, h: layout.h, content: parts.join('\n') });
+  }
+  return writePdf(pages);
+}

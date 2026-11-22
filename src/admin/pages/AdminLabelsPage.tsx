@@ -12,6 +12,8 @@ import {
   SHEETS,
   SheetLayer,
   SheetSize,
+  handSheetLayout,
+  handSheetsPdf,
   labelSheetsPdf,
   labelSvg,
   labelsPdf,
@@ -34,6 +36,23 @@ function downloadBlob(blob: Blob, fileName: string) {
 }
 
 const inputClass = 'w-full border rounded px-2 py-1 text-sm';
+
+// First free place on the A4 sheet in the office printer, remembered for the next print
+const HAND_KEY = 'admin-label-hand-next';
+function readHandNext() {
+  try {
+    return Number(localStorage.getItem(HAND_KEY) || 0) || 0;
+  } catch {
+    return 0;
+  }
+}
+function writeHandNext(value: number) {
+  try {
+    localStorage.setItem(HAND_KEY, String(value));
+  } catch {
+    // Storage blocked: the place is simply not remembered
+  }
+}
 
 // Texts changed on a label are remembered per product in this browser, for the next print
 const STORAGE_KEY = 'admin-label-texts';
@@ -102,6 +121,7 @@ export function AdminLabelsPage() {
   const [error, setError] = useState<string | null>(null);
   const [query, setQuery] = useState('');
   const [rows, setRows] = useState<Row[]>([]);
+  const [handSkip, setHandSkip] = useState(readHandNext);
 
   useEffect(() => {
     fetchProductInvoiceData()
@@ -154,9 +174,23 @@ export function AdminLabelsPage() {
 
   const total = rows.reduce((sum, r) => sum + r.quantity, 0);
 
+  const chosenLabels = () =>
+    rows.flatMap((r) => Array.from({ length: r.quantity }, () => ({ code: r.code, name: r.name, detail: r.detail })));
+
   const download = () => {
-    const labels = rows.flatMap((r) => Array.from({ length: r.quantity }, () => ({ code: r.code, name: r.name, detail: r.detail })));
-    downloadBlob(labelsPdf(labels), `nalepnice-${todayIso()}.pdf`);
+    downloadBlob(labelsPdf(chosenLabels()), `nalepnice-${todayIso()}.pdf`);
+  };
+
+  const hand = handSheetLayout();
+  const handPages = Math.ceil((handSkip + total) / hand.perPage);
+  const downloadHand = () => {
+    downloadBlob(handSheetsPdf(chosenLabels(), handSkip), `nalepnice-A4-${todayIso()}.pdf`);
+    const next = (handSkip + total) % hand.perPage;
+    // A started row is cut off with the rest, so the next print starts on a new row
+    const nextRow = next % hand.cols === 0 ? next : (Math.floor(next / hand.cols) + 1) * hand.cols;
+    const value = nextRow >= hand.perPage ? 0 : nextRow;
+    setHandSkip(value);
+    writeHandNext(value);
   };
 
   if (loading) return <p className="text-gray-500">Učitavanje proizvoda…</p>;
@@ -167,14 +201,14 @@ export function AdminLabelsPage() {
       <p className="text-sm text-gray-600">
         Nalepnica {LABEL_W} × {LABEL_H} mm koja se lepi na belo polje kartice: šifra, naziv, jedan red više i bar kod
         šifre. Za štampariju: tabaci sa svim proizvodima i linijama za sečenje. Za svoj štampač: izaberi proizvode i
-        koliko komada, svaka nalepnica je jedna strana {LABEL_W} × {LABEL_H} mm (rolna od 62 mm). Tekst koji ovde
+        koliko komada, pa odštampaj na samolepljivi A4 i iseci makazama (ili na rolnu od 62 mm). Tekst koji ovde
         izmeniš za neki proizvod koristi se i na tabacima.
       </p>
       {error && <p className="text-sm text-red-600">{error}</p>}
 
       <PrintShopSheets products={products} />
 
-      <h2 className="text-lg font-semibold pt-2">Pojedinačne nalepnice (štampač sa rolnom)</h2>
+      <h2 className="text-lg font-semibold pt-2">Pojedinačni proizvodi (svoj štampač, A4 ili rolna)</h2>
       <div className="relative">
         <input
           value={query}
@@ -245,11 +279,28 @@ export function AdminLabelsPage() {
             </div>
           ))}
 
-          <div className="flex items-center gap-4">
-            <button onClick={download} className="px-5 py-2 bg-blue-600 text-white rounded font-medium hover:bg-blue-700">
-              Preuzmi PDF ({total} kom.)
-            </button>
-            <button onClick={() => setRows([])} className="text-sm text-gray-600 hover:underline">Očisti sve</button>
+          <div className="bg-white rounded-lg shadow p-4 space-y-3">
+            <div className="flex flex-wrap items-end gap-4">
+              <button onClick={downloadHand} className="px-5 py-2 bg-blue-600 text-white rounded font-medium hover:bg-blue-700">
+                A4 za svoj štampač ({total} kom., {handPages} {handPages === 1 ? 'tabak' : 'tabaka'})
+              </button>
+              <label className="block w-56">
+                <span className="block text-xs text-gray-500 mb-0.5">Preskoči mesta (već iskorišćen deo tabaka)</span>
+                <NumberField value={handSkip} onChange={(v) => setHandSkip(Math.max(0, Math.min(hand.perPage - 1, Math.round(v ?? 0))))} />
+              </label>
+              <button onClick={() => { setHandSkip(0); writeHandNext(0); }} className="text-sm text-gray-600 hover:underline">nov tabak</button>
+            </div>
+            <p className="text-xs text-gray-500">
+              Samolepljivi A4: {hand.cols} × {hand.rows} = {hand.perPage} nalepnica po tabaku, jedna do druge, sa sivim linijama za
+              sečenje makazama. Štampaj na 100 % (ne „Fit to page“). Ako je od prošlog puta ostao tabak sa isečenim gornjim
+              redovima, admin pamti odakle da nastavi.
+            </p>
+            <div className="flex items-center gap-4 pt-1 border-t">
+              <button onClick={download} className="px-4 py-2 bg-white border rounded font-medium hover:bg-gray-50">
+                PDF za štampač sa rolnom ({total} kom.)
+              </button>
+              <button onClick={() => setRows([])} className="text-sm text-gray-600 hover:underline">Očisti sve</button>
+            </div>
           </div>
         </div>
       )}
