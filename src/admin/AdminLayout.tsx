@@ -68,7 +68,11 @@ function useNewOrdersCount(enabled: boolean) {
     const refresh = () => countOrdersWithoutInvoice().then(setCount);
     void refresh();
     const timer = setInterval(refresh, 60000);
-    return () => clearInterval(timer);
+    window.addEventListener('admin-orders-changed', refresh);
+    return () => {
+      clearInterval(timer);
+      window.removeEventListener('admin-orders-changed', refresh);
+    };
   }, [enabled, location.pathname]);
   return count;
 }

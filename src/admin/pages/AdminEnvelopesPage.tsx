@@ -1,6 +1,6 @@
 import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { fetchInvoices } from '../adminData';
+import { fetchInvoices, saveInvoiceShipTo } from '../adminData';
 import { formatDateSr, invoiceNumberText } from '../invoice/invoiceLogic';
 import type { SavedInvoice } from '../invoice/types';
 import { Cn22Category, STRIPS, printShippingSheet, shippingSheetHtml } from '../shipping/shippingSheet';
@@ -157,13 +157,14 @@ export function AdminEnvelopesPage() {
         {shipments.length > 0 && (
           <section className="space-y-2">
             <h2 className="font-semibold">Izabrano ({shipments.length}) — po potrebi izmeni pre štampe</h2>
+            <p className="text-xs text-gray-500">Adresu primaoca možeš da središ ovde (redove, velika slova, višak teksta). Izmena važi za ovu kovertu; „Sačuvaj adresu u fakturi“ je pamti i za sledeći put.</p>
             {shipments.map((id, index) => {
               const values = valuesOf(id);
               const changed = overrides[id] ?? {};
               const set = (key: PerShipment, text: string) =>
                 setOverrides((prev) => ({ ...prev, [id]: { ...prev[id], [key]: text } }));
               return (
-                <details key={id} className="bg-white rounded-lg shadow px-3 py-2">
+                <details key={id} open className="bg-white rounded-lg shadow px-3 py-2">
                   <summary className="cursor-pointer text-sm flex flex-wrap gap-x-4">
                     <span className="font-bold text-blue-700">{index + 1}.</span>
                     <span className="font-medium">{invoiceNumberText(byId[id])}</span>
@@ -182,11 +183,27 @@ export function AdminEnvelopesPage() {
                         <input value={values[key]} onChange={(e) => set(key, e.target.value)} className={`${inputClass} ${changed[key] != null ? 'border-amber-400 bg-amber-50' : ''}`} />
                       </label>
                     ))}
-                    {Object.keys(changed).length > 0 && (
-                      <button type="button" onClick={() => setOverrides(({ [id]: _, ...rest }) => rest)} className="text-xs text-amber-700 hover:underline text-left">
-                        vrati sve sa fakture
-                      </button>
-                    )}
+                    <div className="sm:col-span-2 flex flex-wrap gap-4 text-xs">
+                      {changed.recipient != null && (
+                        <button type="button" onClick={async () => {
+                          try {
+                            await saveInvoiceShipTo(byId[id], values.recipient);
+                            setInvoices((list) => list && list.map((i) => (i.id === id ? { ...i, data: { ...i.data, shipTo: values.recipient } } : i)));
+                            setOverrides(({ [id]: { recipient: _, ...restOfThis } = {}, ...rest }) => (Object.keys(restOfThis).length ? { ...rest, [id]: restOfThis } : rest));
+                            setMessage(`Adresa je sačuvana u fakturi ${invoiceNumberText(byId[id])}.`);
+                          } catch (e) {
+                            setMessage((e as Error).message);
+                          }
+                        }} className="px-2.5 py-1 border rounded border-amber-400 text-amber-800 hover:bg-amber-50">
+                          Sačuvaj adresu u fakturi
+                        </button>
+                      )}
+                      {Object.keys(changed).length > 0 && (
+                        <button type="button" onClick={() => setOverrides(({ [id]: _, ...rest }) => rest)} className="text-amber-700 hover:underline">
+                          vrati sve sa fakture
+                        </button>
+                      )}
+                    </div>
                   </div>
                 </details>
               );

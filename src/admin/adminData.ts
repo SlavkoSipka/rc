@@ -40,6 +40,7 @@ export interface AdminOrder {
   shipping: number;
   total: number;
   notes: string | null;
+  archived?: boolean;          // finished, shown under "Završene" (column from migration 20261123120000)
   order_items: AdminOrderItem[];
   invoices: { id: string; prefix: string; number: number; year: number }[];
 }
@@ -73,11 +74,28 @@ export async function deleteOrder(id: string) {
   if (error) throw new Error(error.message);
 }
 
-// Orders that still need an invoice, for the badge in the admin menu
+// Moves an order to "Završene" or back
+export async function setOrderArchived(id: string, archived: boolean) {
+  const { error } = await supabase.from('orders').update({ archived }).eq('id', id);
+  if (error) {
+    if (/archived/.test(error.message)) {
+      throw new Error('U bazi još nema kolone "archived": pokreni SQL iz migracije 20261123120000_orders_archived.sql u Supabase.');
+    }
+    throw new Error(error.message);
+  }
+}
+
+// Saves a changed delivery address in the invoice (used for the envelope and the next download)
+export async function saveInvoiceShipTo(invoice: SavedInvoice, shipTo: string) {
+  const { error } = await supabase.from('invoices').update({ data: { ...invoice.data, shipTo } }).eq('id', invoice.id);
+  if (error) throw new Error(error.message);
+}
+
+// Orders that still need an invoice, for the badge in the admin menu (finished ones not counted)
 export async function countOrdersWithoutInvoice(): Promise<number> {
-  const { data, error } = await supabase.from('orders').select('id, invoices(id)');
+  const { data, error } = await supabase.from('orders').select('*, invoices(id)');
   if (error) return 0;
-  return (data ?? []).filter((order: { invoices: unknown[] }) => order.invoices.length === 0).length;
+  return (data ?? []).filter((order: { invoices: unknown[]; archived?: boolean }) => order.invoices.length === 0 && !order.archived).length;
 }
 
 export async function fetchOrders(): Promise<AdminOrder[]> {
