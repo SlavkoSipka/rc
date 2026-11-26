@@ -11,7 +11,6 @@ export const products: Product[] = [
     color: "Dark Blue",
     images: [
       "/images/gearbox-reinforcement-dark-blue-1.webp",
-      "/images/plava 1.jpg",
       "/images/m1.webp",
       "/images/m2.webp",
       "/images/m3.webp",
@@ -48,7 +47,6 @@ export const products: Product[] = [
     color: "Dark Blue",
     images: [
       "/images/xx4-dark-blue-bell-cranks-1.webp",
-      "/images/siv cudan2.jpg",
       "/images/cudan.jpg",
       "/images/cudan1.jpg",
       "/images/cudan2.jpg"
