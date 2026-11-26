@@ -2,6 +2,22 @@ import { Product } from '../types';
 
 export const products: Product[] = [
   {
+    image: "/images/dt03-brass-bulkhead-1.webp",
+    id: "tamiya-dt03-dt03t-racing-neo-fighter-buggy-brass-bulkhead",
+    title: "Tamiya DT03, DT03-T, Racing and Neo Fighter Buggy Brass Bulkhead",
+    price: 39.50,
+    stock: 5,
+    description: "1 piece of Brass DT03 and DT03-T front bulkhead made of high grade BRASS.\nThis bulkhead is designed to replace your stock bulkhead (C2 from the 19000626 parts tree) and adding additional weight for better handling and control. Total weight of the Bulkhead is 59 grams.\n\nThis brass bulkhead will fit the following models:\n\n58587 Neo Fighter Buggy\n57872 XB Neo Fighter Buggy\n57895 XB Racing Fighter\n58628 Racing Fighter\n47347 Racing Fighter\n47371 Neo Fighter Buggy\n84435 DT-03 Black Edition Chassis\n58610 Aqroshot\n\nPLEASE NOTE!!!\nOTHER PICTURES ARE ONLY FOR REFERENCE, NO OTHER PARTS ARE INCLUDED BESIDE ONE BRASS BULKHEAD\nPrice is only for one piece.\nNo hardware included beside 2x M3 grub screws\n\nThis is NOT an original Tamiya product but we make the parts as good as possible to match.\n\nWe ensure that all parts are well packaged, all parcels are sent trackable and we will provide the tracking number once the parcel is shipped.\n\nIf you need a quote for shipping to your country, feel free to ask.\nFor any other question don't hesitate to contact us.",
+    color: "Brass",
+    images: [
+      "/images/dt03-brass-bulkhead-1.webp",
+      "/images/dt03-brass-bulkhead-2.webp",
+      "/images/dt03-brass-bulkhead-3.webp",
+      "/images/dt03-brass-bulkhead-4.webp",
+      "/images/dt03-brass-bulkhead-5.webp"
+    ]
+  },
+  {
     image: "/images/xx4-dark-blue-bell-cranks-1.webp",
     id: "Team-Losi-XX4-Dark-Blue-Bell-Cranks",
     title: "Team Losi XX4 Dark Blue Aluminium Bell Cranks Steering Arms",
