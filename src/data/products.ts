@@ -2,7 +2,7 @@ import { Product } from '../types';
 
 export const products: Product[] = [
   {
-    image: "/images/gearbox-reinforcement-dark-blue-1.webp",
+    image: "/images/20260917_192508.jpg",
     id: "tamiya-gearbox-reinforcement-set-dark-blue",
     title: "Tamiya dark blue TA01, TA02, DF01 Aluminium gearbox reinforcement set",
     price: 32.00,
@@ -10,6 +10,7 @@ export const products: Product[] = [
     description: "1 set (4pcs) of aluminium reinforcement parts specially made to reinforce the critical areas on the rear and front gearbox of the Tamiya TA01, TA02 and DF01 chassis. These parts are designed to eliminate weakspots and ensure a longer lifetime. Made of high grade 6082 aluminium, DARK BLUE anodized.\n\nOne package includes:\n- Front U-shaped brace 1x\n- Braces for the rear upper gearbox cover 2x\n- Motor mount plate 1x\n\nPLEASE NOTE!!!\nFor installation of the front U-shaped brace you have to drill 5 holes through the front gearbox from underneath and use five M3x16mm screws which are not included in this set.\n\nScrews are not included.\n\nIMPORTANT!!!\nOnly parts from the first picture are included, other pictures are only for reference.\n\nThis is NOT an original Tamiya product but we make the parts as good as possible to match the original.\n\nWe ensure that all parts are well packaged, all parcels are sent trackable and we will provide the tracking number once the parcel is shipped.\n\nIf you need a quote for shipping to your country, feel free to ask.\nFor any other question don't hesitate to contact us.",
     color: "Dark Blue",
     images: [
+      "/images/20260917_192508.jpg",
       "/images/gearbox-reinforcement-dark-blue-1.webp",
       "/images/m1.webp",
       "/images/m2.webp",
