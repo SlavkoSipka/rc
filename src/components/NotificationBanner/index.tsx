@@ -13,7 +13,7 @@ export function NotificationBanner() {
 
   if (!isVisible) return null;
 
-  const message = `🇩🇪🇩🇪🇩🇪Liebe Kunden aus Deutschland, wir möchten Sie darüber informieren, dass die serbische Post den Versand nach Deutschland aus technischen Gründen vorübergehend eingestellt hat.🇩🇪🇩🇪🇩🇪\nWir haben jedoch eine Möglichkeit gefunden, Ihnen unsere Produkte trotzdem zukommen zu lassen.\nBitte kontaktieren Sie uns vor dem Kauf direkt per E-Mail.\nVielen Dank für Ihr Verständnis.\n\n⚡⚡⚡ IMPORTANT NOTICE...We are now able to offer FedEx E-Commerce shipping to the United States of America. Its the only way to ship our products to America at the moment⚡⚡⚡\nTracking numbers are being uploaded to PayPal right after dispatch`;
+  const message = `🇩🇪🇩🇪🇩🇪 Liebe Kunden aus Deutschland, wir möchten Sie darüber informieren, dass die serbische Post den Versand nach Deutschland aus technischen Gründen vorübergehend eingestellt hat. 🇩🇪🇩🇪🇩🇪\nWir haben jedoch eine Möglichkeit gefunden, Ihnen unsere Produkte trotzdem zukommen zu lassen.\nBitte kontaktieren Sie uns vor dem Kauf direkt per E-Mail.\nVielen Dank für Ihr Verständnis.\n\n⚡⚡⚡ IMPORTANT NOTICE...We are now able to offer FedEx E-Commerce shipping to the United States of America. Its the only way to ship our products to America at the moment⚡⚡⚡\nTracking numbers are being uploaded to PayPal right after dispatch`;
 
   return (
     <div className="bg-green-600 text-white py-3 relative">
